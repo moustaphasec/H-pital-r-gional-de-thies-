@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prendre Rendez-vous - Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <div class="logo">
+                    <img src="https://res.cloudinary.com/dzcnlr1yz/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1742394317/f1oy2jfpkujbopbqlrd2.png" alt="Logo Hôpital" width="60" height="60">
+                    <h1>Hôpital Régional<br><span>El Hadji Ahmadou Sakhir Ndiéguène</span></h1>
+                </div>
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="about.html">À propos</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="specialties.html">Spécialités</a></li>
+                    <li><a href="team.html">Notre équipe</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="appointment.html" class="btn-rdv active">Prendre RDV</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="appointment">
+        <div class="container">
+            <div class="section-header">
+                <h2>Prendre Rendez-vous</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="appointment-content">
+                <div class="appointment-info">
+                    <h3>Informations importantes</h3>
+                    <p>Pour prendre rendez-vous à l'Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène, vous pouvez remplir le formulaire ci-contre ou nous contacter par téléphone.</p>
+                    
+                    <div class="appointment-contact">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4>Par téléphone</h4>
+                                <p>+221 33 952 10 90<br>+221 33 952 10 91</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h4>Horaires</h4>
+                                <p>Lundi - Vendredi: 8h00 - 18h00<br>Samedi: 8h00 - 12h00</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="appointment-notice">
+                        <h4><i class="fas fa-info-circle"></i> Informations requises</h4>
+                        <ul>
+                            <li>Carte d'identité nationale</li>
+                            <li>Carnet de santé (si disponible)</li>
+                            <li>Carte de mutuelle ou d'assurance (si applicable)</li>
+                            <li>Toute documentation médicale pertinente</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="appointment-form">
+                    <h3>Formulaire de demande de rendez-vous</h3>
+                    <form id="appointmentForm">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Votre nom complet" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="phone" name="phone" placeholder="Votre téléphone" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Votre email">
+                        </div>
+                        <div class="form-group">
+                            <select id="specialty" name="specialty" required>
+                                <option value="" disabled selected>Choisir une spécialité</option>
+                                <option value="Néphrologie">Néphrologie et Dialyse</option>
+                                <option value="Cardiologie">Cardiologie</option>
+                                <option value="Médecine interne">Médecine interne</option>
+                                <option value="Gynécologie">Gynécologie et Obstétrique</option>
+                                <option value="Pédiatrie">Pédiatrie</option>
+                                <option value="Chirurgie générale">Chirurgie générale</option>
+                                <option value="Orthopédie">Chirurgie orthopédique</option>
+                                <option value="Urgences">Médecine d'urgence</option>
+                                <option value="Infectiologie">Médecine infectieuse</option>
+                                <option value="Endocrinologie">Endocrinologie</option>
+                                <option value="Gastro-entérologie">Gastro-entérologie</option>
+                                <option value="Hépatologie">Hépatologie</option>
+                                <option value="Rhumatologie">Rhumatologie</option>
+                                <option value="Urologie">Urologie</option>
+                                <option value="Ophtalmologie">Ophtalmologie</option>
+                                <option value="ORL">Oto-rhino-laryngologie (ORL)</option>
+                                <option value="Dermatologie">Dermatologie</option>
+                                <option value="Psychiatrie">Psychiatrie et santé mentale</option>
+                                <option value="Médecine du travail">Médecine du travail</option>
+                                <option value="Autre">Autre</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="date" id="date" name="date" min="" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="Informations complémentaires (symptômes, etc.)"></textarea>
+                        </div>
+                        <button type="submit" class="btn">Demander un rendez-vous</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="https://res.cloudinary.com/dzcnlr1yz/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1742394317/f1oy2jfpkujbopbqlrd2.png" alt="Logo Hôpital" width="60" height="60">
+                        <h3>Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène</h3>
+                    </div>
+                    <p>Votre partenaire santé depuis 1954</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Liens rapides</h4>
+                    <ul>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="about.html">À propos</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="specialties.html">Spécialités</a></li>
+                        <li><a href="team.html">Notre équipe</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html#urgences">Urgences</a></li>
+                        <li><a href="specialties.html#nephrologie">Néphrologie</a></li>
+                        <li><a href="services.html#chirurgie">Chirurgie</a></li>
+                        <li><a href="services.html#maternite">Maternité</a></li>
+                        <li><a href="services.html#imagerie">Imagerie</a></li>
+                        <li><a href="services.html#laboratoire">Laboratoire</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <div class="contact-info">
+                        <div><i class="fas fa-map-marker-alt"></i> Avenue Caen, Route de Dakar, Thiès</div>
+                        <div><i class="fas fa-phone"></i> +221 33 952 10 90</div>
+                        <div><i class="fas fa-envelope"></i> hopital.thies@gmail.com</div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+
+    <script src="script.js"></script>
+    <script>
+        // Set minimum date for appointment to today
+        document.addEventListener('DOMContentLoaded', function() {
+            const dateInput = document.getElementById('date');
+            if (dateInput) {
+                const today = new Date().toISOString().split('T')[0];
+                dateInput.setAttribute('min', today);
+            }
+            
+            const appointmentForm = document.getElementById('appointmentForm');
+            if (appointmentForm) {
+                appointmentForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const submitButton = this.querySelector('button[type="submit"]');
+                    const originalText = submitButton.textContent;
+                    
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'Traitement en cours...';
+                    
+                    try {
+                        const formData = new FormData(appointmentForm);
+                        const data = Object.fromEntries(formData.entries());
+                        
+                        const response = await fetch('/api/appointments', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        });
+                        
+                        if (response.ok) {
+                            alert('Votre demande de rendez-vous a été envoyée avec succès ! Nous vous contacterons pour confirmer le rendez-vous.');
+                            appointmentForm.reset();
+                        } else {
+                            alert('Une erreur est survenue. Veuillez réessayer plus tard.');
+                        }
+                    } catch (error) {
+                        console.error('Error submitting form:', error);
+                        alert('Une erreur est survenue. Veuillez réessayer plus tard.');
+                    } finally {
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalText;
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

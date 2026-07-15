@@ -1,0 +1,6 @@
+{
+  "name": "Hopital Regional de Thies",
+  "description": "Site web de l'hopital regional de Thies, clone a partir du depot Github.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

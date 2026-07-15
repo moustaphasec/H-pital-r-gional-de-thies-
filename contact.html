@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <div class="logo">
+                    <img src="https://res.cloudinary.com/dzcnlr1yz/image/upload/v1742394317/f1oy2jfpkujbopbqlrd2.png" alt="Logo Hôpital" width="60" height="60">
+                    <h1>Hôpital Régional<br><span>El Hadji Ahmadou Sakhir Ndiéguène</span></h1>
+                </div>
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="about.html">À propos</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="specialties.html">Spécialités</a></li>
+                    <li><a href="team.html">Notre équipe</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                    <li><a href="appointment.html" class="btn-rdv">Prendre RDV</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contactez-nous</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Adresse</h3>
+                            <p>Avenue Caen, Route de Dakar<br>Thiès, Sénégal</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h3>Téléphone</h3>
+                            <p>+221 33 952 10 90<br>+221 33 952 10 91</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email</h3>
+                            <p>hopital.thies@gmail.com<br>contact@hopital-thies.sn</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h3>Horaires</h3>
+                            <p>Lundi - Vendredi: 8h00 - 18h00<br>Samedi: 8h00 - 12h00<br>Urgences: 24h/24, 7j/7</p>
+                        </div>
+                    </div>
+                    <div class="map">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3857.4979147298576!2d-16.9373401!3d14.790116499999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xee9f4c30ec8c42d%3A0x78bc5f8cd569c172!2sH%C3%B4pital%20R%C3%A9gional%20de%20Thi%C3%A8s!5e0!3m2!1sfr!2sfr!4v1652345678901!5m2!1sfr!2sfr" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>Envoyez-nous un message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Votre nom" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Votre email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="phone" name="phone" placeholder="Votre téléphone" required>
+                        </div>
+                        <div class="form-group">
+                            <select id="subject" name="subject" required>
+                                <option value="" disabled selected>Sujet</option>
+                                <option value="RDV">Rendez-vous</option>
+                                <option value="Information">Demande d'information</option>
+                                <option value="Reclamation">Réclamation</option>
+                                <option value="Autre">Autre</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="Votre message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Envoyer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="https://res.cloudinary.com/dzcnlr1yz/image/upload/v1742394317/f1oy2jfpkujbopbqlrd2.png" alt="Logo Hôpital" width="60" height="60">
+                        <h3>Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène</h3>
+                    </div>
+                    <p>Votre partenaire santé depuis 1954</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Liens rapides</h4>
+                    <ul>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="about.html">À propos</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="specialties.html">Spécialités</a></li>
+                        <li><a href="team.html">Notre équipe</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html#urgences">Urgences</a></li>
+                        <li><a href="specialties.html#nephrologie">Néphrologie</a></li>
+                        <li><a href="services.html#chirurgie">Chirurgie</a></li>
+                        <li><a href="services.html#maternite">Maternité</a></li>
+                        <li><a href="services.html#imagerie">Imagerie</a></li>
+                        <li><a href="services.html#laboratoire">Laboratoire</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <div class="contact-info">
+                        <div><i class="fas fa-map-marker-alt"></i> Avenue Caen, Route de Dakar, Thiès</div>
+                        <div><i class="fas fa-phone"></i> +221 33 952 10 90</div>
+                        <div><i class="fas fa-envelope"></i> hopital.thies@gmail.com</div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+
+    <script src="script.js"></script>
+</body>
+</html>
