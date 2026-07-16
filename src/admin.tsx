@@ -91,6 +91,10 @@ function AdminDashboard() {
     );
   }
 
+  const totalApts = appointments.length;
+  const pendingApts = appointments.filter(a => a.status === 'En attente').length;
+  const confirmedApts = appointments.filter(a => a.status === 'Confirmé').length;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 font-sans text-slate-800 pb-12">
       <header className="bg-white/60 backdrop-blur-lg shadow-sm border-b border-white/50 sticky top-0 z-20">
@@ -108,11 +112,55 @@ function AdminDashboard() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+        
+        {/* Hero Header Illustré */}
+        <div className="relative bg-gradient-to-r from-blue-600 to-cyan-500 rounded-3xl shadow-xl overflow-hidden p-8 flex items-center justify-between text-white border border-white/20">
+          <div className="z-10 max-w-lg">
+            <h2 className="text-3xl font-bold font-['Outfit'] mb-2">Bienvenue sur votre espace !</h2>
+            <p className="text-blue-100">Gérez les consultations et prenez soin de vos patients avec efficacité. Voici le résumé de votre activité.</p>
+          </div>
+          <div className="absolute right-0 top-0 bottom-0 w-1/3 opacity-30 pointer-events-none" style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1538108149393-fbbd81895907?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80")', backgroundSize: 'cover', backgroundPosition: 'center', maskImage: 'linear-gradient(to right, transparent, black)' }}></div>
+          <i className="fas fa-stethoscope text-6xl text-white/20 absolute right-12 bottom-[-10px] transform rotate-12 z-0"></i>
+        </div>
+
+        {/* Cartes de Statistiques */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-white/80 backdrop-blur-lg rounded-2xl p-6 shadow-lg border border-white/50 flex items-center gap-4 transition-transform hover:-translate-y-1">
+            <div className="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 text-2xl shadow-inner">
+              <i className="fas fa-folder-open"></i>
+            </div>
+            <div>
+              <p className="text-sm text-slate-500 font-medium">Total des demandes</p>
+              <p className="text-3xl font-bold text-slate-800">{totalApts}</p>
+            </div>
+          </div>
+          <div className="bg-white/80 backdrop-blur-lg rounded-2xl p-6 shadow-lg border border-white/50 flex items-center gap-4 transition-transform hover:-translate-y-1">
+            <div className="w-14 h-14 rounded-full bg-amber-100 flex items-center justify-center text-amber-500 text-2xl shadow-inner">
+              <i className="fas fa-hourglass-half"></i>
+            </div>
+            <div>
+              <p className="text-sm text-slate-500 font-medium">En attente</p>
+              <p className="text-3xl font-bold text-slate-800">{pendingApts}</p>
+            </div>
+          </div>
+          <div className="bg-white/80 backdrop-blur-lg rounded-2xl p-6 shadow-lg border border-white/50 flex items-center gap-4 transition-transform hover:-translate-y-1">
+            <div className="w-14 h-14 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 text-2xl shadow-inner">
+              <i className="fas fa-check-circle"></i>
+            </div>
+            <div>
+              <p className="text-sm text-slate-500 font-medium">Confirmés</p>
+              <p className="text-3xl font-bold text-slate-800">{confirmedApts}</p>
+            </div>
+          </div>
+        </div>
+
         <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/50 overflow-hidden">
           {appointments.length === 0 ? (
-            <div className="p-8 text-center text-gray-500">
-              Aucun rendez-vous trouvé.
+            <div className="p-16 text-center flex flex-col items-center">
+              <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Bureau vide" className="w-56 h-56 object-cover rounded-full mb-6 border-8 border-slate-50 shadow-md opacity-90" />
+              <h2 className="text-2xl font-bold text-slate-700 font-['Outfit'] mb-2">Tout est à jour !</h2>
+              <p className="text-slate-500">Aucune demande de rendez-vous n'est à traiter pour le moment.</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
@@ -131,8 +179,15 @@ function AdminDashboard() {
                   {appointments.map((apt) => (
                     <tr key={apt.id} className="hover:bg-slate-50/50 transition-colors">
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm font-medium text-gray-900">{apt.name}</div>
-                        <div className="text-sm text-gray-500">{apt.createdAt ? new Date(apt.createdAt).toLocaleDateString() : '-'}</div>
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-100 to-cyan-100 flex items-center justify-center text-blue-700 font-bold border border-blue-200 shadow-sm">
+                            {apt.name.charAt(0).toUpperCase()}
+                          </div>
+                          <div>
+                            <div className="text-sm font-medium text-slate-900">{apt.name}</div>
+                            <div className="text-sm text-slate-500">{apt.createdAt ? new Date(apt.createdAt).toLocaleDateString() : '-'}</div>
+                          </div>
+                        </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm text-gray-900">{apt.phone}</div>
