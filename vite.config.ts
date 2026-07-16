@@ -29,6 +29,7 @@ export default defineConfig(() => {
           specialties: path.resolve(__dirname, 'specialties.html'),
           team: path.resolve(__dirname, 'team.html'),
           admin: path.resolve(__dirname, 'admin.html'),
+          suivi: path.resolve(__dirname, 'suivi.html'),
         },
       },
     },
