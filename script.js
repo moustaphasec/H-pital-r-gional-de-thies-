@@ -301,6 +301,91 @@ function initApp() {
         startCounters();
     }
 
+    // Secret Access: Triple Click for Admin, Quadruple Click for Doctor
+    const logo = document.querySelector('.logo');
+    if (logo) {
+        let clickCount = 0;
+        let clickTimer;
+        logo.addEventListener('click', (e) => {
+            e.preventDefault();
+            clickCount++;
+            if (clickCount === 3) {
+                window.location.href = 'admin.html';
+            } else if (clickCount === 4) {
+                window.location.href = 'doctor.html';
+            }
+            clearTimeout(clickTimer);
+            clickTimer = setTimeout(() => { clickCount = 0; }, 600);
+        });
+    }
+
+    // Holo-Assistant Chatbot Widget
+    if (!document.getElementById('holo-assistant')) {
+        const chatbotHTML = `
+        <div id="holo-assistant" class="chatbot-container">
+            <div class="chatbot-toggle">
+                <i class="fas fa-robot"></i>
+                <span class="chatbot-pulse"></span>
+            </div>
+            <div class="chatbot-window">
+                <div class="chatbot-header">
+                    <h4>Holo-Assistant</h4>
+                    <button class="chatbot-close"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="chatbot-messages">
+                    <div class="msg ai">Bonjour ! Je suis l'assistant médical virtuel. Comment puis-je vous aider ?</div>
+                </div>
+                <div class="chatbot-input">
+                    <input type="text" placeholder="Posez une question..." />
+                    <button><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', chatbotHTML);
+        
+        const toggleBtn = document.querySelector('.chatbot-toggle');
+        const closeBtn = document.querySelector('.chatbot-close');
+        const chatWindow = document.querySelector('.chatbot-window');
+        const inputField = document.querySelector('.chatbot-input input');
+        const sendBtn = document.querySelector('.chatbot-input button');
+        const messagesDiv = document.querySelector('.chatbot-messages');
+        
+        toggleBtn.addEventListener('click', () => {
+            chatWindow.classList.toggle('active');
+            toggleBtn.style.display = 'none';
+        });
+        closeBtn.addEventListener('click', () => {
+            chatWindow.classList.remove('active');
+            toggleBtn.style.display = 'flex';
+        });
+        
+        const botReplies = [
+            "Notre service des urgences est ouvert 24h/24 et 7j/7.",
+            "Pour prendre rendez-vous, veuillez utiliser l'onglet 'Rendez-vous' en haut de la page.",
+            "Nos spécialistes consultent du lundi au samedi.",
+            "Veuillez vous présenter 15 minutes avant votre rendez-vous.",
+            "En cas d'urgence vitale, composez immédiatement le 15 ou venez directement à l'hôpital."
+        ];
+        
+        sendBtn.addEventListener('click', () => {
+            const text = inputField.value.trim();
+            if(text) {
+                messagesDiv.innerHTML += `<div class="msg user">${text}</div>`;
+                inputField.value = '';
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                setTimeout(() => {
+                    const reply = botReplies[Math.floor(Math.random() * botReplies.length)];
+                    messagesDiv.innerHTML += `<div class="msg ai">${reply}</div>`;
+                    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                }, 1000);
+            }
+        });
+        inputField.addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') sendBtn.click();
+        });
+    }
+
 } 
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initApp);
