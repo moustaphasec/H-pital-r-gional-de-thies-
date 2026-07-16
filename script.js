@@ -208,31 +208,32 @@ function initApp() {
         }
     });
 
-    // Animation on scroll
-    function animateOnScroll() {
-        const elements = document.querySelectorAll('.service-card, .doctor-card, .stat, .speciality-content, .emergency-card');
-        const windowHeight = window.innerHeight;
-        
-        elements.forEach(element => {
-            const elementPosition = element.getBoundingClientRect().top;
-            
-            if (elementPosition < windowHeight - 100) {
-                element.style.opacity = '1';
-                element.style.transform = 'translateY(0)';
+    // Scroll Reveal with IntersectionObserver (Futuristic)
+    const revealElements = document.querySelectorAll('.service-card, .doctor-card, .stat, .speciality-content, .emergency-card, .glass-panel, h2, h3, .contact-form, .appointment-form, .appointment-info img');
+    
+    // Setup the CSS classes
+    revealElements.forEach(el => {
+        el.classList.add('reveal');
+    });
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            } else {
+                // Optional: remove class when out of view to re-animate when scrolling back up
+                entry.target.classList.remove('active');
             }
         });
-    }
-    
-    // Initialize elements with animation
-    document.querySelectorAll('.service-card, .doctor-card, .stat, .speciality-content, .emergency-card').forEach(element => {
-        element.style.opacity = '0';
-        element.style.transform = 'translateY(20px)';
-        element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    }, {
+        root: null,
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px"
     });
-    
-    // Run animation on scroll
-    window.addEventListener('scroll', animateOnScroll);
-    animateOnScroll(); // Run once on page load
+
+    revealElements.forEach(el => {
+        revealObserver.observe(el);
+    });
     
     // Form submission
     const contactForm = document.getElementById('contactForm');
