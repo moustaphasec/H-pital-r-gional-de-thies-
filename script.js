@@ -360,25 +360,39 @@ function initApp() {
             toggleBtn.style.display = 'flex';
         });
         
-        const botReplies = [
-            "Notre service des urgences est ouvert 24h/24 et 7j/7.",
-            "Pour prendre rendez-vous, veuillez utiliser l'onglet 'Rendez-vous' en haut de la page.",
-            "Nos spécialistes consultent du lundi au samedi.",
-            "Veuillez vous présenter 15 minutes avant votre rendez-vous.",
-            "En cas d'urgence vitale, composez immédiatement le 15 ou venez directement à l'hôpital."
-        ];
-        
-        sendBtn.addEventListener('click', () => {
+        sendBtn.addEventListener('click', async () => {
             const text = inputField.value.trim();
             if(text) {
                 messagesDiv.innerHTML += `<div class="msg user">${text}</div>`;
                 inputField.value = '';
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
-                setTimeout(() => {
-                    const reply = botReplies[Math.floor(Math.random() * botReplies.length)];
-                    messagesDiv.innerHTML += `<div class="msg ai">${reply}</div>`;
-                    messagesDiv.scrollTop = messagesDiv.scrollHeight;
-                }, 1000);
+                
+                const typingId = 'typing-' + Date.now();
+                messagesDiv.innerHTML += `<div class="msg ai" id="${typingId}">Analyse en cours... <i class="fas fa-spinner fa-spin"></i></div>`;
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                
+                try {
+                    if(!geminiApiKey) {
+                        document.getElementById(typingId).innerHTML = "Système IA désactivé (Clé API manquante). Veuillez configurer VITE_GEMINI_API_KEY dans le fichier .env";
+                        return;
+                    }
+                    
+                    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+                    const prompt = `Tu es l'assistant médical virtuel de l'Hôpital Régional de Thiès au Sénégal. 
+                    Ton rôle est d'accueillir les patients, de répondre à leurs questions sur l'hôpital et de les orienter vers le bon service (Cardiologie, Pédiatrie, Neurologie, etc.) en fonction de leurs symptômes. 
+                    Sois bref, empathique et professionnel. Ne fais pas de diagnostic médical complet, dis-leur de consulter un médecin. 
+                    Question du patient : ${text}`;
+                    
+                    const result = await model.generateContent(prompt);
+                    const response = await result.response;
+                    const reply = response.text();
+                    
+                    document.getElementById(typingId).innerHTML = reply.replace(/\n/g, '<br>');
+                } catch (error) {
+                    console.error("Gemini Error:", error);
+                    document.getElementById(typingId).innerHTML = "Désolé, mes circuits cognitifs sont surchargés pour le moment.";
+                }
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
             }
         });
         inputField.addEventListener('keypress', (e) => {

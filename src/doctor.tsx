@@ -4,6 +4,11 @@ import { signInWithPopup } from 'firebase/auth';
 import { collection, getDocs, doc, updateDoc, query, orderBy } from 'firebase/firestore';
 import { app, auth, db, googleAuthProvider } from './lib/firebase';
 import { User } from 'firebase/auth';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import emailjs from '@emailjs/browser';
+
+const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY || '';
+const genAI = new GoogleGenerativeAI(geminiApiKey);
 
 function DoctorDashboard() {
   const [user, setUser] = useState<User | null>(null);
@@ -12,6 +17,9 @@ function DoctorDashboard() {
   const [editingApt, setEditingApt] = useState<any | null>(null);
   const [editForm, setEditForm] = useState({ date: '', timeSlot: '' });
   const [mySpecialty, setMySpecialty] = useState<string>('Cardiologie');
+  const [aiModalApt, setAiModalApt] = useState<any | null>(null);
+  const [aiAnalysis, setAiAnalysis] = useState<string>('');
+  const [isAiLoading, setIsAiLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((u) => {
@@ -34,6 +42,35 @@ function DoctorDashboard() {
   };
 
   const logout = () => auth.signOut();
+
+  const runAiAnalysis = async (apt: any) => {
+    setAiModalApt(apt);
+    setAiAnalysis('');
+    setIsAiLoading(true);
+    
+    try {
+      if(!geminiApiKey) {
+          setAiAnalysis("Clé API Gemini non configurée dans le fichier .env.");
+          setIsAiLoading(false);
+          return;
+      }
+      
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const prompt = `Tu es un assistant d'aide au diagnostic pour un médecin de la spécialité ${apt.specialty}.
+      Voici le message du patient nommé ${apt.name} : "${apt.message}".
+      Le patient a réservé pour la date du ${apt.date}.
+      Analyse ce message, donne des pistes de diagnostic probables, et propose des questions que le médecin pourrait poser lors de la consultation.
+      Attention: Précise que tu es une IA et que le médecin garde la décision finale.`;
+      
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      setAiAnalysis(response.text());
+    } catch (error) {
+      console.error(error);
+      setAiAnalysis("Erreur lors de la connexion à l'IA.");
+    }
+    setIsAiLoading(false);
+  };
 
   const fetchAppointments = async (u: User, specialty: string) => {
     try {
@@ -262,6 +299,38 @@ function DoctorDashboard() {
             </div>
           )}
         </div>
+
+        {/* Modal IA */}
+        {aiModalApt && (
+          <div className="fixed inset-0 bg-slate-900/30 backdrop-blur-sm flex items-center justify-center z-50 p-4 transition-opacity">
+            <div className="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-2xl border border-white/50 transform transition-all max-h-[90vh] flex flex-col">
+              <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <i className="fas fa-brain text-purple-600"></i> Analyse IA Copilot
+              </h3>
+              <p className="text-sm text-gray-500 mb-4">Analyse pour : {aiModalApt.name}</p>
+              
+              <div className="flex-1 overflow-y-auto bg-slate-50 p-4 rounded-xl mb-4 border border-slate-200">
+                {isAiLoading ? (
+                  <div className="flex flex-col items-center justify-center py-10 text-purple-600">
+                    <i className="fas fa-spinner fa-spin text-4xl mb-4"></i>
+                    <p>Analyse des symptômes en cours par Gemini...</p>
+                  </div>
+                ) : (
+                  <div className="prose prose-sm max-w-none" dangerouslySetInnerHTML={{ __html: aiAnalysis.replace(/\n/g, '<br>') }} />
+                )}
+              </div>
+              
+              <div className="flex justify-end gap-3 pt-2">
+                <button 
+                  onClick={() => setAiModalApt(null)}
+                  className="px-5 py-2 border border-slate-300 rounded-xl text-slate-700 hover:bg-slate-50 font-medium transition-colors"
+                >
+                  Fermer
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Modal d'édition */}
         {editingApt && (

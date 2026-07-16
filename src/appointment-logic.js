@@ -1,5 +1,6 @@
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
 import { db } from './lib/firebase';
+import emailjs from '@emailjs/browser';
 
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('appointmentForm');
@@ -48,6 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Activer le bouton suivant de l'étape 1
                 const currentNextBtn = document.querySelector(`.form-step[data-step="1"] .btn-next`);
                 if (currentNextBtn) currentNextBtn.disabled = false;
+
+                // Regenerate time slots if date is already selected
+                if(dateInput.value) generateTimeSlots(dateInput.value);
             });
             specialtyGrid.appendChild(card);
         });
@@ -65,39 +69,50 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function generateTimeSlots(dateStr) {
-        timeSlotsContainer.innerHTML = '';
+    async function generateTimeSlots(dateStr) {
+        timeSlotsContainer.innerHTML = '<div class="time-slot-placeholder"><i class="fas fa-spinner fa-spin"></i> Chargement des créneaux...</div>';
         timeSlotInput.value = '';
         validateStep2();
 
-        if (!dateStr) {
-            timeSlotsContainer.innerHTML = '<div class="time-slot-placeholder">Veuillez d\'abord sélectionner une date.</div>';
+        if (!dateStr || !specialtyInput.value) {
+            timeSlotsContainer.innerHTML = '<div class="time-slot-placeholder">Veuillez d\'abord sélectionner une spécialité et une date.</div>';
             return;
         }
 
-        // Mock de créneaux (de 8h à 17h)
         const times = ['08:00', '09:00', '10:00', '11:00', '14:00', '15:00', '16:00', '17:00'];
-        
-        // Simuler des créneaux indisponibles aléatoirement (pour la démo)
-        const seed = dateStr.charCodeAt(dateStr.length - 1); // pseudo-random basé sur la date
+        let bookedSlots = [];
 
-        if (times.length === 0) {
-            timeSlotsContainer.innerHTML = '<div class="time-slot-placeholder">Aucun créneau disponible pour cette date.</div>';
-            return;
+        try {
+            const q = query(
+                collection(db, 'appointments'),
+                where('date', '==', dateStr),
+                where('specialty', '==', specialtyInput.value)
+            );
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                if(data.timeSlot && data.status !== 'Annulé') {
+                    bookedSlots.push(data.timeSlot);
+                }
+            });
+        } catch (error) {
+            console.error("Erreur lors du chargement des créneaux:", error);
         }
 
-        times.forEach((time, index) => {
+        timeSlotsContainer.innerHTML = '';
+
+        times.forEach((time) => {
             const btn = document.createElement('button');
             btn.type = 'button';
             btn.className = 'time-slot-btn';
             btn.textContent = time;
             
-            // 1 chance sur 3 d'être indisponible, juste pour la démo
-            const isUnavailable = (seed + index) % 3 === 0; 
+            const isUnavailable = bookedSlots.includes(time);
             
             if (isUnavailable) {
                 btn.classList.add('unavailable');
                 btn.disabled = true;
+                btn.title = "Créneau déjà réservé";
             } else {
                 btn.addEventListener('click', () => {
                     document.querySelectorAll('.time-slot-btn').forEach(b => b.classList.remove('selected'));
@@ -197,6 +212,41 @@ document.addEventListener('DOMContentLoaded', () => {
             addDoc(collection(db, 'appointments'), data).catch(err => {
                 console.error("Erreur de synchronisation Firebase:", err);
             });
+            
+            // Envoyer un email via EmailJS (si l'email est fourni)
+            if (data.email) {
+                if (import.meta.env.VITE_EMAILJS_SERVICE_ID) {
+                    const emailParams = {
+                        to_name: data.name,
+                        to_email: data.email,
+                        specialty: data.specialty,
+                        date: data.date,
+                        time: data.timeSlot,
+                        tracking_code: trackingCode,
+                        reply_to: "contact@hopital-regional-thies.sn"
+                    };
+                    
+                    emailjs.send(
+                        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+                        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+                        emailParams,
+                        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+                    ).then(
+                        (response) => {
+                            console.log('Email envoyé avec succès !', response.status, response.text);
+                        },
+                        (error) => {
+                            console.error('Échec de l\'envoi de l\'email...', error);
+                        },
+                    );
+                } else {
+                    // Simulation si les clés ne sont pas encore configurées
+                    console.log(`[SIMULATION EMAIL] Email envoyé à ${data.email} avec le code ${trackingCode}`);
+                    setTimeout(() => {
+                        alert(`📧 [Simulation] Un email de confirmation virtuel vient d'être envoyé à ${data.email}.`);
+                    }, 500);
+                }
+            }
             
             // Afficher l'étape 4 de succès
             currentStep = 4;
