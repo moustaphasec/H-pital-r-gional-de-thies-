@@ -1,0 +1,22 @@
+{
+  "name": "Hôpital Régional de Thiès",
+  "short_name": "HR Thiès",
+  "description": "Portail médical et prise de rendez-vous de l'Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0F172A",
+  "theme_color": "#0F172A",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
