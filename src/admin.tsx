@@ -9,6 +9,8 @@ function AdminDashboard() {
   const [user, setUser] = useState<User | null>(null);
   const [appointments, setAppointments] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [editingApt, setEditingApt] = useState<any | null>(null);
+  const [editForm, setEditForm] = useState({ date: '', timeSlot: '' });
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((u) => {
@@ -53,6 +55,19 @@ function AdminDashboard() {
       setAppointments(prev => prev.map(a => a.id === id ? { ...a, status } : a));
     } catch (error) {
       console.error('Error updating status:', error);
+    }
+  };
+
+  const saveEdit = async () => {
+    if (!editingApt || !user) return;
+    try {
+      const appointmentRef = doc(db, 'appointments', editingApt.id);
+      await updateDoc(appointmentRef, { date: editForm.date, timeSlot: editForm.timeSlot });
+      setAppointments(prev => prev.map(a => a.id === editingApt.id ? { ...a, date: editForm.date, timeSlot: editForm.timeSlot } : a));
+      setEditingApt(null);
+    } catch (error) {
+      console.error('Error updating appointment:', error);
+      alert("Une erreur s'est produite lors de la sauvegarde.");
     }
   };
 
@@ -124,6 +139,7 @@ function AdminDashboard() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm text-gray-900 font-medium">{apt.date}</div>
+                        <div className="text-sm text-gray-500">{apt.timeSlot ? `Heure: ${apt.timeSlot}` : ''}</div>
                         <div className="text-sm text-gray-500">{apt.specialty}</div>
                       </td>
                       <td className="px-6 py-4">
@@ -156,14 +172,22 @@ function AdminDashboard() {
                             </button>
                           </div>
                         )}
-                        {apt.status !== 'En attente' && (
+                        <div className="mt-2 flex gap-3">
                           <button 
-                            onClick={() => updateStatus(apt.id, 'En attente')}
-                            className="text-gray-600 hover:text-gray-900"
+                            onClick={() => { setEditingApt(apt); setEditForm({ date: apt.date, timeSlot: apt.timeSlot || '' }); }}
+                            className="text-blue-600 hover:text-blue-900 font-bold"
                           >
-                            Réinitialiser
+                            Éditer <i className="fas fa-edit"></i>
                           </button>
-                        )}
+                          {apt.status !== 'En attente' && (
+                            <button 
+                              onClick={() => updateStatus(apt.id, 'En attente')}
+                              className="text-gray-600 hover:text-gray-900"
+                            >
+                              Réinitialiser
+                            </button>
+                          )}
+                        </div>
                       </td>
                     </tr>
                   ))}
@@ -172,6 +196,51 @@ function AdminDashboard() {
             </div>
           )}
         </div>
+
+        {/* Modal d'édition */}
+        {editingApt && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
+              <h3 className="text-lg font-bold text-gray-900 mb-4">Modifier le rendez-vous</h3>
+              <p className="text-sm text-gray-500 mb-4">Patient: {editingApt.name}</p>
+              
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                <input 
+                  type="date" 
+                  value={editForm.date} 
+                  onChange={e => setEditForm({...editForm, date: e.target.value})}
+                  className="w-full border border-gray-300 rounded px-3 py-2"
+                />
+              </div>
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-1">Heure / Créneau</label>
+                <input 
+                  type="text" 
+                  placeholder="Ex: 14:00"
+                  value={editForm.timeSlot} 
+                  onChange={e => setEditForm({...editForm, timeSlot: e.target.value})}
+                  className="w-full border border-gray-300 rounded px-3 py-2"
+                />
+              </div>
+              
+              <div className="flex justify-end gap-3">
+                <button 
+                  onClick={() => setEditingApt(null)}
+                  className="px-4 py-2 border border-gray-300 rounded text-gray-700 hover:bg-gray-50"
+                >
+                  Annuler
+                </button>
+                <button 
+                  onClick={saveEdit}
+                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 font-medium"
+                >
+                  Enregistrer
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );

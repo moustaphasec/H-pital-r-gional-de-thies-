@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suivre mon Rendez-vous - Hôpital Régional</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <div class="logo">
+                    <img src="https://res.cloudinary.com/dzcnlr1yz/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1742394317/f1oy2jfpkujbopbqlrd2.png" alt="Logo Hôpital" width="60" height="60">
+                    <h1>Hôpital Régional<br><span>El Hadji Ahmadou Sakhir Ndiéguène</span></h1>
+                </div>
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="about.html">À propos</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="specialties.html">Spécialités</a></li>
+                    <li><a href="team.html">Notre équipe</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="appointment.html">Prendre RDV</a></li>
+                    <li><a href="suivi.html" class="btn-rdv active" style="background-color: var(--primary-color);">Suivre RDV</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="appointment" style="min-height: 80vh; display: flex; align-items: center;">
+        <div class="container" style="width: 100%; max-width: 600px; margin: 0 auto;">
+            <div class="section-header">
+                <h2>Suivi de Rendez-vous</h2>
+                <div class="divider"></div>
+                <p style="margin-top: 15px;">Entrez votre code de suivi pour vérifier l'état, la date et l'heure de votre rendez-vous.</p>
+            </div>
+            
+            <div class="glass-panel" style="padding: 40px;">
+                <form id="trackingForm">
+                    <div class="form-group">
+                        <label for="trackingCode" style="font-weight: 500; display: block; margin-bottom: 8px;">Code de Suivi</label>
+                        <input type="text" id="trackingCode" name="trackingCode" placeholder="Ex: RDV-A1B2C" required style="width: 100%; padding: 15px; border: 2px solid #eee; border-radius: 8px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px;">
+                    </div>
+                    <button type="submit" class="btn btn-submit" style="width: 100%; margin-top: 10px;">Vérifier mon rendez-vous <i class="fas fa-search"></i></button>
+                </form>
+
+                <div id="trackingResult" style="display: none; margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
+                    <!-- Les résultats seront injectés ici -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <!-- Simplified footer for the tracking page -->
+        <div class="footer-bottom" style="text-align: center; padding: 20px; background: var(--dark-color); color: white;">
+            <p>&copy; 2026 Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="/script.js"></script>
+    <script type="module" src="/src/suivi-logic.js"></script>
+</body>
+</html>

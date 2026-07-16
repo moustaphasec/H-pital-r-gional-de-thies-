@@ -71,50 +71,100 @@
                     </div>
                 </div>
                 
-                <div class="appointment-form">
-                    <h3>Formulaire de demande de rendez-vous</h3>
-                    <form id="appointmentForm">
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="Votre nom complet" required>
+                <div class="appointment-form glass-panel">
+                    <div class="stepper">
+                        <div class="step active" data-step="1">
+                            <div class="step-circle">1</div>
+                            <div class="step-label">Spécialité</div>
                         </div>
-                        <div class="form-group">
-                            <input type="tel" id="phone" name="phone" placeholder="Votre téléphone" required>
+                        <div class="step-line"></div>
+                        <div class="step" data-step="2">
+                            <div class="step-circle">2</div>
+                            <div class="step-label">Date & Heure</div>
                         </div>
-                        <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="Votre email">
+                        <div class="step-line"></div>
+                        <div class="step" data-step="3">
+                            <div class="step-circle">3</div>
+                            <div class="step-label">Informations</div>
                         </div>
-                        <div class="form-group">
-                            <select id="specialty" name="specialty" required>
-                                <option value="" disabled selected>Choisir une spécialité</option>
-                                <option value="Néphrologie">Néphrologie et Dialyse</option>
-                                <option value="Cardiologie">Cardiologie</option>
-                                <option value="Médecine interne">Médecine interne</option>
-                                <option value="Gynécologie">Gynécologie et Obstétrique</option>
-                                <option value="Pédiatrie">Pédiatrie</option>
-                                <option value="Chirurgie générale">Chirurgie générale</option>
-                                <option value="Orthopédie">Chirurgie orthopédique</option>
-                                <option value="Urgences">Médecine d'urgence</option>
-                                <option value="Infectiologie">Médecine infectieuse</option>
-                                <option value="Endocrinologie">Endocrinologie</option>
-                                <option value="Gastro-entérologie">Gastro-entérologie</option>
-                                <option value="Hépatologie">Hépatologie</option>
-                                <option value="Rhumatologie">Rhumatologie</option>
-                                <option value="Urologie">Urologie</option>
-                                <option value="Ophtalmologie">Ophtalmologie</option>
-                                <option value="ORL">Oto-rhino-laryngologie (ORL)</option>
-                                <option value="Dermatologie">Dermatologie</option>
-                                <option value="Psychiatrie">Psychiatrie et santé mentale</option>
-                                <option value="Médecine du travail">Médecine du travail</option>
-                                <option value="Autre">Autre</option>
-                            </select>
+                    </div>
+
+                    <form id="appointmentForm" class="multi-step-form">
+                        <!-- Étape 1 : Spécialité -->
+                        <div class="form-step active" data-step="1">
+                            <h3>Choisissez le service souhaité</h3>
+                            <div class="specialty-grid" id="specialtyGrid">
+                                <!-- Les spécialités seront générées ici par JS -->
+                            </div>
+                            <input type="hidden" id="specialty" name="specialty" required>
+                            <div class="step-actions">
+                                <button type="button" class="btn btn-next" disabled>Suivant <i class="fas fa-arrow-right"></i></button>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <input type="date" id="date" name="date" min="" required>
+
+                        <!-- Étape 2 : Date & Heure -->
+                        <div class="form-step" data-step="2">
+                            <h3>Choisissez votre créneau</h3>
+                            <div class="date-picker-container">
+                                <label for="date">Sélectionnez une date</label>
+                                <input type="date" id="date" name="date" required>
+                            </div>
+                            <div class="time-slots-container">
+                                <h4>Créneaux disponibles</h4>
+                                <div class="time-slots" id="timeSlots">
+                                    <div class="time-slot-placeholder">Veuillez d'abord sélectionner une date.</div>
+                                </div>
+                            </div>
+                            <input type="hidden" id="timeSlot" name="timeSlot" required>
+                            
+                            <div class="step-actions">
+                                <button type="button" class="btn btn-outline btn-prev"><i class="fas fa-arrow-left"></i> Retour</button>
+                                <button type="button" class="btn btn-next" disabled>Suivant <i class="fas fa-arrow-right"></i></button>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <textarea id="message" name="message" placeholder="Informations complémentaires (symptômes, etc.)"></textarea>
+
+                        <!-- Étape 3 : Informations Patient -->
+                        <div class="form-step" data-step="3">
+                            <h3>Vos informations personnelles</h3>
+                            <div class="form-group">
+                                <label for="name">Nom complet <span class="required">*</span></label>
+                                <input type="text" id="name" name="name" placeholder="Ex: Amadou Diallo" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Téléphone <span class="required">*</span></label>
+                                <input type="tel" id="phone" name="phone" placeholder="Ex: +221 77 123 45 67" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email (optionnel)</label>
+                                <input type="email" id="email" name="email" placeholder="Ex: amadou@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Informations complémentaires</label>
+                                <textarea id="message" name="message" placeholder="Symptômes, antécédents médicaux pertinents..." rows="4"></textarea>
+                            </div>
+                            
+                            <div class="step-actions">
+                                <button type="button" class="btn btn-outline btn-prev"><i class="fas fa-arrow-left"></i> Retour</button>
+                                <button type="submit" class="btn btn-submit">Confirmer le rendez-vous <i class="fas fa-check"></i></button>
+                            </div>
                         </div>
-                        <button type="submit" class="btn">Demander un rendez-vous</button>
+                        
+                        <!-- Étape 4 : Succès (Masquée par défaut, gérée par JS) -->
+                        <div class="form-step success-step" data-step="4" style="display: none;">
+                            <div class="success-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h3>Rendez-vous Confirmé !</h3>
+                            <p>Votre demande a été enregistrée avec succès. Vous recevrez un SMS de confirmation très prochainement.</p>
+                            
+                            <div class="tracking-box" style="background: rgba(0,102,204,0.1); padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px dashed var(--primary-color);">
+                                <p style="margin-bottom: 5px; color: var(--dark-color); font-weight: 500;">Votre Code de Suivi :</p>
+                                <h2 id="trackingCodeDisplay" style="color: var(--primary-color); letter-spacing: 2px; font-size: 2rem; margin: 0;">RDV-XXXXX</h2>
+                                <p style="font-size: 0.85rem; color: #666; margin-top: 10px;">Veuillez conserver ce code pour <a href="/suivi.html" style="color: var(--secondary-color); text-decoration: underline;">suivre l'état de votre rendez-vous</a>.</p>
+                            </div>
+
+                            <button type="button" class="btn btn-reset" onclick="window.location.reload()">Nouveau rendez-vous</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -176,51 +226,6 @@
 
     <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
     <script type="module" src="/script.js"></script>
-    <script type="module">
-        import { collection, addDoc } from 'firebase/firestore';
-        import { db } from '/src/lib/firebase.ts';
-
-        // Set minimum date for appointment to today
-        function initAppointment() {
-            const dateInput = document.getElementById('date');
-            if (dateInput) {
-                const today = new Date().toISOString().split('T')[0];
-                dateInput.setAttribute('min', today);
-            }
-            
-            const appointmentForm = document.getElementById('appointmentForm');
-            if (appointmentForm) {
-                appointmentForm.addEventListener('submit', async function(e) {
-                    e.preventDefault();
-                    
-                    const submitButton = this.querySelector('button[type="submit"]');
-                    const originalText = submitButton.textContent;
-                    
-                    submitButton.disabled = true;
-                    submitButton.textContent = 'Traitement en cours...';
-                    
-                    try {
-                        const formData = new FormData(appointmentForm);
-                        const data = Object.fromEntries(formData.entries());
-                        data.status = 'En attente';
-                        data.createdAt = new Date().toISOString();
-                        
-                        // Save directly to Firebase Firestore
-                        await addDoc(collection(db, 'appointments'), data);
-                        
-                        alert('Votre demande de rendez-vous a été envoyée avec succès ! Nous vous contacterons pour confirmer le rendez-vous.');
-                        appointmentForm.reset();
-                    } catch (error) {
-                        console.error('Error submitting form:', error);
-                        alert('Une erreur est survenue. Veuillez réessayer plus tard.');
-                    } finally {
-                        submitButton.disabled = false;
-                        submitButton.textContent = originalText;
-                    }
-                });
-            }
-        }
-    if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", initAppointment); } else { initAppointment(); }
-    </script>
+    <script type="module" src="/src/appointment-logic.js"></script>
 </body>
 </html>
