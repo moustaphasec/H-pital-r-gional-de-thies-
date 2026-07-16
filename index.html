@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="additional-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -38,19 +37,19 @@
         <div class="slider-container">
             <div class="slider">
                 <div class="slide active">
-                    <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1653&q=80" alt="Hôpital">
-                    <div class="slide-content">
-                        <h2>Excellence médicale</h2>
-                        <p>Des soins de qualité au service de la population</p>
-                        <a href="services.html" class="btn">Nos Services</a>
+                    <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1653&q=80" alt="Hôpital">
+                    <div class="slide-content glass-panel" style="padding: 40px; margin-bottom: 20px;">
+                        <h2 style="color: var(--primary-dark); font-size: 3rem;">Excellence médicale</h2>
+                        <p style="color: var(--text-color); font-size: 1.2rem; margin-bottom: 25px;">Des soins de qualité au service de la population</p>
+                        <a href="services.html" class="btn">Nos Services <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="slide">
-                    <img src="https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Personnel médical">
-                    <div class="slide-content">
-                        <h2>Une équipe dévouée</h2>
-                        <p>Des professionnels attentifs à votre santé</p>
-                        <a href="services.html" class="btn">Nos Services</a>
+                    <img src="https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80" alt="Personnel médical">
+                    <div class="slide-content glass-panel" style="padding: 40px; margin-bottom: 20px;">
+                        <h2 style="color: var(--primary-dark); font-size: 3rem;">Une équipe dévouée</h2>
+                        <p style="color: var(--text-color); font-size: 1.2rem; margin-bottom: 25px;">Des professionnels attentifs à votre santé</p>
+                        <a href="services.html" class="btn">Nos Services <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -66,35 +65,35 @@
     </section>
 
     <section class="emergency">
-        <div class="container">
-            <div class="emergency-card">
-                <div class="emergency-icon">
+        <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: -60px; position: relative; z-index: 10;">
+            <div class="emergency-card glass-panel" style="padding: 30px; text-align: center; background: white; border-top: 4px solid var(--accent-color);">
+                <div class="emergency-icon" style="font-size: 2.5rem; color: var(--accent-color); margin-bottom: 15px;">
                     <i class="fas fa-ambulance"></i>
                 </div>
                 <div class="emergency-content">
-                    <h3>Urgences 24/7</h3>
-                    <p>Service d'urgence disponible jour et nuit</p>
-                    <a href="tel:+221339521090" class="emergency-btn">+221 33 952 10 90</a>
+                    <h3 style="margin-bottom: 10px;">Urgences 24/7</h3>
+                    <p style="margin-bottom: 20px; color: var(--text-light);">Service d'urgence disponible jour et nuit</p>
+                    <a href="tel:+221339521090" class="btn">+221 33 952 10 90</a>
                 </div>
             </div>
-            <div class="emergency-card">
-                <div class="emergency-icon">
+            <div class="emergency-card glass-panel" style="padding: 30px; text-align: center; background: white; border-top: 4px solid var(--primary-color);">
+                <div class="emergency-icon" style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 15px;">
                     <i class="fas fa-calendar-check"></i>
                 </div>
                 <div class="emergency-content">
-                    <h3>Rendez-vous</h3>
-                    <p>Prenez rendez-vous avec nos spécialistes</p>
-                    <a href="appointment.html" class="emergency-btn">Réserver</a>
+                    <h3 style="margin-bottom: 10px;">Rendez-vous</h3>
+                    <p style="margin-bottom: 20px; color: var(--text-light);">Prenez rendez-vous avec nos spécialistes</p>
+                    <a href="appointment.html" class="btn">Réserver</a>
                 </div>
             </div>
-            <div class="emergency-card">
-                <div class="emergency-icon">
+            <div class="emergency-card glass-panel" style="padding: 30px; text-align: center; background: white; border-top: 4px solid var(--secondary-color);">
+                <div class="emergency-icon" style="font-size: 2.5rem; color: var(--secondary-color); margin-bottom: 15px;">
                     <i class="fas fa-clock"></i>
                 </div>
                 <div class="emergency-content">
-                    <h3>Horaires</h3>
-                    <p>Lun-Ven: 8h-18h<br>Sam: 8h-12h</p>
-                    <a href="contact.html" class="emergency-btn">En savoir plus</a>
+                    <h3 style="margin-bottom: 10px;">Horaires</h3>
+                    <p style="margin-bottom: 20px; color: var(--text-light);">Lun-Ven: 8h-18h<br>Sam: 8h-12h</p>
+                    <a href="contact.html" class="btn">En savoir plus</a>
                 </div>
             </div>
         </div>

@@ -26,8 +26,9 @@ function AdminDashboard() {
   const login = async () => {
     try {
       await signInWithPopup(auth, googleAuthProvider);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error logging in:', error);
+      alert('Erreur de connexion : ' + (error.message || 'Vérifiez votre configuration Firebase ou vos bloqueurs de pop-up.'));
     }
   };
 
