@@ -1,8 +1,8 @@
 import React, { StrictMode, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { signInWithPopup } from 'firebase/auth';
-import { getFirestore, collection, getDocs, doc, updateDoc, query, orderBy } from 'firebase/firestore';
-import { auth, googleAuthProvider } from './lib/firebase';
+import { collection, getDocs, doc, updateDoc, query, orderBy } from 'firebase/firestore';
+import { app, auth, db, googleAuthProvider } from './lib/firebase';
 import { User } from 'firebase/auth';
 
 function AdminDashboard() {
@@ -33,7 +33,7 @@ function AdminDashboard() {
 
   const fetchAppointments = async (u: User) => {
     try {
-      const db = getFirestore();
+      
       const q = query(collection(db, 'appointments'), orderBy('createdAt', 'desc'));
       const querySnapshot = await getDocs(q);
       const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -46,7 +46,7 @@ function AdminDashboard() {
   const updateStatus = async (id: string, status: string) => {
     if (!user) return;
     try {
-      const db = getFirestore();
+      
       const appointmentRef = doc(db, 'appointments', id);
       await updateDoc(appointmentRef, { status });
       

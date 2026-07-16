@@ -177,24 +177,8 @@
     <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
     <script type="module" src="/script.js"></script>
     <script type="module">
-        import { getFirestore, collection, addDoc } from 'firebase/firestore';
-        import { initializeApp } from 'firebase/app';
-        
-        // This config is pulled directly since this file is bundled via Vite
-        const firebaseConfig = {
-          "projectId": "careful-responder-s3bk6",
-          "appId": "1:721789354690:web:f25b80a2f970ad531ab15b",
-          "apiKey": "AIzaSyAKhSbp2yV_lUhlPblVCqOGlYeVtHpngRE",
-          "authDomain": "careful-responder-s3bk6.firebaseapp.com",
-          "storageBucket": "careful-responder-s3bk6.firebasestorage.app",
-          "messagingSenderId": "721789354690",
-          "measurementId": "",
-          "oAuthClientId": "721789354690-7epo4sb79m3425si0hqja04u4730s1jr.apps.googleusercontent.com",
-          "recaptchaSiteKey": ""
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+        import { collection, addDoc } from 'firebase/firestore';
+        import { db } from '/src/lib/firebase.ts';
 
         // Set minimum date for appointment to today
         function initAppointment() {
