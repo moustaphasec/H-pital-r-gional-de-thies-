@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+function initApp() {
     // Mobile Menu Toggle
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
@@ -285,16 +285,24 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize counters when visible
     const aboutSection = document.querySelector('.about');
     
-    window.addEventListener('scroll', function() {
+    const handleScroll = function() {
         if (aboutSection && aboutSection.getBoundingClientRect().top < window.innerHeight - 100) {
             startCounters();
             // Remove event listener after counters start
-            this.removeEventListener('scroll', arguments.callee);
+            window.removeEventListener('scroll', handleScroll);
         }
-    });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
     
     // Check if about section is visible on page load
     if (aboutSection && aboutSection.getBoundingClientRect().top < window.innerHeight - 100) {
         startCounters();
     }
-});
+
+} 
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
+}

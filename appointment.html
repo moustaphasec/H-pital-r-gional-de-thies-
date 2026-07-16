@@ -176,10 +176,11 @@
 
     <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
 
-    <script src="script.js"></script>
+    <script src="script.js">if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", initAppointment); } else { initAppointment(); }
+    </script>
     <script>
         // Set minimum date for appointment to today
-        document.addEventListener('DOMContentLoaded', function() {
+        function initAppointment() {
             const dateInput = document.getElementById('date');
             if (dateInput) {
                 const today = new Date().toISOString().split('T')[0];
@@ -224,7 +225,8 @@
                     }
                 });
             }
-        });
+        }
+    if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", initAppointment); } else { initAppointment(); }
     </script>
 </body>
 </html>
