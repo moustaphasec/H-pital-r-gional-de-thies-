@@ -76,13 +76,13 @@ function AdminDashboard() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
-        <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md text-center">
-          <h1 className="text-2xl font-bold text-gray-800 mb-6">Administration Hôpital</h1>
-          <p className="text-gray-600 mb-8">Veuillez vous connecter pour accéder aux demandes de rendez-vous.</p>
+      <div className="min-h-screen bg-gradient-to-br from-slate-100 to-blue-50 flex flex-col items-center justify-center p-4">
+        <div className="bg-white/70 backdrop-blur-xl p-10 rounded-3xl shadow-2xl w-full max-w-md text-center border border-white/50">
+          <h1 className="text-3xl font-bold text-slate-800 mb-6 font-['Outfit']">Administration</h1>
+          <p className="text-slate-600 mb-8">Connectez-vous pour gérer les demandes de rendez-vous de l'hôpital.</p>
           <button 
             onClick={login}
-            className="w-full bg-[#2051a5] hover:bg-[#1a4080] text-white font-medium py-3 px-4 rounded transition-colors"
+            className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-medium py-3 px-4 rounded-xl transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
           >
             Se connecter avec Google
           </button>
@@ -92,15 +92,15 @@ function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-semibold text-gray-800">Tableau de Bord - Rendez-vous</h1>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 font-sans text-slate-800 pb-12">
+      <header className="bg-white/60 backdrop-blur-lg shadow-sm border-b border-white/50 sticky top-0 z-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex justify-between items-center">
+          <h1 className="text-2xl font-bold text-slate-800 font-['Outfit']">Tableau de Bord</h1>
           <div className="flex items-center gap-4">
-            <span className="text-sm text-gray-600">{user.email}</span>
+            <span className="text-sm font-medium text-slate-600 bg-white/80 px-4 py-2 rounded-full shadow-sm">{user.email}</span>
             <button 
               onClick={logout}
-              className="text-sm text-red-600 hover:text-red-800"
+              className="text-sm text-rose-500 hover:text-rose-700 font-medium transition-colors"
             >
               Déconnexion
             </button>
@@ -108,16 +108,16 @@ function AdminDashboard() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-lg shadow overflow-hidden">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/50 overflow-hidden">
           {appointments.length === 0 ? (
             <div className="p-8 text-center text-gray-500">
               Aucun rendez-vous trouvé.
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+              <table className="min-w-full divide-y divide-slate-200">
+                <thead className="bg-slate-100/50">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Patient</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
@@ -127,9 +127,9 @@ function AdminDashboard() {
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="divide-y divide-slate-100">
                   {appointments.map((apt) => (
-                    <tr key={apt.id}>
+                    <tr key={apt.id} className="hover:bg-slate-50/50 transition-colors">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm font-medium text-gray-900">{apt.name}</div>
                         <div className="text-sm text-gray-500">{apt.createdAt ? new Date(apt.createdAt).toLocaleDateString() : '-'}</div>
@@ -200,8 +200,8 @@ function AdminDashboard() {
 
         {/* Modal d'édition */}
         {editingApt && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
+          <div className="fixed inset-0 bg-slate-900/30 backdrop-blur-sm flex items-center justify-center z-50 p-4 transition-opacity">
+            <div className="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-md border border-white/50 transform transition-all">
               <h3 className="text-lg font-bold text-gray-900 mb-4">Modifier le rendez-vous</h3>
               <p className="text-sm text-gray-500 mb-4">Patient: {editingApt.name}</p>
               
@@ -225,16 +225,16 @@ function AdminDashboard() {
                 />
               </div>
               
-              <div className="flex justify-end gap-3">
+              <div className="flex justify-end gap-3 pt-2">
                 <button 
                   onClick={() => setEditingApt(null)}
-                  className="px-4 py-2 border border-gray-300 rounded text-gray-700 hover:bg-gray-50"
+                  className="px-5 py-2 border border-slate-300 rounded-xl text-slate-700 hover:bg-slate-50 font-medium transition-colors"
                 >
                   Annuler
                 </button>
                 <button 
                   onClick={saveEdit}
-                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 font-medium"
+                  className="px-5 py-2 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white rounded-xl font-medium shadow-md transition-colors"
                 >
                   Enregistrer
                 </button>
