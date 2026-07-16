@@ -1,6 +1,7 @@
 import React, { StrictMode, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { signInWithPopup } from 'firebase/auth';
+import { getFirestore, collection, getDocs, doc, updateDoc, query, orderBy } from 'firebase/firestore';
 import { auth, googleAuthProvider } from './lib/firebase';
 import { User } from 'firebase/auth';
 
@@ -32,34 +33,24 @@ function AdminDashboard() {
 
   const fetchAppointments = async (u: User) => {
     try {
-      const token = await u.getIdToken();
-      const res = await fetch('/api/appointments', {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      if (res.ok) {
-        const data = await res.json();
-        setAppointments(data);
-      }
+      const db = getFirestore();
+      const q = query(collection(db, 'appointments'), orderBy('createdAt', 'desc'));
+      const querySnapshot = await getDocs(q);
+      const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setAppointments(data);
     } catch (error) {
       console.error('Error fetching appointments:', error);
     }
   };
 
-  const updateStatus = async (id: number, status: string) => {
+  const updateStatus = async (id: string, status: string) => {
     if (!user) return;
     try {
-      const token = await user.getIdToken();
-      const res = await fetch(`/api/appointments/${id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({ status })
-      });
-      if (res.ok) {
-        setAppointments(prev => prev.map(a => a.id === id ? { ...a, status } : a));
-      }
+      const db = getFirestore();
+      const appointmentRef = doc(db, 'appointments', id);
+      await updateDoc(appointmentRef, { status });
+      
+      setAppointments(prev => prev.map(a => a.id === id ? { ...a, status } : a));
     } catch (error) {
       console.error('Error updating status:', error);
     }
@@ -125,7 +116,7 @@ function AdminDashboard() {
                     <tr key={apt.id}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm font-medium text-gray-900">{apt.name}</div>
-                        <div className="text-sm text-gray-500">{new Date(apt.createdAt).toLocaleDateString()}</div>
+                        <div className="text-sm text-gray-500">{apt.createdAt ? new Date(apt.createdAt).toLocaleDateString() : '-'}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm text-gray-900">{apt.phone}</div>

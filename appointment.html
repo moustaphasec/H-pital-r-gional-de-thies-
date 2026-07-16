@@ -175,10 +175,27 @@
     </footer>
 
     <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+    <script type="module" src="/script.js"></script>
+    <script type="module">
+        import { getFirestore, collection, addDoc } from 'firebase/firestore';
+        import { initializeApp } from 'firebase/app';
+        
+        // This config is pulled directly since this file is bundled via Vite
+        const firebaseConfig = {
+          "projectId": "careful-responder-s3bk6",
+          "appId": "1:721789354690:web:f25b80a2f970ad531ab15b",
+          "apiKey": "AIzaSyAKhSbp2yV_lUhlPblVCqOGlYeVtHpngRE",
+          "authDomain": "careful-responder-s3bk6.firebaseapp.com",
+          "storageBucket": "careful-responder-s3bk6.firebasestorage.app",
+          "messagingSenderId": "721789354690",
+          "measurementId": "",
+          "oAuthClientId": "721789354690-7epo4sb79m3425si0hqja04u4730s1jr.apps.googleusercontent.com",
+          "recaptchaSiteKey": ""
+        };
 
-    <script src="script.js">if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", initAppointment); } else { initAppointment(); }
-    </script>
-    <script>
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
         // Set minimum date for appointment to today
         function initAppointment() {
             const dateInput = document.getElementById('date');
@@ -201,21 +218,14 @@
                     try {
                         const formData = new FormData(appointmentForm);
                         const data = Object.fromEntries(formData.entries());
+                        data.status = 'En attente';
+                        data.createdAt = new Date().toISOString();
                         
-                        const response = await fetch('/api/appointments', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(data)
-                        });
+                        // Save directly to Firebase Firestore
+                        await addDoc(collection(db, 'appointments'), data);
                         
-                        if (response.ok) {
-                            alert('Votre demande de rendez-vous a été envoyée avec succès ! Nous vous contacterons pour confirmer le rendez-vous.');
-                            appointmentForm.reset();
-                        } else {
-                            alert('Une erreur est survenue. Veuillez réessayer plus tard.');
-                        }
+                        alert('Votre demande de rendez-vous a été envoyée avec succès ! Nous vous contacterons pour confirmer le rendez-vous.');
+                        appointmentForm.reset();
                     } catch (error) {
                         console.error('Error submitting form:', error);
                         alert('Une erreur est survenue. Veuillez réessayer plus tard.');
