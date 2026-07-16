@@ -1,11 +1,11 @@
 {
-  "projectId": "careful-responder-s3bk6",
-  "appId": "1:721789354690:web:f25b80a2f970ad531ab15b",
-  "apiKey": "AIzaSyAKhSbp2yV_lUhlPblVCqOGlYeVtHpngRE",
-  "authDomain": "careful-responder-s3bk6.firebaseapp.com",
-  "storageBucket": "careful-responder-s3bk6.firebasestorage.app",
-  "messagingSenderId": "721789354690",
-  "measurementId": "",
-  "oAuthClientId": "721789354690-7epo4sb79m3425si0hqja04u4730s1jr.apps.googleusercontent.com",
+  "projectId": "hopital-de-thies",
+  "appId": "1:930244670612:web:39939291b86c085d027081",
+  "apiKey": "AIzaSyA_h9BlH7VHA6jYwgDdmSU5A_vUmQKQsj0",
+  "authDomain": "hopital-de-thies.firebaseapp.com",
+  "storageBucket": "hopital-de-thies.firebasestorage.app",
+  "messagingSenderId": "930244670612",
+  "measurementId": "G-W7YKDCVGRL",
+  "oAuthClientId": "",
   "recaptchaSiteKey": ""
 }
