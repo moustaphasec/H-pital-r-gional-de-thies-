@@ -57,7 +57,7 @@ function DoctorDashboard() {
           return;
       }
       
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const model = genAI.getGenerativeModel({ model: "gemini-3.5-flash" });
       const prompt = `Tu es un assistant d'aide au diagnostic pour un médecin de la spécialité ${apt.specialty}.
       Voici le message du patient nommé ${apt.name} : "${apt.message}".
       Le patient a réservé pour la date du ${apt.date}.

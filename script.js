@@ -381,7 +381,7 @@ function initApp() {
                         return;
                     }
                     
-                    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+                    const model = genAI.getGenerativeModel({ model: "gemini-3.5-flash" });
                     const prompt = `Tu es l'assistant médical virtuel de l'Hôpital Régional de Thiès au Sénégal. 
                     Ton rôle est d'accueillir les patients, de répondre à leurs questions sur l'hôpital et de les orienter vers le bon service (Cardiologie, Pédiatrie, Neurologie, etc.) en fonction de leurs symptômes. 
                     Sois bref, empathique et professionnel. Ne fais pas de diagnostic médical complet, dis-leur de consulter un médecin. 
