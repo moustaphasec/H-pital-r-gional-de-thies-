@@ -184,15 +184,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Vérification finale des champs requis
         const name = document.getElementById('name').value;
         const phone = document.getElementById('phone').value;
+        const email = document.getElementById('email').value;
         
-        if (!name || !phone || !data.email || !specialtyInput.value || !dateInput.value || !timeSlotInput.value) {
-            alert('Veuillez remplir tous les champs obligatoires, y compris l\'e-mail.');
-            return;
-        }
-        
-        // Old check without data.email in case data is not yet defined
-        if (!name || !phone || !specialtyInput.value || !dateInput.value || !timeSlotInput.value) {
-            alert('Veuillez remplir tous les champs obligatoires.');
+        if (!name || !phone || !email || !specialtyInput.value || !dateInput.value || !timeSlotInput.value) {
+            alert('Veuillez remplir tous les champs obligatoires (incluant l\'adresse e-mail).');
             return;
         }
 
