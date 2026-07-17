@@ -1,3 +1,7 @@
+import { GoogleGenerativeAI } from '@google/generative-ai';
+const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY || "";
+const genAI = geminiApiKey ? new GoogleGenerativeAI(geminiApiKey) : null;
+
 function initApp() {
     // Mobile Menu Toggle
     const menuToggle = document.querySelector('.menu-toggle');
