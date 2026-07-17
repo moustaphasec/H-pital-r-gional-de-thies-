@@ -305,7 +305,7 @@ function initApp() {
         startCounters();
     }
 
-    // Secret Access: Triple Click for Admin, Quadruple Click for Doctor
+    // Secret Access: Triple Click on Logo for Admin ONLY
     const logo = document.querySelector('.logo');
     if (logo) {
         let clickCount = 0;
@@ -315,12 +315,30 @@ function initApp() {
             clickCount++;
             if (clickCount === 3) {
                 window.location.href = 'admin.html';
-            } else if (clickCount === 5) {
-                window.location.href = 'doctor.html';
             }
             clearTimeout(clickTimer);
             clickTimer = setTimeout(() => { clickCount = 0; }, 600);
         });
+    }
+
+    // Médecin Access: Keyboard shortcut Ctrl+Shift+M
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.shiftKey && e.key === 'M') {
+            e.preventDefault();
+            window.location.href = 'doctor.html';
+        }
+    });
+
+    // Médecin Access: Discret link in footer
+    const footerCopyright = document.querySelector('.copyright p');
+    if (footerCopyright) {
+        const medLink = document.createElement('a');
+        medLink.href = 'doctor.html';
+        medLink.textContent = 'Espace Pro';
+        medLink.style.cssText = 'color: rgba(255,255,255,0.3); text-decoration: none; margin-left: 15px; font-size: 0.75rem; transition: color 0.3s;';
+        medLink.addEventListener('mouseenter', () => { medLink.style.color = 'rgba(255,255,255,0.7)'; });
+        medLink.addEventListener('mouseleave', () => { medLink.style.color = 'rgba(255,255,255,0.3)'; });
+        footerCopyright.appendChild(medLink);
     }
 
     // Holo-Assistant Chatbot Widget
@@ -381,7 +399,7 @@ function initApp() {
                         return;
                     }
                     
-                    const model = genAI.getGenerativeModel({ model: "gemini-3.1-pro" });
+                    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
                     const prompt = `Tu es l'assistant médical virtuel de l'Hôpital Régional de Thiès au Sénégal. 
                     Ton rôle est d'accueillir les patients, de répondre à leurs questions sur l'hôpital et de les orienter vers le bon service (Cardiologie, Pédiatrie, Neurologie, etc.) en fonction de leurs symptômes. 
                     Sois bref, empathique et professionnel. Ne fais pas de diagnostic médical complet, dis-leur de consulter un médecin. 

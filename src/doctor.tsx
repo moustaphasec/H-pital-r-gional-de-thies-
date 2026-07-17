@@ -57,7 +57,7 @@ function DoctorDashboard() {
           return;
       }
       
-      const model = genAI.getGenerativeModel({ model: "gemini-3.1-pro" });
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
       const prompt = `Tu es un assistant d'aide au diagnostic pour un médecin de la spécialité ${apt.specialty}.
       Voici le message du patient nommé ${apt.name} : "${apt.message}".
       Le patient a réservé pour la date du ${apt.date}.
@@ -78,8 +78,8 @@ function DoctorDashboard() {
     try {
       const q = query(collection(db, 'appointments'), orderBy('createdAt', 'desc'));
       const querySnapshot = await getDocs(q);
-      const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      const filteredData = specialty ? data.filter((doc: any) => doc.specialty === specialty) : data;
+      const allData = querySnapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+      const filteredData = specialty ? allData.filter((item: any) => item.specialty === specialty) : allData;
       setAppointments(filteredData);
     } catch (error) {
       console.error('Error fetching appointments:', error);
@@ -158,6 +158,44 @@ function DoctorDashboard() {
     );
   }
 
+  // Écran de sélection de spécialité (obligatoire avant d'accéder au tableau de bord)
+  const specialties = ['Cardiologie', 'Néphrologie', 'Gynécologie', 'Pédiatrie', 'Chirurgie', 'Ophtalmologie', 'Urgences', 'Autre'];
+  
+  if (!hasSelectedSpecialty) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-100 to-blue-50 flex flex-col items-center justify-center p-4">
+        <div className="bg-white/70 backdrop-blur-xl p-10 rounded-3xl shadow-2xl w-full max-w-xl text-center border border-white/50">
+          <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 text-3xl mx-auto mb-6">
+            <i className="fas fa-user-md"></i>
+          </div>
+          <h1 className="text-3xl font-bold text-slate-800 mb-3 font-['Outfit']">Votre Spécialité</h1>
+          <p className="text-slate-600 mb-8">Sélectionnez votre domaine de spécialité pour voir uniquement les rendez-vous qui vous concernent.</p>
+          <div className="grid grid-cols-2 gap-3">
+            {specialties.map(spec => (
+              <button
+                key={spec}
+                onClick={() => {
+                  setMySpecialty(spec);
+                  setHasSelectedSpecialty(true);
+                  fetchAppointments(user, spec);
+                }}
+                className="p-4 rounded-xl border-2 border-slate-200 hover:border-emerald-400 hover:bg-emerald-50 transition-all text-slate-700 font-medium text-sm hover:shadow-md"
+              >
+                {spec}
+              </button>
+            ))}
+          </div>
+          <button
+            onClick={logout}
+            className="mt-6 text-sm text-rose-500 hover:text-rose-700 font-medium transition-colors"
+          >
+            Déconnexion
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   const filterAppointmentsByTab = (apts: any[], tab: string) => {
       const today = new Date();
       today.setHours(0,0,0,0);
@@ -189,7 +227,7 @@ function DoctorDashboard() {
           <h1 className="text-2xl font-bold text-slate-800 font-['Outfit']">Tableau de Bord</h1>
           <div className="flex items-center gap-4">
             <div className="text-sm bg-white/80 border border-slate-200 rounded-full px-4 py-2 shadow-sm text-slate-700 font-medium">Dr. | {mySpecialty}</div>
-            <span className="text-sm font-medium text-slate-600 bg-white/80 px-4 py-2 rounded-full shadow-sm">{user.email}</span>
+            
             <button 
               onClick={logout}
               className="text-sm text-rose-500 hover:text-rose-700 font-medium transition-colors"
@@ -278,7 +316,7 @@ function DoctorDashboard() {
                 <thead className="bg-slate-100/50">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Patient</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
+                    
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date & Spécialité</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Message</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
@@ -298,10 +336,6 @@ function DoctorDashboard() {
                             <div className="text-sm text-slate-500">{apt.createdAt ? new Date(apt.createdAt).toLocaleDateString() : '-'}</div>
                           </div>
                         </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">{apt.phone}</div>
-                        <div className="text-sm text-gray-500">{apt.email}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm text-gray-900 font-medium">{apt.date}</div>
