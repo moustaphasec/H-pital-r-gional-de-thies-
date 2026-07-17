@@ -10,6 +10,7 @@
 
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#0F172A">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -35,7 +36,7 @@
         </nav>
     </header>
 
-    <section class="about">
+    <section class="about" data-aos="fade-up">
         <div class="container">
             <div class="section-header">
                 <h2>À propos de notre hôpital</h2>
@@ -129,5 +130,13 @@
     <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
 
     <script type="module" src="/script.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if(typeof AOS !== 'undefined') {
+            AOS.init({ duration: 800, once: true, offset: 100 });
+        }
+    });
+</script>
 </body>
 </html>
