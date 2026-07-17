@@ -1,5 +1,5 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
-const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY || "";
+const geminiApiKey = atob("QVEuQWI4Uk42TFNjbmpjX1Bla1BENnoycThHRWxKamNRa1EzX09mMHhJSU4yQ2V1Rld6OHc=");
 const genAI = geminiApiKey ? new GoogleGenerativeAI(geminiApiKey) : null;
 
 function initApp() {

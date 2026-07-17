@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Envoyer un email via EmailJS (si l'email est fourni)
             if (data.email) {
-                if (import.meta.env.VITE_EMAILJS_SERVICE_ID) {
+                if ("service_hi9vb08") {
                     const emailParams = {
                         to_name: data.name,
                         to_email: data.email,
@@ -227,10 +227,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     };
                     
                     emailjs.send(
-                        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-                        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+                        "service_hi9vb08",
+                        "template_3kq51pk",
                         emailParams,
-                        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+                        "kwKiHmvSH_3P6rgNF"
                     ).then(
                         (response) => {
                             console.log('Email envoyé avec succès !', response.status, response.text);
