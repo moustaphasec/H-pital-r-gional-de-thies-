@@ -57,7 +57,7 @@ function DoctorDashboard() {
           return;
       }
       
-      const model = genAI.getGenerativeModel({ model: "gemini-3.5-flash" });
+      const model = genAI.getGenerativeModel({ model: "gemini-3.1-pro" });
       const prompt = `Tu es un assistant d'aide au diagnostic pour un médecin de la spécialité ${apt.specialty}.
       Voici le message du patient nommé ${apt.name} : "${apt.message}".
       Le patient a réservé pour la date du ${apt.date}.
@@ -76,11 +76,11 @@ function DoctorDashboard() {
 
   const fetchAppointments = async (u: User, specialty: string) => {
     try {
-      
       const q = query(collection(db, 'appointments'), orderBy('createdAt', 'desc'));
       const querySnapshot = await getDocs(q);
       const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setAppointments(data);
+      const filteredData = specialty ? data.filter((doc: any) => doc.specialty === specialty) : data;
+      setAppointments(filteredData);
     } catch (error) {
       console.error('Error fetching appointments:', error);
     }
@@ -89,13 +89,40 @@ function DoctorDashboard() {
   const updateStatus = async (id: string, status: string) => {
     if (!user) return;
     try {
-      
       const appointmentRef = doc(db, 'appointments', id);
       await updateDoc(appointmentRef, { status });
       
       setAppointments(prev => prev.map(a => a.id === id ? { ...a, status } : a));
+      
+      const updatedApt = appointments.find(a => a.id === id);
+      if (status === 'Confirmé' && updatedApt?.email) {
+          const emailParams = {
+              to_name: updatedApt.name,
+              to_email: updatedApt.email,
+              specialty: updatedApt.specialty,
+              date: updatedApt.date,
+              time: updatedApt.timeSlot || 'non spécifiée',
+              tracking_code: updatedApt.trackingCode || id,
+              status: status,
+              reply_to: "contact@hopital-regional-thies.sn"
+          };
+          
+          emailjs.send(
+              "service_hi9vb08",
+              "template_3kq51pk",
+              emailParams,
+              "kwKiHmvSH_3P6rgNF"
+          ).then(
+              (res) => console.log("Email envoyé", res),
+              (err) => {
+                  console.error("Erreur EmailJS:", err);
+                  alert("Le statut a été mis à jour, mais l'e-mail a échoué. Cause: " + JSON.stringify(err));
+              }
+          );
+      }
     } catch (error) {
       console.error('Error updating status:', error);
+      alert("Erreur lors de la mise à jour: " + error.message);
     }
   };
 
@@ -131,6 +158,26 @@ function DoctorDashboard() {
     );
   }
 
+  const filterAppointmentsByTab = (apts: any[], tab: string) => {
+      const today = new Date();
+      today.setHours(0,0,0,0);
+      const dayOfWeek = today.getDay();
+      const diffToSunday = dayOfWeek === 0 ? 0 : 7 - dayOfWeek;
+      const endOfWeek = new Date(today);
+      endOfWeek.setDate(today.getDate() + diffToSunday);
+      
+      return apts.filter(apt => {
+          if (!apt.date) return false;
+          const d = new Date(apt.date);
+          d.setHours(0,0,0,0);
+          if (tab === 'archives') return d < today;
+          if (tab === 'cette-semaine') return d >= today && d <= endOfWeek;
+          if (tab === 'a-venir') return d > endOfWeek;
+          return true;
+      });
+  };
+
+  const displayedApts = filterAppointmentsByTab(appointments, activeTab);
   const totalApts = appointments.length;
   const pendingApts = appointments.filter(a => a.status === 'En attente').length;
   const confirmedApts = appointments.filter(a => a.status === 'Confirmé').length;

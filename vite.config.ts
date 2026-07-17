@@ -32,6 +32,13 @@ export default defineConfig(() => {
           doctor: path.resolve(__dirname, 'doctor.html'),
           suivi: path.resolve(__dirname, 'suivi.html'),
         },
+        output: {
+          manualChunks: {
+            firebase: ['firebase/app', 'firebase/firestore', 'firebase/auth'],
+            react: ['react', 'react-dom'],
+            vendor: ['@google/generative-ai', '@emailjs/browser']
+          }
+        }
       },
     },
   };
