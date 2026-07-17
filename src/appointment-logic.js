@@ -1,6 +1,7 @@
 import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
 import { db } from './lib/firebase';
 import emailjs from '@emailjs/browser';
+emailjs.init({ publicKey: "kwKiHmvSH_3P6rgNF" });
 
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('appointmentForm');
@@ -184,6 +185,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = document.getElementById('name').value;
         const phone = document.getElementById('phone').value;
         
+        if (!name || !phone || !data.email || !specialtyInput.value || !dateInput.value || !timeSlotInput.value) {
+            alert('Veuillez remplir tous les champs obligatoires, y compris l\'e-mail.');
+            return;
+        }
+        
+        // Old check without data.email in case data is not yet defined
         if (!name || !phone || !specialtyInput.value || !dateInput.value || !timeSlotInput.value) {
             alert('Veuillez remplir tous les champs obligatoires.');
             return;
@@ -229,14 +236,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     emailjs.send(
                         "service_hi9vb08",
                         "template_3kq51pk",
-                        emailParams,
-                        "kwKiHmvSH_3P6rgNF"
+                        emailParams, { publicKey: "kwKiHmvSH_3P6rgNF" }
                     ).then(
                         (response) => {
                             console.log('Email envoyé avec succès !', response.status, response.text);
                         },
                         (error) => {
-                            console.error('Échec de l\'envoi de l\'email...', error);
+                            console.error('Échec de l\'envoi de l\'email...', error); alert("Erreur d'envoi d'e-mail (EmailJS): " + JSON.stringify(error));
                         },
                     );
                 } else {

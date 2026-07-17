@@ -6,6 +6,7 @@ import { app, auth, db, googleAuthProvider } from './lib/firebase';
 import { User } from 'firebase/auth';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import emailjs from '@emailjs/browser';
+emailjs.init({ publicKey: "kwKiHmvSH_3P6rgNF" });
 
 const geminiApiKey = atob("QVEuQWI4Uk42TFNjbmpjX1Bla1BENnoycThHRWxKamNRa1EzX09mMHhJSU4yQ2V1Rld6OHc=");
 const genAI = new GoogleGenerativeAI(geminiApiKey);
@@ -104,8 +105,7 @@ function DoctorDashboard() {
         tracking_code: apt.trackingCode || apt.id,
         status: apt.status === 'En attente' ? 'Confirmé' : apt.status,
         reply_to: "contact@hopital-regional-thies.sn"
-      },
-      "kwKiHmvSH_3P6rgNF"
+      }, { publicKey: "kwKiHmvSH_3P6rgNF" }
     ).then(
       (res) => { 
           console.log("Email envoyé", res); 
@@ -142,8 +142,7 @@ function DoctorDashboard() {
           emailjs.send(
               "service_hi9vb08",
               "template_3kq51pk",
-              emailParams,
-              "kwKiHmvSH_3P6rgNF"
+              emailParams, { publicKey: "kwKiHmvSH_3P6rgNF" }
           ).then(
               (res) => console.log("Email envoyé", res),
               (err) => {
