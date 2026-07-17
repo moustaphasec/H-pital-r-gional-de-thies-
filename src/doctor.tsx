@@ -16,7 +16,8 @@ function DoctorDashboard() {
   const [loading, setLoading] = useState(true);
   const [editingApt, setEditingApt] = useState<any | null>(null);
   const [editForm, setEditForm] = useState({ date: '', timeSlot: '' });
-  const [mySpecialty, setMySpecialty] = useState<string>('Cardiologie');
+  const [mySpecialty, setMySpecialty] = useState<string>('');
+  const [hasSelectedSpecialty, setHasSelectedSpecialty] = useState<boolean>(false);
   const [aiModalApt, setAiModalApt] = useState<any | null>(null);
   const [aiAnalysis, setAiAnalysis] = useState<string>('');
   const [isAiLoading, setIsAiLoading] = useState<boolean>(false);
@@ -139,15 +140,7 @@ function DoctorDashboard() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex justify-between items-center">
           <h1 className="text-2xl font-bold text-slate-800 font-['Outfit']">Tableau de Bord</h1>
           <div className="flex items-center gap-4">
-            <select value={mySpecialty} onChange={e => { setMySpecialty(e.target.value); fetchAppointments(user, e.target.value); }} className="text-sm bg-white/80 border border-slate-200 rounded-full px-3 py-1 shadow-sm text-slate-700 outline-none">
-              <option value="Cardiologie">Cardiologie</option>
-              <option value="Néphrologie">Néphrologie</option>
-              <option value="Gynécologie">Gynécologie</option>
-              <option value="Pédiatrie">Pédiatrie</option>
-              <option value="Chirurgie">Chirurgie</option>
-              <option value="Ophtalmologie">Ophtalmologie</option>
-              <option value="Urgences">Urgences</option>
-            </select>
+            <div className="text-sm bg-white/80 border border-slate-200 rounded-full px-4 py-2 shadow-sm text-slate-700 font-medium">Dr. | {mySpecialty}</div>
             <span className="text-sm font-medium text-slate-600 bg-white/80 px-4 py-2 rounded-full shadow-sm">{user.email}</span>
             <button 
               onClick={logout}

@@ -315,7 +315,7 @@ function initApp() {
             clickCount++;
             if (clickCount === 3) {
                 window.location.href = 'admin.html';
-            } else if (clickCount === 4) {
+            } else if (clickCount === 5) {
                 window.location.href = 'doctor.html';
             }
             clearTimeout(clickTimer);
@@ -394,7 +394,7 @@ function initApp() {
                     document.getElementById(typingId).innerHTML = reply.replace(/\n/g, '<br>');
                 } catch (error) {
                     console.error("Gemini Error:", error);
-                    document.getElementById(typingId).innerHTML = "Désolé, mes circuits cognitifs sont surchargés pour le moment.";
+                    document.getElementById(typingId).innerHTML = `Désolé, une erreur est survenue: ${error.message || error}`;
                 }
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
             }
