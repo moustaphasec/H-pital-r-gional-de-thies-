@@ -21,6 +21,7 @@ function DoctorDashboard() {
   const [aiModalApt, setAiModalApt] = useState<any | null>(null);
   const [aiAnalysis, setAiAnalysis] = useState<string>('');
   const [isAiLoading, setIsAiLoading] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<string>('cette-semaine');
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((u) => {
@@ -196,7 +197,29 @@ function DoctorDashboard() {
         </div>
 
         <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/50 overflow-hidden">
-          {appointments.length === 0 ? (
+                  {/* TAB NAVIGATION */}
+        <div className="flex space-x-2 bg-white/60 p-2 rounded-xl border border-slate-200 shadow-sm overflow-x-auto">
+          <button 
+            onClick={() => setActiveTab('cette-semaine')} 
+            className={`px-6 py-2 rounded-lg font-medium transition-all whitespace-nowrap ${activeTab === 'cette-semaine' ? 'bg-blue-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100'}`}
+          >
+            Cette semaine
+          </button>
+          <button 
+            onClick={() => setActiveTab('a-venir')} 
+            className={`px-6 py-2 rounded-lg font-medium transition-all whitespace-nowrap ${activeTab === 'a-venir' ? 'bg-blue-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100'}`}
+          >
+            À venir
+          </button>
+          <button 
+            onClick={() => setActiveTab('archives')} 
+            className={`px-6 py-2 rounded-lg font-medium transition-all whitespace-nowrap ${activeTab === 'archives' ? 'bg-slate-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100'}`}
+          >
+            Archives (Dépassés)
+          </button>
+        </div>
+
+        {displayedApts.length === 0 ? (
             <div className="p-16 text-center flex flex-col items-center">
               <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Bureau vide" className="w-56 h-56 object-cover rounded-full mb-6 border-8 border-slate-50 shadow-md opacity-90" />
               <h2 className="text-2xl font-bold text-slate-700 font-['Outfit'] mb-2">Tout est à jour !</h2>
@@ -216,7 +239,7 @@ function DoctorDashboard() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
-                  {appointments.map((apt) => (
+                  {displayedApts.map((apt) => (
                     <tr key={apt.id} className="hover:bg-slate-50/50 transition-colors">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center gap-3">
