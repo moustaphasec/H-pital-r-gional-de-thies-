@@ -86,6 +86,38 @@ function DoctorDashboard() {
     }
   };
 
+    const sendEmailConfirmation = (apt: any, manual: boolean = false) => {
+    if (!apt.email) {
+        if (manual) alert("Ce patient n'a pas d'adresse e-mail renseignée.");
+        return;
+    }
+    
+    emailjs.send(
+      "service_hi9vb08",
+      "template_3kq51pk",
+      {
+        to_name: apt.name,
+        to_email: apt.email,
+        specialty: apt.specialty,
+        date: apt.date,
+        time: apt.timeSlot || 'non spécifiée',
+        tracking_code: apt.trackingCode || apt.id,
+        status: apt.status === 'En attente' ? 'Confirmé' : apt.status,
+        reply_to: "contact@hopital-regional-thies.sn"
+      },
+      "kwKiHmvSH_3P6rgNF"
+    ).then(
+      (res) => { 
+          console.log("Email envoyé", res); 
+          alert(manual ? "Email renvoyé avec succès !" : "Rendez-vous confirmé et email envoyé au patient !"); 
+      },
+      (err) => { 
+          console.error("Erreur EmailJS:", err); 
+          alert("Erreur d'envoi d'email. Cause: " + JSON.stringify(err)); 
+      }
+    );
+  };
+
   const updateStatus = async (id: string, status: string) => {
     if (!user) return;
     try {
@@ -379,6 +411,15 @@ function DoctorDashboard() {
                           >
                             Éditer <i className="fas fa-edit"></i>
                           </button>
+                          {apt.status === 'Confirmé' && apt.email && (
+                            <button 
+                              onClick={() => sendEmailConfirmation(apt, true)}
+                              className="text-blue-600 hover:text-blue-900 font-bold ml-2"
+                              title="Renvoyer l'e-mail de confirmation"
+                            >
+                              Renvoyer E-mail <i className="fas fa-envelope"></i>
+                            </button>
+                          )}
                           {apt.status !== 'En attente' && (
                             <button 
                               onClick={() => updateStatus(apt.id, 'En attente')}

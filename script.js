@@ -399,15 +399,29 @@ function initApp() {
                         return;
                     }
                     
-                    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
                     const prompt = `Tu es l'assistant médical virtuel de l'Hôpital Régional de Thiès au Sénégal. 
                     Ton rôle est d'accueillir les patients, de répondre à leurs questions sur l'hôpital et de les orienter vers le bon service (Cardiologie, Pédiatrie, Neurologie, etc.) en fonction de leurs symptômes. 
                     Sois bref, empathique et professionnel. Ne fais pas de diagnostic médical complet, dis-leur de consulter un médecin. 
                     Question du patient : ${text}`;
                     
-                    const result = await model.generateContent(prompt);
-                    const response = await result.response;
-                    const reply = response.text();
+                    const modelsToTry = ["gemini-3.5-flash", "gemini-3.1-flash", "gemini-3.1-flash-lite", "gemini-1.5-flash"];
+                    let reply = "";
+                    let lastError;
+                    
+                    for (const modelName of modelsToTry) {
+                        try {
+                            const model = genAI.getGenerativeModel({ model: modelName });
+                            const result = await model.generateContent(prompt);
+                            const response = await result.response;
+                            reply = response.text();
+                            break; // Success! Exit the loop.
+                        } catch (err) {
+                            console.warn(`Model ${modelName} failed:`, err);
+                            lastError = err;
+                        }
+                    }
+                    
+                    if (!reply) throw lastError;
                     
                     document.getElementById(typingId).innerHTML = reply.replace(/\n/g, '<br>');
                 } catch (error) {
