@@ -230,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     emailjs.send(
                         "service_hi9vb08",
-                        "template_3kq51pk",
+                        "template_onkdmd8",
                         emailParams, { publicKey: "kwKiHmvSH_3P6rgNF" }
                     ).then(
                         (response) => {

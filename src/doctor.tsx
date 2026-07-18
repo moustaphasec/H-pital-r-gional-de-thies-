@@ -95,7 +95,7 @@ function DoctorDashboard() {
     
     emailjs.send(
       "service_hi9vb08",
-      "template_3kq51pk",
+      "template_onkdmd8",
       {
         to_name: apt.name,
         to_email: apt.email,
@@ -141,7 +141,7 @@ function DoctorDashboard() {
           
           emailjs.send(
               "service_hi9vb08",
-              "template_3kq51pk",
+              "template_onkdmd8",
               emailParams, { publicKey: "kwKiHmvSH_3P6rgNF" }
           ).then(
               (res) => console.log("Email envoyé", res),
