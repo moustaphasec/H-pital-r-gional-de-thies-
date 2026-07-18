@@ -456,3 +456,40 @@ if ('serviceWorker' in navigator) {
             });
     });
 }
+
+
+// --- DARK MODE TOGGLE ---
+document.addEventListener('DOMContentLoaded', () => {
+    const themeToggleBtns = document.querySelectorAll('.theme-toggle-btn');
+    
+    // Check local storage or system preference
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme === 'dark' || (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark-mode');
+        themeToggleBtns.forEach(btn => {
+            const icon = btn.querySelector('i');
+            if(icon) icon.classList.replace('fa-moon', 'fa-sun');
+        });
+    }
+
+    themeToggleBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark-mode');
+            const isDark = document.documentElement.classList.contains('dark-mode');
+            
+            themeToggleBtns.forEach(b => {
+                const icon = b.querySelector('i');
+                if (icon) {
+                    if (isDark) {
+                        icon.classList.replace('fa-moon', 'fa-sun');
+                    } else {
+                        icon.classList.replace('fa-sun', 'fa-moon');
+                    }
+                }
+            });
+            
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+    });
+});
+

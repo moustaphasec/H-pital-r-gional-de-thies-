@@ -33,6 +33,43 @@
     --font-body: 'Inter', sans-serif;
 }
 
+/* Dark Mode Variables */
+:root.dark-mode {
+    --bg-color: #0F172A;          /* Slate 900 */
+    --text-color: #F8FAFC;        /* Slate 50 */
+    --text-light: #94A3B8;        /* Slate 400 */
+    --light-color: #1E293B;       /* Slate 800 */
+    --dark-color: #FFFFFF;        
+    --border-color: rgba(51, 65, 85, 0.6); 
+    
+    --glass-bg: rgba(30, 41, 59, 0.7);
+    --glass-border: rgba(51, 65, 85, 0.5);
+    
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.3);
+    --shadow-glow: 0 10px 30px rgba(37, 99, 235, 0.25);
+}
+
+/* Theme Toggle Button Styles */
+.theme-toggle-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: var(--transition);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.theme-toggle-btn:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
 /* Glassmorphism Utilities & 3D Hover */
 .glass-panel {
     background: var(--glass-bg);
