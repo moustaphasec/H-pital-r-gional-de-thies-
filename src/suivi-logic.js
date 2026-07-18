@@ -1,4 +1,4 @@
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs, updateDoc, doc } from 'firebase/firestore';
 import { db } from './lib/firebase';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -31,8 +31,41 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div style="background: #fff3cd; color: #856404; padding: 15px; border-radius: 8px; border-left: 4px solid #ffeeba;">
                         <i class="fas fa-exclamation-triangle" style="margin-right: 10px;"></i>
                         Aucun rendez-vous trouvé pour le code <strong>${code}</strong>. Veuillez vérifier votre saisie.
+
                     </div>
+                    ${(aptData.status !== 'AnnulǸ' && aptData.status !== 'TerminǸ' && aptData.status !== 'Annulé' && aptData.status !== 'Terminé') ? `
+                    <div style="margin-top: 15px; text-align: center;">
+                        <button id="cancelRdvBtn" data-id="${querySnapshot.docs[0].id}" style="background-color: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%;">
+                            <i class="fas fa-times-circle"></i> Annuler mon rendez-vous
+                        </button>
+                    </div>` : ''}
                 `;
+
+                // Add event listener for cancel button
+                setTimeout(() => {
+                    const cancelBtn = document.getElementById('cancelRdvBtn');
+                    if (cancelBtn) {
+                        cancelBtn.addEventListener('click', async () => {
+                            if (confirm('Êtes-vous sûr de vouloir annuler ce rendez-vous ?')) {
+                                cancelBtn.disabled = true;
+                                cancelBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Annulation en cours...';
+                                try {
+                                    await updateDoc(doc(db, 'appointments', cancelBtn.getAttribute('data-id')), {
+                                        status: 'Annulé'
+                                    });
+                                    alert('Votre rendez-vous a bien été annulé.');
+                                    // Trigger form submit to reload data
+                                    form.dispatchEvent(new Event('submit'));
+                                } catch (error) {
+                                    console.error('Error cancelling:', error);
+                                    alert('Une erreur est survenue lors de l\'annulation.');
+                                    cancelBtn.disabled = false;
+                                }
+                            }
+                        });
+                    }
+                }, 100);
+
             } else {
                 // Il devrait y en avoir qu'un seul
                 const aptData = querySnapshot.docs[0].data();
@@ -77,8 +110,41 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                             ${aptData.status === 'Confirmé' ? '<i class="fas fa-check-double" style="font-size: 2rem; color: #28a745; opacity: 0.2;"></i>' : ''}
                         </div>
+
                     </div>
+                    ${(aptData.status !== 'AnnulǸ' && aptData.status !== 'TerminǸ' && aptData.status !== 'Annulé' && aptData.status !== 'Terminé') ? `
+                    <div style="margin-top: 15px; text-align: center;">
+                        <button id="cancelRdvBtn" data-id="${querySnapshot.docs[0].id}" style="background-color: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%;">
+                            <i class="fas fa-times-circle"></i> Annuler mon rendez-vous
+                        </button>
+                    </div>` : ''}
                 `;
+
+                // Add event listener for cancel button
+                setTimeout(() => {
+                    const cancelBtn = document.getElementById('cancelRdvBtn');
+                    if (cancelBtn) {
+                        cancelBtn.addEventListener('click', async () => {
+                            if (confirm('Êtes-vous sûr de vouloir annuler ce rendez-vous ?')) {
+                                cancelBtn.disabled = true;
+                                cancelBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Annulation en cours...';
+                                try {
+                                    await updateDoc(doc(db, 'appointments', cancelBtn.getAttribute('data-id')), {
+                                        status: 'Annulé'
+                                    });
+                                    alert('Votre rendez-vous a bien été annulé.');
+                                    // Trigger form submit to reload data
+                                    form.dispatchEvent(new Event('submit'));
+                                } catch (error) {
+                                    console.error('Error cancelling:', error);
+                                    alert('Une erreur est survenue lors de l\'annulation.');
+                                    cancelBtn.disabled = false;
+                                }
+                            }
+                        });
+                    }
+                }, 100);
+
             }
         } catch (error) {
             console.error("Erreur lors de la recherche du code :", error);
