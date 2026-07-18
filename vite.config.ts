@@ -31,6 +31,7 @@ export default defineConfig(() => {
           admin: path.resolve(__dirname, 'admin.html'),
           doctor: path.resolve(__dirname, 'doctor.html'),
           suivi: path.resolve(__dirname, 'suivi.html'),
+          patient: path.resolve(__dirname, 'patient.html'),
         },
         output: {
           manualChunks: {
