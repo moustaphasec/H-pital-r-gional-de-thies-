@@ -14,13 +14,19 @@ function getClinicId() {
     const stored = localStorage.getItem('healthsaas_clinic_id');
     if (stored) return stored;
 
-    // Fallback to subdomain mapping
-    const hostname = window.location.hostname;
-    if (hostname.includes('.')) {
-        const subdomain = hostname.split('.')[0];
-        if (subdomain !== 'www' && subdomain !== 'localhost') {
-            return subdomain;
-        }
+    // Fallback to domain/subdomain mapping
+    let hostname = window.location.hostname;
+    if (hostname.startsWith('www.')) {
+        hostname = hostname.replace('www.', '');
+    }
+    
+    if (hostname !== 'localhost' && !hostname.includes('netlify.app')) {
+        // If it's a custom domain like hopitalregionaldethies.com, the ID can be 'hopitalregionaldethies.com' or just 'hopitalregionaldethies'
+        // Let's use the first part of the domain as the ID to keep it simple.
+        return hostname.split('.')[0];
+    } else if (hostname.includes('netlify.app')) {
+        // For thies-saas.netlify.app -> return 'thies-saas'
+        return hostname.split('.')[0];
     }
     
     // Default to 'thies' if running locally or unconfigured
