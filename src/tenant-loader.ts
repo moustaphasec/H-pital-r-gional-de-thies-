@@ -74,10 +74,10 @@ async function loadTenantConfig() {
 
         } else {
             console.error("Clinic not found in SaaS registry:", clinicId);
-            document.body.innerHTML = \`<div style="padding:50px; text-align:center; font-family:sans-serif;">
+            document.body.innerHTML = `<div style="padding:50px; text-align:center; font-family:sans-serif;">
                 <h1>Erreur 404 - Hôpital introuvable</h1>
-                <p>La clinique "<strong>\${clinicId}</strong>" n'existe pas dans le système HealthSaaS.</p>
-            </div>\`;
+                <p>La clinique "<strong>${clinicId}</strong>" n'existe pas dans le système HealthSaaS.</p>
+            </div>`;
         }
     } catch (e) {
         console.error("Error loading SaaS config", e);
