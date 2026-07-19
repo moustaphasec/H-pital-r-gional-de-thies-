@@ -22,7 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
         resultDiv.style.display = 'none';
 
         try {
-            const q = query(collection(db, 'appointments'), where('trackingCode', '==', code));
+            const q = query(collection(db, 'appointments'), where('trackingCode', '==', code),
+                where('clinicId', '==', localStorage.getItem('healthsaas_clinic_id') || 'thies'));
             const querySnapshot = await getDocs(q);
             
             if (querySnapshot.empty) {

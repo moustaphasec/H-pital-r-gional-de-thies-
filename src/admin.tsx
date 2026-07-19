@@ -1,7 +1,7 @@
 import React, { StrictMode, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { signInWithPopup } from 'firebase/auth';
-import { collection, getDocs, doc, updateDoc, query, orderBy } from 'firebase/firestore';
+import { collection, getDocs, doc, updateDoc, query, orderBy, where } from 'firebase/firestore';
 import { app, auth, db, googleAuthProvider } from './lib/firebase';
 import { User } from 'firebase/auth';
 
@@ -37,7 +37,7 @@ function AdminDashboard() {
   const fetchAppointments = async (u: User) => {
     try {
       
-      const q = query(collection(db, 'appointments'), orderBy('createdAt', 'desc'));
+      const q = query(collection(db, 'appointments'), where('clinicId', '==', localStorage.getItem('healthsaas_clinic_id') || 'thies'), orderBy('createdAt', 'desc'));
       const querySnapshot = await getDocs(q);
       const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setAppointments(data);

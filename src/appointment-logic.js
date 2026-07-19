@@ -87,7 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const q = query(
                 collection(db, 'appointments'),
                 where('date', '==', dateStr),
-                where('specialty', '==', specialtyInput.value)
+                where('specialty', '==', specialtyInput.value),
+                where('clinicId', '==', localStorage.getItem('healthsaas_clinic_id') || 'thies')
             );
             const querySnapshot = await getDocs(q);
             querySnapshot.forEach((doc) => {
@@ -209,6 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
             data.status = 'En attente';
             data.createdAt = new Date().toISOString();
             data.trackingCode = trackingCode;
+            data.clinicId = localStorage.getItem('healthsaas_clinic_id') || 'thies';
             
             // Sauvegarde dans Firebase (Optimistic update pour éviter le blocage)
             addDoc(collection(db, 'appointments'), data).catch(err => {
