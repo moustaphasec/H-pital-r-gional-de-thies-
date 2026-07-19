@@ -10,14 +10,16 @@
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#0F172A">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="/config.js"></script>
+    <script src="/init-config.js"></script>
 </head>
 <body>
     <header>
         <nav>
             <div class="container">
                 <div class="logo">
-                    <img src="https://res.cloudinary.com/dzcnlr1yz/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1742394317/f1oy2jfpkujbopbqlrd2.png" alt="Logo Hôpital" width="60" height="60">
-                    <h1>Hôpital Régional<br><span>El Hadji Ahmadou Sakhir Ndiéguène</span></h1>
+                    <img src="https://res.cloudinary.com/dzcnlr1yz/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1742394317/f1oy2jfpkujbopbqlrd2.png" alt="Logo Hôpital" width="60" height="60" data-config="logo">
+                    <h1 data-config="fullName">Hôpital Régional<br><span>El Hadji Ahmadou Sakhir Ndiéguène</span></h1>
                     <button class="theme-toggle-btn" aria-label="Basculer le thème" style="margin-left: 20px;"><i class="fas fa-moon"></i></button>
                 </div>
                 <div class="menu-toggle">
@@ -64,7 +66,7 @@
     <footer>
         <!-- Simplified footer for the tracking page -->
         <div class="footer-bottom" style="text-align: center; padding: 20px; background: var(--dark-color); color: white;">
-            <p>&copy; 2026 Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès.</p>
+            <p>&copy; <span data-config="copyrightYear">2026</span> <span data-config="name">Hôpital Régional</span>.</p>
         </div>
     </footer>
 
