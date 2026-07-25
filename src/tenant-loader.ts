@@ -21,16 +21,20 @@ function getClinicId() {
     }
     
     if (hostname !== 'localhost' && !hostname.includes('netlify.app')) {
-        // If it's a custom domain like hopitalregionaldethies.com, the ID can be 'hopitalregionaldethies.com' or just 'hopitalregionaldethies'
-        // Let's use the first part of the domain as the ID to keep it simple.
         return hostname.split('.')[0];
     } else if (hostname.includes('netlify.app')) {
-        // For thies-saas.netlify.app -> return 'thies-saas'
         return hostname.split('.')[0];
     }
     
     // Default to 'thies' if running locally or unconfigured
     return 'thies';
+}
+
+// Always reveal the page - never leave it blank
+function revealPage() {
+    const overlay = document.getElementById('tenant-overlay');
+    if (overlay) overlay.remove();
+    document.body.style.opacity = '1';
 }
 
 async function loadTenantConfig() {
@@ -65,7 +69,7 @@ async function loadTenantConfig() {
                 if (key && config[key]) {
                     if (el.tagName === 'A' && key.toLowerCase().includes('phone')) {
                         el.textContent = config[key];
-                        (el as HTMLAnchorElement).href = "tel:" + config[key].replace(/\\s+/g, '');
+                        (el as HTMLAnchorElement).href = "tel:" + config[key].replace(/\s+/g, '');
                     } else if (el.tagName === 'IMG' && key === 'logo') {
                         (el as HTMLImageElement).src = config[key];
                     } else {
@@ -74,28 +78,24 @@ async function loadTenantConfig() {
                 }
             });
 
-            // Reveal the body if it was hidden
-            const overlay = document.getElementById('tenant-overlay');
-            if (overlay) overlay.remove();
-
+            console.log("SaaS config applied for:", clinicId);
         } else {
-            console.error("Clinic not found in SaaS registry:", clinicId);
-            document.body.innerHTML = `<div style="padding:50px; text-align:center; font-family:sans-serif;">
-                <h1>Erreur 404 - Hôpital introuvable</h1>
-                <p>La clinique "<strong>${clinicId}</strong>" n'existe pas dans le système HealthSaaS.</p>
-            </div>`;
+            console.warn("Clinic not found in SaaS registry:", clinicId, "- using default site values.");
         }
     } catch (e) {
-        console.error("Error loading SaaS config", e);
-        // Fallback or show error
-        const overlay = document.getElementById('tenant-overlay');
-        if (overlay) overlay.remove();
+        console.error("Error loading SaaS config (site will work with defaults):", e);
     }
+
+    // ALWAYS reveal the page, whether config loaded or not
+    revealPage();
 }
 
 // Run on load
-document.addEventListener('DOMContentLoaded', loadTenantConfig);
-// If DOM is already loaded
-if (document.readyState === 'interactive' || document.readyState === 'complete') {
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadTenantConfig);
+} else {
     loadTenantConfig();
 }
+
+// Safety net: if for any reason the loader takes too long, reveal the page after 3 seconds
+setTimeout(revealPage, 3000);
