@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const code = codeInput.value.trim().toUpperCase();
         
         if (!code) return;
+        if (!navigator.onLine) {
+            alert('Vous Ǧtes hors ligne. Les donnǸes affichǸes peuvent ne pas Ǧtre  jour, et certaines recherches peuvent Ǹchouer sans internet.');
+        }
 
         const submitBtn = form.querySelector('.btn-submit');
         const originalText = submitBtn.innerHTML;
@@ -48,6 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (cancelBtn) {
                         cancelBtn.addEventListener('click', async () => {
                             if (confirm('Êtes-vous sûr de vouloir annuler ce rendez-vous ?')) {
+                            if (!navigator.onLine) {
+                                alert('Mode Hors Ligne : L\'annulation est enregistrǸe localement et sera appliquǸe  la clinique ds votre reconnexion.');
+                            }
                                 cancelBtn.disabled = true;
                                 cancelBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Annulation en cours...';
                                 try {
