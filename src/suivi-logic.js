@@ -14,8 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const code = codeInput.value.trim().toUpperCase();
         
         if (!code) return;
+
         if (!navigator.onLine) {
-            alert('Vous Ǧtes hors ligne. Les donnǸes affichǸes peuvent ne pas Ǧtre  jour, et certaines recherches peuvent Ǹchouer sans internet.');
+            alert('Vous êtes actuellement hors ligne. La recherche utilisera les données en cache disponibles.');
         }
 
         const submitBtn = form.querySelector('.btn-submit');
@@ -25,57 +26,27 @@ document.addEventListener('DOMContentLoaded', () => {
         resultDiv.style.display = 'none';
 
         try {
-            const q = query(collection(db, 'appointments'), where('trackingCode', '==', code),
-                where('clinicId', '==', localStorage.getItem('healthsaas_clinic_id') || 'thies'));
+            const q = query(
+                collection(db, 'appointments'), 
+                where('trackingCode', '==', code),
+                where('clinicId', '==', localStorage.getItem('healthsaas_clinic_id') || 'thies')
+            );
             const querySnapshot = await getDocs(q);
             
             if (querySnapshot.empty) {
+                // === CODE NON TROUVÉ ===
                 resultDiv.style.display = 'block';
                 resultDiv.innerHTML = `
                     <div style="background: #fff3cd; color: #856404; padding: 15px; border-radius: 8px; border-left: 4px solid #ffeeba;">
                         <i class="fas fa-exclamation-triangle" style="margin-right: 10px;"></i>
                         Aucun rendez-vous trouvé pour le code <strong>${code}</strong>. Veuillez vérifier votre saisie.
-
                     </div>
-                    ${(aptData.status !== 'AnnulǸ' && aptData.status !== 'TerminǸ' && aptData.status !== 'Annulé' && aptData.status !== 'Terminé') ? `
-                    <div style="margin-top: 15px; text-align: center;">
-                        <button id="cancelRdvBtn" data-id="${querySnapshot.docs[0].id}" style="background-color: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%;">
-                            <i class="fas fa-times-circle"></i> Annuler mon rendez-vous
-                        </button>
-                    </div>` : ''}
                 `;
-
-                // Add event listener for cancel button
-                setTimeout(() => {
-                    const cancelBtn = document.getElementById('cancelRdvBtn');
-                    if (cancelBtn) {
-                        cancelBtn.addEventListener('click', async () => {
-                            if (confirm('Êtes-vous sûr de vouloir annuler ce rendez-vous ?')) {
-                            if (!navigator.onLine) {
-                                alert('Mode Hors Ligne : L\'annulation est enregistrǸe localement et sera appliquǸe  la clinique ds votre reconnexion.');
-                            }
-                                cancelBtn.disabled = true;
-                                cancelBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Annulation en cours...';
-                                try {
-                                    await updateDoc(doc(db, 'appointments', cancelBtn.getAttribute('data-id')), {
-                                        status: 'Annulé'
-                                    });
-                                    alert('Votre rendez-vous a bien été annulé.');
-                                    // Trigger form submit to reload data
-                                    form.dispatchEvent(new Event('submit'));
-                                } catch (error) {
-                                    console.error('Error cancelling:', error);
-                                    alert('Une erreur est survenue lors de l\'annulation.');
-                                    cancelBtn.disabled = false;
-                                }
-                            }
-                        });
-                    }
-                }, 100);
-
             } else {
-                // Il devrait y en avoir qu'un seul
-                const aptData = querySnapshot.docs[0].data();
+                // === RENDEZ-VOUS TROUVÉ ===
+                const aptDoc = querySnapshot.docs[0];
+                const aptData = aptDoc.data();
+                const aptId = aptDoc.id;
                 
                 let statusColor = '#17a2b8'; // En attente
                 let statusIcon = 'fa-clock';
@@ -86,7 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (aptData.status === 'Annulé') {
                     statusColor = '#dc3545';
                     statusIcon = 'fa-times-circle';
+                } else if (aptData.status === 'Terminé') {
+                    statusColor = '#6c757d';
+                    statusIcon = 'fa-check-double';
                 }
+
+                const canCancel = aptData.status !== 'Annulé' && aptData.status !== 'Terminé';
                 
                 resultDiv.style.display = 'block';
                 resultDiv.innerHTML = `
@@ -117,22 +93,24 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                             ${aptData.status === 'Confirmé' ? '<i class="fas fa-check-double" style="font-size: 2rem; color: #28a745; opacity: 0.2;"></i>' : ''}
                         </div>
-
                     </div>
-                    ${(aptData.status !== 'AnnulǸ' && aptData.status !== 'TerminǸ' && aptData.status !== 'Annulé' && aptData.status !== 'Terminé') ? `
+                    ${canCancel ? `
                     <div style="margin-top: 15px; text-align: center;">
-                        <button id="cancelRdvBtn" data-id="${querySnapshot.docs[0].id}" style="background-color: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%;">
+                        <button id="cancelRdvBtn" data-id="${aptId}" style="background-color: #dc3545; color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; font-size: 1rem; transition: background-color 0.3s;">
                             <i class="fas fa-times-circle"></i> Annuler mon rendez-vous
                         </button>
                     </div>` : ''}
                 `;
 
-                // Add event listener for cancel button
+                // Attacher l'événement d'annulation
                 setTimeout(() => {
                     const cancelBtn = document.getElementById('cancelRdvBtn');
                     if (cancelBtn) {
                         cancelBtn.addEventListener('click', async () => {
                             if (confirm('Êtes-vous sûr de vouloir annuler ce rendez-vous ?')) {
+                                if (!navigator.onLine) {
+                                    alert('Mode Hors Ligne : L\'annulation sera appliquée dès votre reconnexion à internet.');
+                                }
                                 cancelBtn.disabled = true;
                                 cancelBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Annulation en cours...';
                                 try {
@@ -140,18 +118,17 @@ document.addEventListener('DOMContentLoaded', () => {
                                         status: 'Annulé'
                                     });
                                     alert('Votre rendez-vous a bien été annulé.');
-                                    // Trigger form submit to reload data
                                     form.dispatchEvent(new Event('submit'));
                                 } catch (error) {
                                     console.error('Error cancelling:', error);
                                     alert('Une erreur est survenue lors de l\'annulation.');
                                     cancelBtn.disabled = false;
+                                    cancelBtn.innerHTML = '<i class="fas fa-times-circle"></i> Annuler mon rendez-vous';
                                 }
                             }
                         });
                     }
                 }, 100);
-
             }
         } catch (error) {
             console.error("Erreur lors de la recherche du code :", error);
