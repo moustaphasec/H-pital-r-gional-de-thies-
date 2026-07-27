@@ -1,20 +1,237 @@
-/* Additional styles to complement the main stylesheet */
-.text-center {
-    text-align: center;
-}
+/* Premium Additional Styles */
 
-/* Responsive adjustments for the About image */
-.about-image img {
+/* Floating Labels for Forms */
+.form-group.floating {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+.form-group.floating input,
+.form-group.floating textarea,
+.form-group.floating select {
     width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 10px;
-    box-shadow: var(--shadow);
+    padding: 1.2rem 1rem 0.4rem 1rem;
+    font-size: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--light-color);
+    color: var(--text-color);
+    transition: var(--transition);
+    outline: none;
+}
+.form-group.floating input:focus,
+.form-group.floating textarea:focus,
+.form-group.floating select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+.form-group.floating label {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    color: var(--text-light);
+    pointer-events: none;
+    transition: all 0.2s ease-out;
+    background: transparent;
+}
+.form-group.floating textarea ~ label {
+    top: 1rem;
+    transform: none;
+}
+.form-group.floating input:focus ~ label,
+.form-group.floating input:not(:placeholder-shown) ~ label,
+.form-group.floating textarea:focus ~ label,
+.form-group.floating textarea:not(:placeholder-shown) ~ label,
+.form-group.floating select:focus ~ label,
+.form-group.floating select:not([value=""]) ~ label {
+    top: 0;
+    transform: translateY(-50%) scale(0.85);
+    background: var(--light-color);
+    padding: 0 4px;
+    color: var(--primary-color);
+    font-weight: 500;
 }
 
-/* Make sure the about image loads properly with a min-height */
-.about-image {
-    min-height: 300px;
-    background-color: var(--gray-color);
-    border-radius: 10px;
+/* Floating WhatsApp / Emergency Button */
+.floating-action-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+    z-index: 9999;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+    animation: pulse-green 2s infinite;
+}
+.floating-action-btn:hover {
+    transform: scale(1.15) rotate(10deg);
+    box-shadow: 0 15px 35px rgba(37, 211, 102, 0.6);
+}
+@keyframes pulse-green {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+/* FAQ Accordion */
+.faq-section {
+    padding: 80px 0;
+    background: var(--bg-color);
+}
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+.faq-item {
+    background: var(--light-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    transition: var(--transition);
+}
+.faq-item.active {
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-glow);
+}
+.faq-question {
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--dark-color);
+}
+.faq-icon {
+    color: var(--primary-color);
+    transition: transform 0.3s ease;
+}
+.faq-item.active .faq-icon {
+    transform: rotate(180deg);
+}
+.faq-answer {
+    padding: 0 25px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+    color: var(--text-light);
+}
+.faq-item.active .faq-answer {
+    padding: 0 25px 20px 25px;
+    max-height: 500px;
+}
+
+/* Testimonials Slider */
+.testimonials-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, var(--bg-color), rgba(37, 99, 235, 0.05));
+}
+.testimonial-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    margin: 20px;
+}
+.testimonial-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 0 auto 15px;
+    border: 3px solid var(--primary-color);
+    object-fit: cover;
+}
+.testimonial-text {
+    font-style: italic;
+    color: var(--text-color);
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+.testimonial-author {
+    font-weight: 700;
+    color: var(--dark-color);
+}
+.testimonial-stars {
+    color: var(--accent-color);
+    margin-bottom: 15px;
+}
+
+/* Animated Counters */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+.stat {
+    text-align: center;
+    padding: 30px;
+    background: var(--light-color);
+    border-radius: 16px;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--border-color);
+    transition: var(--transition);
+}
+.stat:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary-color);
+}
+.stat .count {
+    display: block;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    font-family: var(--font-heading);
+    margin-bottom: 10px;
+}
+
+/* Modern Hover Effects */
+.btn {
+    position: relative;
+    z-index: 1;
+}
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    border-radius: 50px;
+    z-index: -1;
+    transition: opacity 0.4s ease;
+    opacity: 0;
+}
+.btn:hover::before {
+    opacity: 1;
+}
+
+/* Enhanced Service Cards */
+.service-card {
+    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.service-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 25px 50px -12px rgba(37, 99, 235, 0.25);
+    border-color: var(--primary-color);
+}
+.service-icon {
+    transition: transform 0.5s ease;
+}
+.service-card:hover .service-icon {
+    transform: scale(1.1) rotate(5deg);
 }

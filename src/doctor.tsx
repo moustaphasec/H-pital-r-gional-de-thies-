@@ -179,7 +179,16 @@ function DoctorDashboard() {
     }
   };
 
-  if (loading) return <div className="p-8 text-center text-gray-500">Chargement...</div>;
+  if (loading) return (
+    <div className="min-h-screen bg-slate-50 p-10 space-y-6">
+      <div className="h-16 bg-slate-200 animate-pulse rounded-xl w-full max-w-7xl mx-auto"></div>
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="h-32 bg-slate-200 animate-pulse rounded-2xl"></div>
+        <div className="h-32 bg-slate-200 animate-pulse rounded-2xl"></div>
+      </div>
+      <div className="max-w-7xl mx-auto h-96 bg-slate-200 animate-pulse rounded-2xl"></div>
+    </div>
+  );
 
   if (!user) {
     return (

@@ -132,21 +132,21 @@
                         <!-- Étape 3 : Informations Patient -->
                         <div class="form-step" data-step="3">
                             <h3>Vos informations personnelles</h3>
-                            <div class="form-group">
+                            <div class="form-group floating">
+                                <input type="text" id="name" name="name" placeholder=" " required>
                                 <label for="name">Nom complet <span class="required">*</span></label>
-                                <input type="text" id="name" name="name" placeholder="Ex: Amadou Diallo" required>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group floating">
+                                <input type="tel" id="phone" name="phone" placeholder=" " required>
                                 <label for="phone">Téléphone <span class="required">*</span></label>
-                                <input type="tel" id="phone" name="phone" placeholder="Ex: +221 77 123 45 67" required>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group floating">
+                                <input type="email" id="email" name="email" placeholder=" " required>
                                 <label for="email">Email (optionnel)</label>
-                                <input type="email" id="email" name="email" placeholder="Ex: amadou@example.com" required>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group floating">
+                                <textarea id="message" name="message" placeholder=" " rows="4"></textarea>
                                 <label for="message">Informations complémentaires</label>
-                                <textarea id="message" name="message" placeholder="Symptômes, antécédents médicaux pertinents..." rows="4"></textarea>
                             </div>
                             
                             <div class="step-actions">
@@ -241,17 +241,7 @@
         }
     });
 </script>
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js').then(registration => {
-            console.log('SW registered: ', registration);
-          }).catch(registrationError => {
-            console.log('SW registration failed: ', registrationError);
-          });
-        });
-      }
-    </script>
+    
 </body>
 </html>
 
