@@ -3,13 +3,13 @@ import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
+  apiKey: "AIzaSyA_h9BlH7VHA6jYwgDdmSU5A_vUmQKQsj0",
+  authDomain: "hopital-de-thies.firebaseapp.com",
+  projectId: "hopital-de-thies",
+  storageBucket: "hopital-de-thies.firebasestorage.app",
+  messagingSenderId: "930244670612",
+  appId: "1:930244670612:web:39939291b86c085d027081",
+  measurementId: "G-W7YKDCVGRL"
 };
 
 export const app = initializeApp(firebaseConfig);

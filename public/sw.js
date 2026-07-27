@@ -1,4 +1,4 @@
-const CACHE_NAME = 'thies-sante-v1';
+const CACHE_NAME = 'thies-sante-v2';
 const urlsToCache = [
   '/',
   '/index.html',
