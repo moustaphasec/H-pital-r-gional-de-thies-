@@ -1,7 +1,7 @@
-import React, { StrictMode, useEffect, useState } from 'react';
+import React, { StrictMode, useEffect, useState, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 import { signInWithPopup } from 'firebase/auth';
-import { collection, getDocs, doc, updateDoc, query, orderBy, where } from 'firebase/firestore';
+import { collection, onSnapshot, doc, updateDoc, query, orderBy, where } from 'firebase/firestore';
 import { app, auth, db, googleAuthProvider } from './lib/firebase';
 import { User } from 'firebase/auth';
 import { GoogleGenerativeAI } from '@google/generative-ai';
@@ -23,16 +23,61 @@ function DoctorDashboard() {
   const [isAiLoading, setIsAiLoading] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string>('cette-semaine');
 
+  const isInitialLoad = useRef(true);
+  const audioRef = useRef(new Audio('/notification.ogg'));
+
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((u) => {
+    let unsubscribeSnapshot: any;
+    
+    // Reset initial load flag when listener is setup
+    isInitialLoad.current = true;
+    
+    const unsubscribeAuth = auth.onAuthStateChanged((u) => {
       setUser(u);
       setLoading(false);
+      
       if (u) {
-        fetchAppointments(u, mySpecialty);
+        const q = query(collection(db, 'appointments'), where('clinicId', '==', localStorage.getItem('healthsaas_clinic_id') || 'thies'));
+        unsubscribeSnapshot = onSnapshot(q, (snapshot) => {
+          
+          if (!isInitialLoad.current) {
+            const hasNewAdditions = snapshot.docChanges().some(change => {
+                if (change.type === 'added') {
+                   const item = change.doc.data();
+                   if (mySpecialty && item.specialty?.trim().toLowerCase() === mySpecialty.trim().toLowerCase()) {
+                       return true;
+                   }
+                }
+                return false;
+            });
+            if (hasNewAdditions) {
+              audioRef.current.play().catch(e => console.log('Audio play failed', e));
+            }
+          }
+          
+          const allData = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+          allData.sort((a: any, b: any) => {
+            if (!a.createdAt) return 1;
+            if (!b.createdAt) return -1;
+            return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+          });
+          const filteredData = mySpecialty ? allData.filter((item: any) => item.specialty?.trim().toLowerCase() === mySpecialty.trim().toLowerCase()) : allData;
+          setAppointments(filteredData);
+          
+          isInitialLoad.current = false;
+        }, (error) => {
+           console.error('Error listening to appointments:', error);
+        });
+      } else {
+        if (unsubscribeSnapshot) unsubscribeSnapshot();
       }
     });
-    return () => unsubscribe();
-  }, []);
+    
+    return () => {
+      unsubscribeAuth();
+      if (unsubscribeSnapshot) unsubscribeSnapshot();
+    };
+  }, [mySpecialty]);
 
   const login = async () => {
     try {
@@ -72,23 +117,6 @@ function DoctorDashboard() {
       setAiAnalysis("Erreur lors de la connexion à l'IA.");
     }
     setIsAiLoading(false);
-  };
-
-  const fetchAppointments = async (u: User, specialty: string) => {
-    try {
-      const q = query(collection(db, 'appointments'), where('clinicId', '==', localStorage.getItem('healthsaas_clinic_id') || 'thies'));
-      const querySnapshot = await getDocs(q);
-      const allData = querySnapshot.docs.map(d => ({ id: d.id, ...d.data() }));
-      allData.sort((a: any, b: any) => {
-        if (!a.createdAt) return 1;
-        if (!b.createdAt) return -1;
-        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-      });
-      const filteredData = specialty ? allData.filter((item: any) => item.specialty?.trim().toLowerCase() === specialty.trim().toLowerCase()) : allData;
-      setAppointments(filteredData);
-    } catch (error) {
-      console.error('Error fetching appointments:', error);
-    }
   };
 
     const sendEmailConfirmation = (apt: any, manual: boolean = false) => {

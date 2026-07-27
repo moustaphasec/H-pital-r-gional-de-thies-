@@ -1,7 +1,7 @@
-import React, { StrictMode, useEffect, useState } from 'react';
+import React, { StrictMode, useEffect, useState, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 import { signInWithPopup } from 'firebase/auth';
-import { collection, getDocs, doc, updateDoc, query, orderBy, where } from 'firebase/firestore';
+import { collection, onSnapshot, doc, updateDoc, query, orderBy, where } from 'firebase/firestore';
 import { app, auth, db, googleAuthProvider } from './lib/firebase';
 import { User } from 'firebase/auth';
 
@@ -12,16 +12,48 @@ function AdminDashboard() {
   const [editingApt, setEditingApt] = useState<any | null>(null);
   const [editForm, setEditForm] = useState({ date: '', timeSlot: '' });
   const [activeTab, setActiveTab] = useState<string>('cette-semaine');
+  
+  const isInitialLoad = useRef(true);
+  const audioRef = useRef(new Audio('/notification.ogg'));
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((u) => {
+    let unsubscribeSnapshot: any;
+    
+    const unsubscribeAuth = auth.onAuthStateChanged((u) => {
       setUser(u);
       setLoading(false);
+      
       if (u) {
-        fetchAppointments(u);
+        const q = query(collection(db, 'appointments'), where('clinicId', '==', localStorage.getItem('healthsaas_clinic_id') || 'thies'));
+        unsubscribeSnapshot = onSnapshot(q, (snapshot) => {
+          if (!isInitialLoad.current) {
+            const hasNewAdditions = snapshot.docChanges().some(change => change.type === 'added');
+            if (hasNewAdditions) {
+              audioRef.current.play().catch(e => console.log('Audio play failed', e));
+            }
+          }
+          
+          const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          data.sort((a: any, b: any) => {
+            if (!a.createdAt) return 1;
+            if (!b.createdAt) return -1;
+            return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+          });
+          setAppointments(data);
+          
+          isInitialLoad.current = false;
+        }, (error) => {
+           console.error('Error listening to appointments:', error);
+        });
+      } else {
+        if (unsubscribeSnapshot) unsubscribeSnapshot();
       }
     });
-    return () => unsubscribe();
+    
+    return () => {
+      unsubscribeAuth();
+      if (unsubscribeSnapshot) unsubscribeSnapshot();
+    };
   }, []);
 
   const login = async () => {
@@ -34,24 +66,6 @@ function AdminDashboard() {
   };
 
   const logout = () => auth.signOut();
-
-  const fetchAppointments = async (u: User) => {
-    try {
-      
-      const q = query(collection(db, 'appointments'), where('clinicId', '==', localStorage.getItem('healthsaas_clinic_id') || 'thies'));
-      const querySnapshot = await getDocs(q);
-      const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      // Sort by createdAt descending in memory to avoid missing index error
-      data.sort((a: any, b: any) => {
-        if (!a.createdAt) return 1;
-        if (!b.createdAt) return -1;
-        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-      });
-      setAppointments(data);
-    } catch (error) {
-      console.error('Error fetching appointments:', error);
-    }
-  };
 
   const updateStatus = async (id: string, status: string) => {
     if (!user) return;
