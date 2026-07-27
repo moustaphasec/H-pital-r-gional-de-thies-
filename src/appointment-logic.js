@@ -237,15 +237,20 @@ function initAppointment() {
                         "template_onkdmd8",
                         emailParams,
                         "kwKiHmvSH_3P6rgNF"
-                    ).then(
-                        (response) => {
-                            console.log('Email envoyé avec succès !', response.status, response.text);
-                        },
-                        (error) => {
-                            console.error('Échec de l\'envoi de l\'email...', error); alert("Erreur d'envoi d'e-mail (EmailJS): " + JSON.stringify(error));
-                        },
-                    );
-                } else {
+                        ).then(
+                            (response) => {
+                                console.log('Email envoyé avec succès !', response.status, response.text);
+                            },
+                            (error) => {
+                                console.error('Échec de l\'envoi de l\'email...', error);
+                                if (navigator.onLine) {
+                                    alert("Erreur d'envoi d'e-mail (EmailJS): " + JSON.stringify(error));
+                                } else {
+                                    console.log("Hors-ligne : l'email de confirmation n'a pas pu être envoyé, mais le rendez-vous est enregistré.");
+                                }
+                            },
+                        );
+                    } else {
                     // Simulation si les clés ne sont pas encore configurées
                     console.log(`[SIMULATION EMAIL] Email envoyé à ${data.email} avec le code ${trackingCode}`);
                     setTimeout(() => {

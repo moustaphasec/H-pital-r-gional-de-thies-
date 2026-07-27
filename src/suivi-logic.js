@@ -117,12 +117,21 @@ function initSuivi() {
         } catch (error) {
             console.error("Erreur lors de la recherche du code :", error);
             resultDiv.style.display = 'block';
-            resultDiv.innerHTML = `
-                <div style="background: #f8d7da; color: #721c24; padding: 15px; border-radius: 8px; border-left: 4px solid #f5c6cb;">
-                    <i class="fas fa-times-circle" style="margin-right: 10px;"></i>
-                    Une erreur est survenue lors de la communication avec le serveur.
-                </div>
-            `;
+            if (!navigator.onLine) {
+                resultDiv.innerHTML = `
+                    <div style="background: #fff3cd; color: #856404; padding: 15px; border-radius: 8px; border-left: 4px solid #ffeeba;">
+                        <i class="fas fa-wifi" style="margin-right: 10px;"></i>
+                        Vous êtes actuellement hors-ligne. Impossible de vérifier ce code s'il n'est pas enregistré sur cet appareil.
+                    </div>
+                `;
+            } else {
+                resultDiv.innerHTML = `
+                    <div style="background: #f8d7da; color: #721c24; padding: 15px; border-radius: 8px; border-left: 4px solid #f5c6cb;">
+                        <i class="fas fa-times-circle" style="margin-right: 10px;"></i>
+                        Une erreur est survenue lors de la communication avec le serveur.
+                    </div>
+                `;
+            }
         } finally {
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalText;
