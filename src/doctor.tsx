@@ -84,7 +84,7 @@ function DoctorDashboard() {
         if (!b.createdAt) return -1;
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
       });
-      const filteredData = specialty ? allData.filter((item: any) => item.specialty === specialty) : allData;
+      const filteredData = specialty ? allData.filter((item: any) => item.specialty?.trim().toLowerCase() === specialty.trim().toLowerCase()) : allData;
       setAppointments(filteredData);
     } catch (error) {
       console.error('Error fetching appointments:', error);

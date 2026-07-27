@@ -11,6 +11,7 @@ function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [editingApt, setEditingApt] = useState<any | null>(null);
   const [editForm, setEditForm] = useState({ date: '', timeSlot: '' });
+  const [activeTab, setActiveTab] = useState<string>('cette-semaine');
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((u) => {
@@ -107,6 +108,26 @@ function AdminDashboard() {
     );
   }
 
+  const filterAppointmentsByTab = (apts: any[], tab: string) => {
+      const today = new Date();
+      today.setHours(0,0,0,0);
+      const dayOfWeek = today.getDay();
+      const diffToSunday = dayOfWeek === 0 ? 0 : 7 - dayOfWeek;
+      const endOfWeek = new Date(today);
+      endOfWeek.setDate(today.getDate() + diffToSunday);
+      
+      return apts.filter(apt => {
+          if (!apt.date) return false;
+          const d = new Date(apt.date);
+          d.setHours(0,0,0,0);
+          if (tab === 'archives') return d < today;
+          if (tab === 'cette-semaine') return d >= today && d <= endOfWeek;
+          if (tab === 'a-venir') return d > endOfWeek;
+          return true;
+      });
+  };
+
+  const displayedApts = filterAppointmentsByTab(appointments, activeTab);
   const totalApts = appointments.length;
   const pendingApts = appointments.filter(a => a.status === 'En attente').length;
   const confirmedApts = appointments.filter(a => a.status === 'Confirmé').length;
@@ -172,11 +193,32 @@ function AdminDashboard() {
         </div>
 
         <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/50 overflow-hidden">
-          {appointments.length === 0 ? (
+          <div className="border-b border-slate-200 px-6 py-4 flex flex-wrap gap-4 items-center bg-slate-50/50">
+            <button
+              onClick={() => setActiveTab('a-venir')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${activeTab === 'a-venir' ? 'bg-emerald-100 text-emerald-700 shadow-sm' : 'text-slate-600 hover:bg-slate-100'}`}
+            >
+              <i className="fas fa-calendar-plus mr-2"></i> À venir
+            </button>
+            <button
+              onClick={() => setActiveTab('cette-semaine')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${activeTab === 'cette-semaine' ? 'bg-blue-100 text-blue-700 shadow-sm' : 'text-slate-600 hover:bg-slate-100'}`}
+            >
+              <i className="fas fa-calendar-week mr-2"></i> Cette semaine
+            </button>
+            <button
+              onClick={() => setActiveTab('archives')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${activeTab === 'archives' ? 'bg-slate-200 text-slate-700 shadow-sm' : 'text-slate-600 hover:bg-slate-100'}`}
+            >
+              <i className="fas fa-archive mr-2"></i> Archives
+            </button>
+          </div>
+
+          {displayedApts.length === 0 ? (
             <div className="p-16 text-center flex flex-col items-center">
               <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Bureau vide" className="w-56 h-56 object-cover rounded-full mb-6 border-8 border-slate-50 shadow-md opacity-90" />
               <h2 className="text-2xl font-bold text-slate-700 font-['Outfit'] mb-2">Tout est à jour !</h2>
-              <p className="text-slate-500">Aucune demande de rendez-vous n'est à traiter pour le moment.</p>
+              <p className="text-slate-500">Aucune demande dans cette section.</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
@@ -192,7 +234,7 @@ function AdminDashboard() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
-                  {appointments.map((apt) => (
+                  {displayedApts.map((apt) => (
                     <tr key={apt.id} className="hover:bg-slate-50/50 transition-colors">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center gap-3">
