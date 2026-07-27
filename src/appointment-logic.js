@@ -1,7 +1,6 @@
 import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
 import { db } from './lib/firebase';
 import emailjs from '@emailjs/browser';
-emailjs.init({ publicKey: "kwKiHmvSH_3P6rgNF" });
 
 function initAppointment() {
     const form = document.getElementById('appointmentForm');
@@ -233,7 +232,8 @@ function initAppointment() {
                     emailjs.send(
                         "service_hi9vb08",
                         "template_onkdmd8",
-                        emailParams, { publicKey: "kwKiHmvSH_3P6rgNF" }
+                        emailParams,
+                        "kwKiHmvSH_3P6rgNF"
                     ).then(
                         (response) => {
                             console.log('Email envoyé avec succès !', response.status, response.text);

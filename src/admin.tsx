@@ -187,7 +187,7 @@ function AdminDashboard() {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center gap-3">
                           <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-100 to-cyan-100 flex items-center justify-center text-blue-700 font-bold border border-blue-200 shadow-sm">
-                            {apt.name.charAt(0).toUpperCase()}
+                            {(apt.name || '?').charAt(0).toUpperCase()}
                           </div>
                           <div>
                             <div className="text-sm font-medium text-slate-900">{apt.name}</div>
