@@ -222,6 +222,9 @@ function initAppointment() {
                     const emailParams = {
                         to_name: data.name,
                         to_email: data.email,
+                        email: data.email,
+                        recipient: data.email,
+                        patient_email: data.email,
                         specialty: data.specialty,
                         date: data.date,
                         time: data.timeSlot,

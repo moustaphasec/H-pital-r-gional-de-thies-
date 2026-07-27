@@ -103,9 +103,13 @@ function DoctorDashboard() {
       {
         to_name: apt.name,
         to_email: apt.email,
-        specialty: apt.specialty,
+        email: apt.email,
+        recipient: apt.email,
+        patient_email: apt.email,
         date: apt.date,
-        time: apt.timeSlot || 'non spécifiée',
+        time: apt.timeSlot,
+        message: apt.message,
+        specialty: apt.specialty,
         tracking_code: apt.trackingCode || apt.id,
         status: apt.status === 'En attente' ? 'Confirmé' : apt.status,
         reply_to: "contact@hopital-regional-thies.sn"
