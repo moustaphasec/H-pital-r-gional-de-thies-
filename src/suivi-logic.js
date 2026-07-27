@@ -1,4 +1,4 @@
-import { collection, query, where, getDocs, updateDoc, doc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from './lib/firebase';
 
 function initSuivi() {
@@ -22,10 +22,10 @@ function initSuivi() {
         resultDiv.style.display = 'none';
 
         try {
-            const q = query(collection(db, 'appointments'), where('trackingCode', '==', code));
-            const querySnapshot = await getDocs(q);
+            const docRef = doc(db, 'appointments', code);
+            const docSnap = await getDoc(docRef);
             
-            if (querySnapshot.empty) {
+            if (!docSnap.exists()) {
                 resultDiv.style.display = 'block';
                 resultDiv.innerHTML = `
                     <div style="background: #fff3cd; color: #856404; padding: 15px; border-radius: 8px; border-left: 4px solid #ffeeba;">
@@ -35,8 +35,8 @@ function initSuivi() {
                 `;
 
             } else {
-                const aptData = querySnapshot.docs[0].data();
-                const docId = querySnapshot.docs[0].id;
+                const aptData = docSnap.data();
+                const docId = docSnap.id;
                 
                 let statusColor = '#17a2b8';
                 let statusIcon = 'fa-clock';

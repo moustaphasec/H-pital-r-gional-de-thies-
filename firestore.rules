@@ -1,0 +1,19 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /appointments/{appointmentId} {
+      // Un patient peut créer un rendez-vous (création anonyme avec ID généré côté client)
+      allow create: if true;
+      
+      // Un patient peut lire SON rendez-vous uniquement s'il connaît l'ID exact (qui correspond au code de suivi)
+      allow get: if true;
+      
+      // Un patient peut annuler SON rendez-vous s'il connaît l'ID exact
+      allow update: if request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']) 
+                    && request.resource.data.status == 'Annulé';
+      
+      // Seuls les médecins/administrateurs connectés peuvent lister, modifier ou supprimer les rendez-vous
+      allow list, update, delete: if request.auth != null;
+    }
+  }
+}

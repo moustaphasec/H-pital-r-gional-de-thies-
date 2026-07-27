@@ -1,4 +1,4 @@
-import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
+import { collection, setDoc, doc, addDoc, query, where, getDocs } from 'firebase/firestore';
 import { db } from './lib/firebase';
 import emailjs from '@emailjs/browser';
 
@@ -212,7 +212,7 @@ function initAppointment() {
             data.clinicId = localStorage.getItem('healthsaas_clinic_id') || 'thies';
             
             // Sauvegarde dans Firebase (Optimistic update pour éviter le blocage)
-            addDoc(collection(db, 'appointments'), data).catch(err => {
+            setDoc(doc(db, 'appointments', trackingCode), data).catch(err => {
                 console.error("Erreur de synchronisation Firebase:", err);
             });
             
