@@ -3,7 +3,7 @@ import { db } from './lib/firebase';
 import emailjs from '@emailjs/browser';
 emailjs.init({ publicKey: "kwKiHmvSH_3P6rgNF" });
 
-document.addEventListener('DOMContentLoaded', () => {
+function initAppointment() {
     const form = document.getElementById('appointmentForm');
     if (!form) return;
 
@@ -272,4 +272,10 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.innerHTML = originalText;
         }
     });
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAppointment);
+} else {
+    initAppointment();
+}

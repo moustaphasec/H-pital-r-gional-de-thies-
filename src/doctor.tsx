@@ -77,9 +77,14 @@ function DoctorDashboard() {
 
   const fetchAppointments = async (u: User, specialty: string) => {
     try {
-      const q = query(collection(db, 'appointments'), where('clinicId', '==', localStorage.getItem('healthsaas_clinic_id') || 'thies'), orderBy('createdAt', 'desc'));
+      const q = query(collection(db, 'appointments'), where('clinicId', '==', localStorage.getItem('healthsaas_clinic_id') || 'thies'));
       const querySnapshot = await getDocs(q);
       const allData = querySnapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+      allData.sort((a: any, b: any) => {
+        if (!a.createdAt) return 1;
+        if (!b.createdAt) return -1;
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      });
       const filteredData = specialty ? allData.filter((item: any) => item.specialty === specialty) : allData;
       setAppointments(filteredData);
     } catch (error) {

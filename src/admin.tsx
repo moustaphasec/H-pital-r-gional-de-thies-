@@ -37,9 +37,15 @@ function AdminDashboard() {
   const fetchAppointments = async (u: User) => {
     try {
       
-      const q = query(collection(db, 'appointments'), where('clinicId', '==', localStorage.getItem('healthsaas_clinic_id') || 'thies'), orderBy('createdAt', 'desc'));
+      const q = query(collection(db, 'appointments'), where('clinicId', '==', localStorage.getItem('healthsaas_clinic_id') || 'thies'));
       const querySnapshot = await getDocs(q);
       const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      // Sort by createdAt descending in memory to avoid missing index error
+      data.sort((a: any, b: any) => {
+        if (!a.createdAt) return 1;
+        if (!b.createdAt) return -1;
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      });
       setAppointments(data);
     } catch (error) {
       console.error('Error fetching appointments:', error);

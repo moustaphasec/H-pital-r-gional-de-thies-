@@ -1,7 +1,7 @@
 import { collection, query, where, getDocs, updateDoc, doc } from 'firebase/firestore';
 import { db } from './lib/firebase';
 
-document.addEventListener('DOMContentLoaded', () => {
+function initSuivi() {
     const form = document.getElementById('trackingForm');
     const resultDiv = document.getElementById('trackingResult');
 
@@ -129,4 +129,10 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.innerHTML = originalText;
         }
     });
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSuivi);
+} else {
+    initSuivi();
+}
