@@ -2,7 +2,7 @@ import React, { StrictMode, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { signInWithPopup } from 'firebase/auth';
 import { collection, getDocs, doc, updateDoc, query, orderBy, where } from 'firebase/firestore';
-import { auth, db, googleAuthProvider } from './lib/firebase';
+import { app, auth, db, googleAuthProvider } from './lib/firebase';
 import { User } from 'firebase/auth';
 
 function AdminDashboard() {
@@ -11,8 +11,6 @@ function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [editingApt, setEditingApt] = useState<any | null>(null);
   const [editForm, setEditForm] = useState({ date: '', timeSlot: '' });
-  const [activeTab, setActiveTab] = useState<string>('tous');
-  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((u) => {
@@ -38,9 +36,10 @@ function AdminDashboard() {
 
   const fetchAppointments = async (u: User) => {
     try {
+      
       const q = query(collection(db, 'appointments'), where('clinicId', '==', localStorage.getItem('healthsaas_clinic_id') || 'thies'), orderBy('createdAt', 'desc'));
       const querySnapshot = await getDocs(q);
-      const data = querySnapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+      const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setAppointments(data);
     } catch (error) {
       console.error('Error fetching appointments:', error);
@@ -50,8 +49,10 @@ function AdminDashboard() {
   const updateStatus = async (id: string, status: string) => {
     if (!user) return;
     try {
+      
       const appointmentRef = doc(db, 'appointments', id);
       await updateDoc(appointmentRef, { status });
+      
       setAppointments(prev => prev.map(a => a.id === id ? { ...a, status } : a));
     } catch (error) {
       console.error('Error updating status:', error);
@@ -70,87 +71,6 @@ function AdminDashboard() {
       alert("Une erreur s'est produite lors de la sauvegarde.");
     }
   };
-
-  // --- Filtrage par onglets ---
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  const getStartOfWeek = () => {
-    const d = new Date(today);
-    const day = d.getDay();
-    const diff = d.getDate() - day + (day === 0 ? -6 : 1);
-    d.setDate(diff);
-    return d;
-  };
-
-  const getEndOfWeek = () => {
-    const start = getStartOfWeek();
-    const end = new Date(start);
-    end.setDate(end.getDate() + 6);
-    return end;
-  };
-
-  const filterByTab = (list: any[]) => {
-    let filtered = list;
-
-    switch (activeTab) {
-      case 'aujourd-hui': {
-        const todayStr = today.toISOString().split('T')[0];
-        filtered = list.filter(a => a.date === todayStr);
-        break;
-      }
-      case 'cette-semaine': {
-        const startWeek = getStartOfWeek();
-        const endWeek = getEndOfWeek();
-        filtered = list.filter(a => {
-          const d = new Date(a.date);
-          return d >= startWeek && d <= endWeek;
-        });
-        break;
-      }
-      case 'a-venir': {
-        filtered = list.filter(a => {
-          const d = new Date(a.date);
-          return d >= today && (a.status === 'En attente' || a.status === 'Confirmé');
-        });
-        break;
-      }
-      case 'passes': {
-        filtered = list.filter(a => {
-          const d = new Date(a.date);
-          return d < today;
-        });
-        break;
-      }
-      case 'en-attente':
-        filtered = list.filter(a => a.status === 'En attente');
-        break;
-      case 'confirmes':
-        filtered = list.filter(a => a.status === 'Confirmé');
-        break;
-      case 'annules':
-        filtered = list.filter(a => a.status === 'Annulé');
-        break;
-      default:
-        break;
-    }
-
-    // Filtre de recherche textuelle
-    if (searchTerm.trim()) {
-      const term = searchTerm.toLowerCase();
-      filtered = filtered.filter(a =>
-        (a.name && a.name.toLowerCase().includes(term)) ||
-        (a.phone && a.phone.includes(term)) ||
-        (a.email && a.email.toLowerCase().includes(term)) ||
-        (a.specialty && a.specialty.toLowerCase().includes(term)) ||
-        (a.trackingCode && a.trackingCode.toLowerCase().includes(term))
-      );
-    }
-
-    return filtered;
-  };
-
-  const filteredAppointments = filterByTab(appointments);
 
   if (loading) return <div className="p-8 text-center text-gray-500">Chargement...</div>;
 
@@ -174,24 +94,12 @@ function AdminDashboard() {
   const totalApts = appointments.length;
   const pendingApts = appointments.filter(a => a.status === 'En attente').length;
   const confirmedApts = appointments.filter(a => a.status === 'Confirmé').length;
-  const cancelledApts = appointments.filter(a => a.status === 'Annulé').length;
-
-  const tabs = [
-    { id: 'tous', label: 'Tous', icon: 'fa-list', count: totalApts },
-    { id: 'aujourd-hui', label: "Aujourd'hui", icon: 'fa-calendar-day', count: null },
-    { id: 'cette-semaine', label: 'Cette semaine', icon: 'fa-calendar-week', count: null },
-    { id: 'a-venir', label: 'À venir', icon: 'fa-arrow-right', count: null },
-    { id: 'passes', label: 'Passés', icon: 'fa-history', count: null },
-    { id: 'en-attente', label: 'En attente', icon: 'fa-hourglass-half', count: pendingApts },
-    { id: 'confirmes', label: 'Confirmés', icon: 'fa-check-circle', count: confirmedApts },
-    { id: 'annules', label: 'Annulés', icon: 'fa-times-circle', count: cancelledApts },
-  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 font-sans text-slate-800 pb-12">
       <header className="bg-white/60 backdrop-blur-lg shadow-sm border-b border-white/50 sticky top-0 z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-slate-800 font-['Outfit']">Tableau de Bord Administrateur</h1>
+          <h1 className="text-2xl font-bold text-slate-800 font-['Outfit']">Tableau de Bord</h1>
           <div className="flex items-center gap-4">
             <span className="text-sm font-medium text-slate-600 bg-white/80 px-4 py-2 rounded-full shadow-sm">{user.email}</span>
             <button 
@@ -206,7 +114,7 @@ function AdminDashboard() {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
         
-        {/* Hero Header */}
+        {/* Hero Header Illustré */}
         <div className="relative bg-gradient-to-r from-blue-600 to-cyan-500 rounded-3xl shadow-xl overflow-hidden p-8 flex items-center justify-between text-white border border-white/20">
           <div className="z-10 max-w-lg">
             <h2 className="text-3xl font-bold font-['Outfit'] mb-2">Bienvenue sur votre espace !</h2>
@@ -217,13 +125,13 @@ function AdminDashboard() {
         </div>
 
         {/* Cartes de Statistiques */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-white/80 backdrop-blur-lg rounded-2xl p-6 shadow-lg border border-white/50 flex items-center gap-4 transition-transform hover:-translate-y-1">
             <div className="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 text-2xl shadow-inner">
               <i className="fas fa-folder-open"></i>
             </div>
             <div>
-              <p className="text-sm text-slate-500 font-medium">Total</p>
+              <p className="text-sm text-slate-500 font-medium">Total des demandes</p>
               <p className="text-3xl font-bold text-slate-800">{totalApts}</p>
             </div>
           </div>
@@ -245,63 +153,14 @@ function AdminDashboard() {
               <p className="text-3xl font-bold text-slate-800">{confirmedApts}</p>
             </div>
           </div>
-          <div className="bg-white/80 backdrop-blur-lg rounded-2xl p-6 shadow-lg border border-white/50 flex items-center gap-4 transition-transform hover:-translate-y-1">
-            <div className="w-14 h-14 rounded-full bg-rose-100 flex items-center justify-center text-rose-500 text-2xl shadow-inner">
-              <i className="fas fa-times-circle"></i>
-            </div>
-            <div>
-              <p className="text-sm text-slate-500 font-medium">Annulés</p>
-              <p className="text-3xl font-bold text-slate-800">{cancelledApts}</p>
-            </div>
-          </div>
         </div>
 
-        {/* Barre de recherche + Onglets */}
         <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/50 overflow-hidden">
-          
-          {/* Barre de recherche */}
-          <div className="p-4 border-b border-slate-100">
-            <div className="relative">
-              <i className="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
-              <input 
-                type="text"
-                placeholder="Rechercher un patient, téléphone, spécialité ou code de suivi..."
-                value={searchTerm}
-                onChange={e => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent text-sm"
-              />
-            </div>
-          </div>
-
-          {/* Onglets de filtrage */}
-          <div className="flex flex-wrap gap-1 px-4 py-3 border-b border-slate-100 bg-slate-50/50">
-            {tabs.map(tab => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${
-                  activeTab === tab.id
-                    ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-md'
-                    : 'text-slate-600 hover:bg-slate-100'
-                }`}
-              >
-                <i className={`fas ${tab.icon}`}></i>
-                {tab.label}
-                {tab.count !== null && (
-                  <span className={`ml-1 px-2 py-0.5 rounded-full text-xs font-bold ${
-                    activeTab === tab.id ? 'bg-white/30 text-white' : 'bg-slate-200 text-slate-600'
-                  }`}>{tab.count}</span>
-                )}
-              </button>
-            ))}
-          </div>
-
-          {/* Tableau */}
-          {filteredAppointments.length === 0 ? (
+          {appointments.length === 0 ? (
             <div className="p-16 text-center flex flex-col items-center">
-              <i className="fas fa-inbox text-6xl text-slate-200 mb-4"></i>
-              <h2 className="text-2xl font-bold text-slate-700 font-['Outfit'] mb-2">Aucun résultat</h2>
-              <p className="text-slate-500">Aucun rendez-vous ne correspond à ce filtre.</p>
+              <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Bureau vide" className="w-56 h-56 object-cover rounded-full mb-6 border-8 border-slate-50 shadow-md opacity-90" />
+              <h2 className="text-2xl font-bold text-slate-700 font-['Outfit'] mb-2">Tout est à jour !</h2>
+              <p className="text-slate-500">Aucune demande de rendez-vous n'est à traiter pour le moment.</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
@@ -311,37 +170,33 @@ function AdminDashboard() {
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Patient</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date & Spécialité</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Code suivi</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Message</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
-                  {filteredAppointments.map((apt) => (
+                  {appointments.map((apt) => (
                     <tr key={apt.id} className="hover:bg-slate-50/50 transition-colors">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center gap-3">
                           <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-100 to-cyan-100 flex items-center justify-center text-blue-700 font-bold border border-blue-200 shadow-sm">
-                            {(apt.name || '?').charAt(0).toUpperCase()}
+                            {apt.name.charAt(0).toUpperCase()}
                           </div>
                           <div>
-                            <div className="text-sm font-medium text-slate-900">{apt.name || 'Inconnu'}</div>
+                            <div className="text-sm font-medium text-slate-900">{apt.name}</div>
                             <div className="text-sm text-slate-500">{apt.createdAt ? new Date(apt.createdAt).toLocaleDateString() : '-'}</div>
                           </div>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">{apt.phone || '-'}</div>
-                        <div className="text-sm text-gray-500">{apt.email || '-'}</div>
+                        <div className="text-sm text-gray-900">{apt.phone}</div>
+                        <div className="text-sm text-gray-500">{apt.email}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900 font-medium">{apt.date || '-'}</div>
+                        <div className="text-sm text-gray-900 font-medium">{apt.date}</div>
                         <div className="text-sm text-gray-500">{apt.timeSlot ? `Heure: ${apt.timeSlot}` : ''}</div>
-                        <div className="text-sm text-gray-500">{apt.specialty || '-'}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="text-sm font-mono bg-slate-100 px-2 py-1 rounded text-slate-700">{apt.trackingCode || '-'}</span>
+                        <div className="text-sm text-gray-500">{apt.specialty}</div>
                       </td>
                       <td className="px-6 py-4">
                         <div className="text-sm text-gray-900 max-w-xs truncate" title={apt.message}>
@@ -352,7 +207,6 @@ function AdminDashboard() {
                         <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
                           ${apt.status === 'Confirmé' ? 'bg-green-100 text-green-800' : 
                             apt.status === 'Annulé' ? 'bg-red-100 text-red-800' : 
-                            apt.status === 'Terminé' ? 'bg-gray-100 text-gray-800' :
                             'bg-yellow-100 text-yellow-800'}`}>
                           {apt.status}
                         </span>
@@ -373,14 +227,6 @@ function AdminDashboard() {
                               Annuler
                             </button>
                           </div>
-                        )}
-                        {apt.status === 'Confirmé' && (
-                          <button 
-                            onClick={() => updateStatus(apt.id, 'Terminé')}
-                            className="text-green-600 hover:text-green-900"
-                          >
-                            Terminer
-                          </button>
                         )}
                         <div className="mt-2 flex gap-3">
                           <button 

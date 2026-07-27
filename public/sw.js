@@ -1,51 +1,29 @@
-const CACHE_NAME = 'thies-sante-v3';
-const STATIC_URLS = [
+const CACHE_NAME = 'thies-sante-v1';
+const urlsToCache = [
   '/',
   '/index.html',
   '/styles.css',
   '/script.js',
+  '/icon-192x192.png',
+  '/icon-512x512.png',
   '/manifest.json'
 ];
 
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(STATIC_URLS))
-      .then(() => self.skipWaiting())
-  );
-});
-
-self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.filter(name => name !== CACHE_NAME).map(name => caches.delete(name))
-      );
-    }).then(() => self.clients.claim())
+      .then(cache => {
+        return cache.addAll(urlsToCache);
+      })
   );
 });
 
 self.addEventListener('fetch', event => {
-  const url = new URL(event.request.url);
-
-  // Skip non-GET, cross-origin API calls
-  if (event.request.method !== 'GET' || !url.protocol.startsWith('http') || url.hostname.includes('firestore') || url.hostname.includes('googleapis') || url.hostname.includes('google')) {
-    return;
-  }
-
   event.respondWith(
-    fetch(event.request).then(networkResponse => {
-      // Cache successful responses
-      if (networkResponse && networkResponse.status === 200) {
-        const responseToCache = networkResponse.clone();
-        caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, responseToCache);
-        });
-      }
-      return networkResponse;
-    }).catch(() => {
-      // Fallback to cache if offline
-      return caches.match(event.request);
-    })
+    caches.match(event.request)
+      .then(response => {
+        // Retourne la version en cache si elle existe, sinon fait la requête réseau
+        return response || fetch(event.request);
+      })
   );
 });

@@ -15,10 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (!code) return;
 
-        if (!navigator.onLine) {
-            alert('Vous êtes actuellement hors ligne. La recherche utilisera les données en cache disponibles.');
-        }
-
         const submitBtn = form.querySelector('.btn-submit');
         const originalText = submitBtn.innerHTML;
         submitBtn.disabled = true;
@@ -26,15 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
         resultDiv.style.display = 'none';
 
         try {
-            const q = query(
-                collection(db, 'appointments'), 
-                where('trackingCode', '==', code),
-                where('clinicId', '==', localStorage.getItem('healthsaas_clinic_id') || 'thies')
-            );
+            const q = query(collection(db, 'appointments'), where('trackingCode', '==', code),
+                where('clinicId', '==', localStorage.getItem('healthsaas_clinic_id') || 'thies'));
             const querySnapshot = await getDocs(q);
             
             if (querySnapshot.empty) {
-                // === CODE NON TROUVÉ ===
                 resultDiv.style.display = 'block';
                 resultDiv.innerHTML = `
                     <div style="background: #fff3cd; color: #856404; padding: 15px; border-radius: 8px; border-left: 4px solid #ffeeba;">
@@ -42,13 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         Aucun rendez-vous trouvé pour le code <strong>${code}</strong>. Veuillez vérifier votre saisie.
                     </div>
                 `;
+
             } else {
-                // === RENDEZ-VOUS TROUVÉ ===
-                const aptDoc = querySnapshot.docs[0];
-                const aptData = aptDoc.data();
-                const aptId = aptDoc.id;
+                const aptData = querySnapshot.docs[0].data();
+                const docId = querySnapshot.docs[0].id;
                 
-                let statusColor = '#17a2b8'; // En attente
+                let statusColor = '#17a2b8';
                 let statusIcon = 'fa-clock';
                 
                 if (aptData.status === 'Confirmé') {
@@ -57,9 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (aptData.status === 'Annulé') {
                     statusColor = '#dc3545';
                     statusIcon = 'fa-times-circle';
-                } else if (aptData.status === 'Terminé') {
-                    statusColor = '#6c757d';
-                    statusIcon = 'fa-check-double';
                 }
 
                 const canCancel = aptData.status !== 'Annulé' && aptData.status !== 'Terminé';
@@ -71,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.03); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
                         <span style="font-weight: 500;">Statut :</span>
                         <span style="background: ${statusColor}; color: white; padding: 5px 12px; border-radius: 20px; font-weight: 600; font-size: 0.9rem;">
-                            <i class="fas ${statusIcon}"></i> ${aptData.status}
+                            <i class="fas ${statusIcon}"></i> ${aptData.status || 'En attente'}
                         </span>
                     </div>
                     
@@ -95,22 +83,19 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </div>
                     ${canCancel ? `
-                    <div style="margin-top: 15px; text-align: center;">
-                        <button id="cancelRdvBtn" data-id="${aptId}" style="background-color: #dc3545; color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; font-size: 1rem; transition: background-color 0.3s;">
+                    <div style="margin-top: 20px; text-align: center;">
+                        <button id="cancelRdvBtn" data-id="${docId}" style="background-color: #dc3545; color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; font-size: 1rem; transition: all 0.3s ease;">
                             <i class="fas fa-times-circle"></i> Annuler mon rendez-vous
                         </button>
                     </div>` : ''}
                 `;
 
-                // Attacher l'événement d'annulation
+                // Add event listener for cancel button
                 setTimeout(() => {
                     const cancelBtn = document.getElementById('cancelRdvBtn');
                     if (cancelBtn) {
                         cancelBtn.addEventListener('click', async () => {
-                            if (confirm('Êtes-vous sûr de vouloir annuler ce rendez-vous ?')) {
-                                if (!navigator.onLine) {
-                                    alert('Mode Hors Ligne : L\'annulation sera appliquée dès votre reconnexion à internet.');
-                                }
+                            if (confirm('Êtes-vous sûr de vouloir annuler ce rendez-vous ? Cette action est irréversible.')) {
                                 cancelBtn.disabled = true;
                                 cancelBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Annulation en cours...';
                                 try {
@@ -121,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     form.dispatchEvent(new Event('submit'));
                                 } catch (error) {
                                     console.error('Error cancelling:', error);
-                                    alert('Une erreur est survenue lors de l\'annulation.');
+                                    alert("Une erreur est survenue lors de l'annulation.");
                                     cancelBtn.disabled = false;
                                     cancelBtn.innerHTML = '<i class="fas fa-times-circle"></i> Annuler mon rendez-vous';
                                 }
