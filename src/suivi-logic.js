@@ -22,8 +22,7 @@ function initSuivi() {
         resultDiv.style.display = 'none';
 
         try {
-            const q = query(collection(db, 'appointments'), where('trackingCode', '==', code),
-                where('clinicId', '==', localStorage.getItem('healthsaas_clinic_id') || 'thies'));
+            const q = query(collection(db, 'appointments'), where('trackingCode', '==', code));
             const querySnapshot = await getDocs(q);
             
             if (querySnapshot.empty) {
