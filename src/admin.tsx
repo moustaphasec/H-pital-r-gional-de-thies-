@@ -113,10 +113,13 @@ function AdminDashboard() {
           <p className="text-slate-600 mb-8">Connectez-vous pour gérer les demandes de rendez-vous de l'hôpital.</p>
           <button 
             onClick={login}
-            className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-medium py-3 px-4 rounded-xl transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-medium py-3 px-4 rounded-xl transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 mb-4"
           >
             Se connecter avec Google
           </button>
+          <a href="index.html" className="inline-block text-sm text-slate-500 hover:text-blue-600 font-medium transition-colors">
+            <i className="fas fa-arrow-left mr-1"></i> Retour au site public
+          </a>
         </div>
       </div>
     );
@@ -150,7 +153,12 @@ function AdminDashboard() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 font-sans text-slate-800 pb-12">
       <header className="bg-white/60 backdrop-blur-lg shadow-sm border-b border-white/50 sticky top-0 z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-slate-800 font-['Outfit']">Tableau de Bord</h1>
+          <div className="flex items-center gap-4">
+            <a href="index.html" className="text-sm font-medium text-blue-600 hover:text-blue-800 flex items-center gap-1 transition-colors">
+              <i className="fas fa-arrow-left"></i> Retour au site
+            </a>
+            <h1 className="text-2xl font-bold text-slate-800 font-['Outfit']">Tableau de Bord Administration</h1>
+          </div>
           <div className="flex items-center gap-4">
             <span className="text-sm font-medium text-slate-600 bg-white/80 px-4 py-2 rounded-full shadow-sm">{user.email}</span>
             <button 

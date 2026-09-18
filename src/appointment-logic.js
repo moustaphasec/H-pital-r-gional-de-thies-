@@ -182,12 +182,12 @@ function initAppointment() {
         e.preventDefault();
         
         // Vérification finale des champs requis
-        const name = document.getElementById('name').value;
-        const phone = document.getElementById('phone').value;
-        const email = document.getElementById('email').value;
+        const name = document.getElementById('name').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const email = document.getElementById('email').value.trim();
         
-        if (!name || !phone || !email || !specialtyInput.value || !dateInput.value || !timeSlotInput.value) {
-            alert('Veuillez remplir tous les champs obligatoires (incluant l\'adresse e-mail).');
+        if (!name || !phone || !specialtyInput.value || !dateInput.value || !timeSlotInput.value) {
+            alert('Veuillez remplir tous les champs obligatoires (nom, téléphone, spécialité, date et heure).');
             return;
         }
 
@@ -216,8 +216,8 @@ function initAppointment() {
                 console.error("Erreur de synchronisation Firebase:", err);
             });
             
-            // Envoyer un email via EmailJS (si l'email est fourni)
-            if (data.email) {
+            // Envoyer un email via EmailJS (uniquement si l'email est fourni)
+            if (data.email && data.email.trim() !== '') {
                 if ("service_hi9vb08") {
                     const emailParams = {
                         to_name: data.name,

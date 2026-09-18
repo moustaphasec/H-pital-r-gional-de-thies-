@@ -21,3 +21,5 @@ const config = {
     { id: "travail", name: "Médecine du travail", icon: "briefcase-medical" }
   ]
 };
+if (typeof window !== "undefined") { window.config = config; }
+export default config;

@@ -254,7 +254,6 @@ function DoctorDashboard() {
                 onClick={() => {
                   setMySpecialty(spec);
                   setHasSelectedSpecialty(true);
-                  fetchAppointments(user, spec);
                 }}
                 className="p-4 rounded-xl border-2 border-slate-200 hover:border-emerald-400 hover:bg-emerald-50 transition-all text-slate-700 font-medium text-sm hover:shadow-md"
               >
@@ -262,12 +261,20 @@ function DoctorDashboard() {
               </button>
             ))}
           </div>
-          <button
-            onClick={logout}
-            className="mt-6 text-sm text-rose-500 hover:text-rose-700 font-medium transition-colors"
-          >
-            Déconnexion
-          </button>
+          <div className="flex items-center justify-center gap-6 mt-6">
+            <a 
+              href="index.html" 
+              className="text-sm text-slate-500 hover:text-blue-600 font-medium transition-colors"
+            >
+              <i className="fas fa-arrow-left mr-1"></i> Retour au site
+            </a>
+            <button
+              onClick={logout}
+              className="text-sm text-rose-500 hover:text-rose-700 font-medium transition-colors"
+            >
+              Déconnexion
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -301,13 +308,24 @@ function DoctorDashboard() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 font-sans text-slate-800 pb-12">
       <header className="bg-white/60 backdrop-blur-lg shadow-sm border-b border-white/50 sticky top-0 z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-slate-800 font-['Outfit']">Tableau de Bord</h1>
           <div className="flex items-center gap-4">
-            <div className="text-sm bg-white/80 border border-slate-200 rounded-full px-4 py-2 shadow-sm text-slate-700 font-medium">Dr. | {mySpecialty}</div>
-            
+            <a href="index.html" className="text-sm font-medium text-blue-600 hover:text-blue-800 flex items-center gap-1 transition-colors">
+              <i className="fas fa-arrow-left"></i> Retour au site
+            </a>
+            <h1 className="text-2xl font-bold text-slate-800 font-['Outfit']">Tableau de Bord Médecin</h1>
+          </div>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setHasSelectedSpecialty(false)}
+              className="text-xs bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-semibold px-3 py-1.5 rounded-full border border-emerald-300 transition-colors flex items-center gap-1.5 shadow-sm"
+              title="Cliquer pour changer de spécialité"
+            >
+              <i className="fas fa-stethoscope text-emerald-600"></i> {mySpecialty} <span className="text-emerald-500 font-normal">(Changer)</span>
+            </button>
+            <span className="text-xs text-slate-600 bg-white/80 px-3 py-1.5 rounded-full shadow-sm hidden md:inline border border-slate-200">{user.email}</span>
             <button 
               onClick={logout}
-              className="text-sm text-rose-500 hover:text-rose-700 font-medium transition-colors"
+              className="text-sm text-rose-500 hover:text-rose-700 font-medium transition-colors ml-2"
             >
               Déconnexion
             </button>
@@ -409,8 +427,20 @@ function DoctorDashboard() {
                             {(apt.name || '?').charAt(0).toUpperCase()}
                           </div>
                           <div>
-                            <div className="text-sm font-medium text-slate-900">{apt.name}</div>
-                            <div className="text-sm text-slate-500">{apt.createdAt ? new Date(apt.createdAt).toLocaleDateString() : '-'}</div>
+                            <div className="text-sm font-semibold text-slate-900">{apt.name}</div>
+                            <div className="text-xs text-slate-600 flex items-center gap-1.5 mt-0.5">
+                              <i className="fas fa-phone text-emerald-600"></i>
+                              <a href={`tel:${apt.phone}`} className="hover:underline font-medium">{apt.phone || 'Non renseigné'}</a>
+                            </div>
+                            {apt.email && (
+                              <div className="text-xs text-slate-500 flex items-center gap-1.5 mt-0.5">
+                                <i className="fas fa-envelope text-blue-500"></i>
+                                <span>{apt.email}</span>
+                              </div>
+                            )}
+                            <div className="text-xs text-slate-400 mt-1">
+                              {apt.createdAt ? new Date(apt.createdAt).toLocaleDateString() : '-'}
+                            </div>
                           </div>
                         </div>
                       </td>
@@ -434,35 +464,42 @@ function DoctorDashboard() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         {apt.status === 'En attente' && (
-                          <div className="flex gap-2">
+                          <div className="flex gap-2 mb-2">
                             <button 
                               onClick={() => updateStatus(apt.id, 'Confirmé')}
-                              className="text-indigo-600 hover:text-indigo-900"
+                              className="text-emerald-700 bg-emerald-100 hover:bg-emerald-200 px-3 py-1 rounded-md text-xs font-semibold transition-colors"
                             >
-                              Confirmer
+                              <i className="fas fa-check mr-1"></i> Confirmer
                             </button>
                             <button 
                               onClick={() => updateStatus(apt.id, 'Annulé')}
-                              className="text-red-600 hover:text-red-900"
+                              className="text-rose-700 bg-rose-100 hover:bg-rose-200 px-3 py-1 rounded-md text-xs font-semibold transition-colors"
                             >
-                              Annuler
+                              <i className="fas fa-times mr-1"></i> Annuler
                             </button>
                           </div>
                         )}
-                        <div className="mt-2 flex gap-3">
+                        <div className="flex items-center flex-wrap gap-2">
+                          <button 
+                            onClick={() => runAiAnalysis(apt)}
+                            className="bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 px-2.5 py-1 rounded-lg text-xs font-bold transition-colors flex items-center gap-1 shadow-sm"
+                            title="Analyser les symptômes avec Gemini IA"
+                          >
+                            <i className="fas fa-brain text-purple-600"></i> IA Copilot
+                          </button>
                           <button 
                             onClick={() => { setEditingApt(apt); setEditForm({ date: apt.date, timeSlot: apt.timeSlot || '' }); }}
-                            className="text-emerald-600 hover:text-blue-900 font-bold"
+                            className="text-blue-600 hover:text-blue-800 font-bold text-xs bg-blue-50 hover:bg-blue-100 border border-blue-200 px-2 py-1 rounded-lg"
                           >
                             Éditer <i className="fas fa-edit"></i>
                           </button>
                           {apt.status === 'Confirmé' && apt.email && (
                             <button 
                               onClick={() => sendEmailConfirmation(apt, true)}
-                              className="text-blue-600 hover:text-blue-900 font-bold ml-2"
+                              className="text-emerald-600 hover:text-emerald-800 font-bold text-xs bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2 py-1 rounded-lg"
                               title="Renvoyer l'e-mail de confirmation"
                             >
-                              Renvoyer E-mail <i className="fas fa-envelope"></i>
+                              Email <i className="fas fa-paper-plane"></i>
                             </button>
                           )}
                           {apt.status !== 'En attente' && (

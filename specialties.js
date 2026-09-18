@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const specialtiesContainer = document.getElementById('specialties-grid');
     
     if (specialtiesContainer) {
-        config.specialties.forEach(specialty => {
+        (typeof config !== "undefined" ? config : (window.config || {specialties:[]})).specialties.forEach(specialty => {
             const card = document.createElement('div');
             card.classList.add('service-card');
             

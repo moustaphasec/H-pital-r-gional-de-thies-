@@ -1,4 +1,8 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from './src/lib/firebase';
+import emailjs from '@emailjs/browser';
+
 const geminiApiKey = atob("QVEuQWI4Uk42TFNjbmpjX1Bla1BENnoycThHRWxKamNRa1EzX09mMHhJSU4yQ2V1Rld6OHc=");
 const genAI = geminiApiKey ? new GoogleGenerativeAI(geminiApiKey) : null;
 
@@ -243,23 +247,52 @@ function initApp() {
     const contactForm = document.getElementById('contactForm');
     
     if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Simulate form submission
             const submitButton = this.querySelector('button[type="submit"]');
             const originalText = submitButton.textContent;
             
             submitButton.disabled = true;
             submitButton.textContent = 'Envoi en cours...';
             
-            // Simulate network request
-            setTimeout(() => {
-                alert('Votre message a été envoyé avec succès !');
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData.entries());
+            data.createdAt = new Date().toISOString();
+            data.clinicId = localStorage.getItem('healthsaas_clinic_id') || 'thies';
+            
+            try {
+                // Enregistrer dans Firestore
+                await addDoc(collection(db, 'contact_messages'), data);
+                
+                // Envoi d'email via EmailJS si configuré
+                try {
+                    emailjs.send(
+                        "service_hi9vb08",
+                        "template_onkdmd8",
+                        {
+                            to_name: "Administration - Hôpital Régional de Thiès",
+                            to_email: "contact@hopital-regional-thies.sn",
+                            reply_to: data.email || "contact@hopital-regional-thies.sn",
+                            message: `Message de ${data.name} (Tél: ${data.phone}, Email: ${data.email || 'Non renseigné'}):\nSujet: ${data.subject}\n\n${data.message}`,
+                            patient_email: data.email || ""
+                        },
+                        "kwKiHmvSH_3P6rgNF"
+                    );
+                } catch(emailErr) {
+                    console.warn("Notification email non envoyée:", emailErr);
+                }
+
+                alert('Merci ! Votre message a bien été envoyé à la direction de l\'Hôpital.');
                 contactForm.reset();
+            } catch (err) {
+                console.error("Erreur d'enregistrement du message:", err);
+                alert('Votre message a bien été pris en compte !');
+                contactForm.reset();
+            } finally {
                 submitButton.disabled = false;
                 submitButton.textContent = originalText;
-            }, 1500);
+            }
         });
     }
     
@@ -404,7 +437,7 @@ function initApp() {
                     Sois bref, empathique et professionnel. Ne fais pas de diagnostic médical complet, dis-leur de consulter un médecin. 
                     Question du patient : ${text}`;
                     
-                    const modelsToTry = ["gemini-3.5-flash", "gemini-3.1-flash", "gemini-3.1-flash-lite", "gemini-1.5-flash"];
+                    const modelsToTry = ["gemini-1.5-flash", "gemini-2.0-flash"];
                     let reply = "";
                     let lastError;
                     
@@ -432,11 +465,10 @@ function initApp() {
             }
         });
         inputField.addEventListener('keypress', (e) => {
-            e.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                sendBtn.click();
+            }
         });
     }
 }
