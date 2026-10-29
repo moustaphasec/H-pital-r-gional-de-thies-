@@ -2,24 +2,45 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /appointments/{appointmentId} {
-      // Un patient peut créer un rendez-vous (création anonyme avec ID généré côté client)
-      allow create: if true;
-      
-      // Un patient peut lire SON rendez-vous uniquement s'il connaît l'ID exact (qui correspond au code de suivi)
+      // Création publique sécurisée avec validation des champs obligatoires et limites de taille
+      allow create: if request.resource.data.name is string
+                    && request.resource.data.name.size() >= 2
+                    && request.resource.data.name.size() <= 150
+                    && request.resource.data.phone is string
+                    && request.resource.data.phone.size() >= 7
+                    && request.resource.data.phone.size() <= 30
+                    && request.resource.data.specialty is string
+                    && request.resource.data.date is string
+                    && request.resource.data.status == 'En attente';
+
+      // Un patient peut consulter SON rendez-vous uniquement s'il possède son code exact (ID du document)
       allow get: if true;
-      
-      // Un patient peut annuler SON rendez-vous s'il connaît l'ID exact
-      allow update: if request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']) 
-                    && request.resource.data.status == 'Annulé';
-      
-      // Seuls les médecins/administrateurs connectés peuvent lister, modifier ou supprimer les rendez-vous
-      allow list, update, delete: if request.auth != null;
+
+      // Un patient peut annuler SON propre rendez-vous s'il possède son code exact
+      allow update: if request.auth != null
+                    || (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])
+                        && request.resource.data.status == 'Annulé');
+
+      // Seuls les médecins et administrateurs authentifiés peuvent lister ou supprimer
+      allow list, delete: if request.auth != null;
+    }
+
+    match /booked_slots/{slotId} {
+      // Créneaux anonymisés (zéro donnée personnelle) pour éviter les doubles réservations
+      allow read: if true;
+      allow create, update: if request.resource.data.keys().hasOnly([
+                              'clinicId', 'specialty', 'date', 'timeSlot', 'appointmentId', 'status', 'updatedAt'
+                            ]);
+      allow delete: if request.auth != null;
     }
 
     match /contact_messages/{messageId} {
-      // N'importe quel visiteur peut envoyer un message de contact
-      allow create: if true;
-      // Seule l'administration connectée peut lire ou gérer les messages
+      // Tout visiteur peut soumettre un message de contact valide
+      allow create: if request.resource.data.name is string
+                    && request.resource.data.name.size() <= 150
+                    && request.resource.data.message is string
+                    && request.resource.data.message.size() <= 3000;
+      // Seule l'administration authentifiée peut lire, traiter ou supprimer les messages
       allow read, update, delete: if request.auth != null;
     }
   }

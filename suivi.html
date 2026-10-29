@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suivre mon Rendez-vous - Hôpital Régional</title>
+    <title>Suivre mon Rendez-vous - Hôpital Régional de Thiès</title>
+    <meta name="description" content="Consultez en temps réel le statut de votre rendez-vous médical à l'Hôpital Régional de Thiès à l'aide de votre code de suivi.">
+    <link rel="icon" type="image/png" href="/icon-192x192.png">
+    <link rel="apple-touch-icon" href="/icon-192x192.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0F172A">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="additional-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#0F172A">
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -19,9 +20,9 @@
                 <div class="logo">
                     <img src="https://res.cloudinary.com/dzcnlr1yz/image/upload/v1742394317/f1oy2jfpkujbopbqlrd2.png" alt="Logo Hôpital" width="60" height="60" data-config="logo">
                     <h1 data-config="fullName">Hôpital Régional<br><span>El Hadji Ahmadou Sakhir Ndiéguène</span></h1>
-                    <button class="theme-toggle-btn" aria-label="Basculer le thème" style="margin-left: 20px;"><i class="fas fa-moon"></i></button>
+                    <button class="theme-toggle-btn" aria-label="Basculer le thème" style="margin-left: 16px;"><i class="fas fa-moon"></i></button>
                 </div>
-                <div class="menu-toggle">
+                <div class="menu-toggle" aria-label="Menu">
                     <i class="fas fa-bars"></i>
                 </div>
                 <ul class="nav-links">
@@ -32,59 +33,89 @@
                     <li><a href="team.html">Notre équipe</a></li>
                     <li><a href="contact.html">Contact</a></li>
                     <li><a href="appointment.html" class="btn-rdv">Prendre RDV</a></li>
-                    <li><a href="suivi.html" class="btn-rdv" style="background-color: var(--primary-color);">Suivre RDV</a></li>
+                    <li><a href="suivi.html" class="btn-rdv active" style="background-color: var(--primary-color);">Suivre RDV</a></li>
                 </ul>
             </div>
         </nav>
     </header>
 
-    <section class="appointment" style="min-height: 80vh; display: flex; align-items: center;">
-        <div class="container" style="width: 100%; max-width: 600px; margin: 0 auto;">
+    <section class="appointment" style="min-height: 75vh; display: flex; align-items: center;">
+        <div class="container" style="width: 100%; max-width: 640px; margin: 0 auto;">
             <div class="section-header">
                 <h2>Suivi de Rendez-vous</h2>
                 <div class="divider"></div>
-                <p style="margin-top: 15px;">Entrez votre code de suivi pour vérifier l'état, la date et l'heure de votre rendez-vous.</p>
+                <p style="margin-top: 15px; color: var(--text-light);">Saisissez votre code personnel pour consulter la confirmation du médecin, imprimer votre fiche ou annuler gratuitement.</p>
             </div>
             
-            <div class="glass-panel" style="padding: 40px;">
+            <div class="glass-panel" style="padding: 36px 28px;">
                 <form id="trackingForm">
                     <div class="form-group">
-                        <label for="trackingCode" style="font-weight: 500; display: block; margin-bottom: 8px;">Code de Suivi</label>
-                        <input type="text" id="trackingCode" name="trackingCode" placeholder="Ex: RDV-A1B2C" required style="width: 100%; padding: 15px; border: 2px solid #eee; border-radius: 8px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px;">
+                        <label for="trackingCode" style="font-weight: 600; display: block; margin-bottom: 8px;">Code de Suivi</label>
+                        <input type="text" id="trackingCode" name="trackingCode" placeholder="Ex: RDV-K7M4P9" required autocomplete="off" style="width: 100%; padding: 15px; border: 2px solid var(--border-color); border-radius: 12px; font-size: 1.15rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px;">
                     </div>
-                    <button type="submit" class="btn btn-submit" style="width: 100%; margin-top: 10px;">Vérifier mon rendez-vous <i class="fas fa-search"></i></button>
+                    <button type="submit" class="btn btn-submit" style="width: 100%; margin-top: 6px;">Vérifier mon rendez-vous <i class="fas fa-search"></i></button>
                 </form>
 
-                <div id="trackingResult" style="display: none; margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
-                    <!-- Les résultats seront injectés ici -->
-                </div>
+                <div id="recentCodesContainer" style="display: none; margin-top: 20px; padding-top: 16px; border-top: 1px dashed var(--border-color);"></div>
+
+                <div id="trackingResult" style="display: none; margin-top: 26px; border-top: 1px solid var(--border-color); padding-top: 22px;"></div>
             </div>
         </div>
     </section>
 
     <footer>
-        <div class="footer-bottom" style="text-align: center; padding: 20px; background: var(--dark-color); color: white;">
-            <p>&copy; <span data-config="copyrightYear">2026</span> <span data-config="name">Hôpital Régional</span>.</p>
-            <p style="margin-top: 10px;">
-                <a href="mentions-legales.html" style="color: #ccc; margin-right: 15px; text-decoration: none;">Mentions Légales</a>
-                <a href="confidentialite.html" style="color: #ccc; text-decoration: none;">Politique de Confidentialité</a>
-            </p>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="https://res.cloudinary.com/dzcnlr1yz/image/upload/v1742394317/f1oy2jfpkujbopbqlrd2.png" alt="Logo Hôpital" width="60" height="60" data-config="logo">
+                        <h3>Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène</h3>
+                    </div>
+                    <p>Établissement public de santé de référence au service des patients depuis 1954.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="about.html">À propos</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="specialties.html">Spécialités</a></li>
+                        <li><a href="team.html">Notre équipe</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services Clés</h4>
+                    <ul>
+                        <li><a href="appointment.html?specialty=Urgences">Urgences 24h/24</a></li>
+                        <li><a href="appointment.html?specialty=N%C3%A9phrologie">Néphrologie & Dialyse</a></li>
+                        <li><a href="appointment.html?specialty=Cardiologie">Cardiologie</a></li>
+                        <li><a href="appointment.html?specialty=Gyn%C3%A9cologie">Maternité</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <div class="contact-info">
+                        <div><i class="fas fa-map-marker-alt"></i> Avenue Caen, Route de Dakar, Thiès</div>
+                        <div><i class="fas fa-phone"></i> <a href="tel:+221339521090">+221 33 952 10 90</a></div>
+                        <div><i class="fas fa-envelope"></i> <a href="mailto:contact@hopital-regional-thies.sn">contact@hopital-regional-thies.sn</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; width: 100%;">
+                    <p>&copy; 2026 Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès. Tous droits réservés.</p>
+                    <p>
+                        <a href="mentions-legales.html" style="color: #cbd5e1; margin-right: 15px; text-decoration: none;">Mentions Légales</a>
+                        <a href="confidentialite.html" style="color: #cbd5e1; text-decoration: none;">Politique de Confidentialité</a>
+                    </p>
+                </div>
+            </div>
         </div>
     </footer>
 
+    <a href="#" class="back-to-top" aria-label="Retour en haut"><i class="fas fa-arrow-up"></i></a>
     <script type="module" src="/script.js"></script>
     <script type="module" src="/src/suivi-logic.js"></script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        if(typeof AOS !== 'undefined') {
-            AOS.init({ duration: 800, once: true, offset: 100 });
-        }
-    });
-</script>
-    
 </body>
 </html>
-
-
-

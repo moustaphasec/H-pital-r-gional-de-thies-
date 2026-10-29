@@ -3,25 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notre Équipe - Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès</title>
+    <title>Notre Équipe Médicale - Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès</title>
+    <meta name="description" content="Découvrez l'équipe médicale pluridisciplinaire de l'Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès : chefs de service, spécialistes et chirurgiens.">
+    <meta property="og:title" content="Notre Équipe Médicale - Hôpital Régional de Thiès">
+    <meta property="og:description" content="Plus de 50 médecins spécialistes engagés au service de votre santé à Thiès.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_SN">
+    <link rel="icon" type="image/png" href="/icon-192x192.png">
+    <link rel="apple-touch-icon" href="/icon-192x192.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0F172A">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="additional-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#0F172A">
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
     <header>
         <nav>
             <div class="container">
                 <div class="logo">
-                    <img src="https://res.cloudinary.com/dzcnlr1yz/image/upload/v1742394317/f1oy2jfpkujbopbqlrd2.png" alt="Logo Hôpital" width="60" height="60" data-config="logo">
+                    <img src="https://res.cloudinary.com/dzcnlr1yz/image/upload/v1742394317/f1oy2jfpkujbopbqlrd2.png" alt="Logo Hôpital Régional de Thiès" width="60" height="60" data-config="logo">
                     <h1 data-config="fullName">Hôpital Régional<br><span>El Hadji Ahmadou Sakhir Ndiéguène</span></h1>
-                    <button class="theme-toggle-btn" aria-label="Basculer le thème" style="margin-left: 20px;"><i class="fas fa-moon"></i></button>
+                    <button class="theme-toggle-btn" aria-label="Basculer le thème" style="margin-left: 16px;"><i class="fas fa-moon"></i></button>
                 </div>
-                <div class="menu-toggle">
+                <div class="menu-toggle" aria-label="Menu">
                     <i class="fas fa-bars"></i>
                 </div>
                 <ul class="nav-links">
@@ -38,130 +44,115 @@
         </nav>
     </header>
 
-    <section class="about" data-aos="fade-up">
+    <section id="equipe" class="team" data-aos="fade-up">
         <div class="container">
             <div class="section-header">
-                <h2>À propos de notre hôpital</h2>
+                <h2>Notre équipe médicale</h2>
                 <div class="divider"></div>
+                <p style="max-width: 680px; margin: 16px auto 0; color: var(--gray-color);">
+                    Plus de 50 praticiens hospitaliers, chefs de service et spécialistes expérimentés mobilisés chaque jour pour vous offrir des soins d'excellence à Thiès.
+                </p>
             </div>
-            <div class="about-content">
-                <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1535914254981-b5012eebbd15?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="Hôpital Régional de Thiès">
+            <div class="team-grid">
+                <div class="doctor-card">
+                    <div class="doctor-image">
+                        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=900&q=80" alt="Dr. Amadou Diop" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22%3E%3Crect width=%22400%22 height=%22400%22 fill=%22%23EFF6FF%22/%3E%3Ccircle cx=%22200%22 cy=%22150%22 r=%2265%22 fill=%22%2393C5FD%22/%3E%3Cpath d=%22M85 360c0-65 52-115 115-115s115 50 115 115%22 fill=%22%232563EB%22/%3E%3C/svg%3E';">
+                    </div>
+                    <div class="doctor-info">
+                        <h3>Dr. Amadou Diop</h3>
+                        <p class="doctor-specialty">Chef de service Cardiologie</p>
+                        <a href="appointment.html?specialty=Cardiologie" class="btn" style="padding: 8px 18px; font-size: 0.85rem; margin-top: 8px;">Prendre RDV <i class="fas fa-calendar-check"></i></a>
+                    </div>
+                </div>
+
+                <div class="doctor-card">
+                    <div class="doctor-image">
+                        <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=900&q=80" alt="Dr. Fatou Ndiaye" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22%3E%3Crect width=%22400%22 height=%22400%22 fill=%22%23EFF6FF%22/%3E%3Ccircle cx=%22200%22 cy=%22150%22 r=%2265%22 fill=%22%2393C5FD%22/%3E%3Cpath d=%22M85 360c0-65 52-115 115-115s115 50 115 115%22 fill=%22%232563EB%22/%3E%3C/svg%3E';">
+                    </div>
+                    <div class="doctor-info">
+                        <h3>Dr. Fatou Ndiaye</h3>
+                        <p class="doctor-specialty">Gynécologue-Obstétricienne</p>
+                        <a href="appointment.html?specialty=Gyn%C3%A9cologie" class="btn" style="padding: 8px 18px; font-size: 0.85rem; margin-top: 8px;">Prendre RDV <i class="fas fa-calendar-check"></i></a>
+                    </div>
+                </div>
+
+                <div class="doctor-card">
+                    <div class="doctor-image">
+                        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=900&q=80" alt="Dr. Moussa Sène" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22%3E%3Crect width=%22400%22 height=%22400%22 fill=%22%23EFF6FF%22/%3E%3Ccircle cx=%22200%22 cy=%22150%22 r=%2265%22 fill=%22%2393C5FD%22/%3E%3Cpath d=%22M85 360c0-65 52-115 115-115s115 50 115 115%22 fill=%22%232563EB%22/%3E%3C/svg%3E';">
+                    </div>
+                    <div class="doctor-info">
+                        <h3>Dr. Moussa Sène</h3>
+                        <p class="doctor-specialty">Chirurgien Orthopédiste</p>
+                        <a href="appointment.html?specialty=Orthop%C3%A9die" class="btn" style="padding: 8px 18px; font-size: 0.85rem; margin-top: 8px;">Prendre RDV <i class="fas fa-calendar-check"></i></a>
+                    </div>
+                </div>
+
+                <div class="doctor-card">
+                    <div class="doctor-image">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=900&q=80" alt="Dr. Aïssatou Fall" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22%3E%3Crect width=%22400%22 height=%22400%22 fill=%22%23EFF6FF%22/%3E%3Ccircle cx=%22200%22 cy=%22150%22 r=%2265%22 fill=%22%2393C5FD%22/%3E%3Cpath d=%22M85 360c0-65 52-115 115-115s115 50 115 115%22 fill=%22%232563EB%22/%3E%3C/svg%3E';">
+                    </div>
+                    <div class="doctor-info">
+                        <h3>Dr. Aïssatou Fall</h3>
+                        <p class="doctor-specialty">Chef de service Pédiatrie</p>
+                        <a href="appointment.html?specialty=P%C3%A9diatrie" class="btn" style="padding: 8px 18px; font-size: 0.85rem; margin-top: 8px;">Prendre RDV <i class="fas fa-calendar-check"></i></a>
+                    </div>
+                </div>
+
+                <div class="doctor-card">
+                    <div class="doctor-image">
+                        <img src="https://images.unsplash.com/photo-1651008376811-b90baee60c1f?auto=format&fit=crop&w=900&q=80" alt="Dr. Ibrahima Sow" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22%3E%3Crect width=%22400%22 height=%22400%22 fill=%22%23EFF6FF%22/%3E%3Ccircle cx=%22200%22 cy=%22150%22 r=%2265%22 fill=%22%2393C5FD%22/%3E%3Cpath d=%22M85 360c0-65 52-115 115-115s115 50 115 115%22 fill=%22%232563EB%22/%3E%3C/svg%3E';">
+                    </div>
+                    <div class="doctor-info">
+                        <h3>Dr. Ibrahima Sow</h3>
+                        <p class="doctor-specialty">Néphrologue & Hémodialyse</p>
+                        <a href="appointment.html?specialty=N%C3%A9phrologie" class="btn" style="padding: 8px 18px; font-size: 0.85rem; margin-top: 8px;">Prendre RDV <i class="fas fa-calendar-check"></i></a>
+                    </div>
+                </div>
+
+                <div class="doctor-card">
+                    <div class="doctor-image">
+                        <img src="https://images.unsplash.com/photo-1527613426441-4da17471b66d?auto=format&fit=crop&w=900&q=80" alt="Dr. Mariama Sarr" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22%3E%3Crect width=%22400%22 height=%22400%22 fill=%22%23EFF6FF%22/%3E%3Ccircle cx=%22200%22 cy=%22150%22 r=%2265%22 fill=%22%2393C5FD%22/%3E%3Cpath d=%22M85 360c0-65 52-115 115-115s115 50 115 115%22 fill=%22%232563EB%22/%3E%3C/svg%3E';">
+                    </div>
+                    <div class="doctor-info">
+                        <h3>Dr. Mariama Sarr</h3>
+                        <p class="doctor-specialty">Gastro-entérologue</p>
+                        <a href="appointment.html?specialty=Gastro-ent%C3%A9rologie" class="btn" style="padding: 8px 18px; font-size: 0.85rem; margin-top: 8px;">Prendre RDV <i class="fas fa-calendar-check"></i></a>
+                    </div>
+                </div>
+
+                <div class="doctor-card">
+                    <div class="doctor-image">
+                        <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=900&q=80" alt="Dr. Cheikh Diallo" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22%3E%3Crect width=%22400%22 height=%22400%22 fill=%22%23EFF6FF%22/%3E%3Ccircle cx=%22200%22 cy=%22150%22 r=%2265%22 fill=%22%2393C5FD%22/%3E%3Cpath d=%22M85 360c0-65 52-115 115-115s115 50 115 115%22 fill=%22%232563EB%22/%3E%3C/svg%3E';">
+                    </div>
+                    <div class="doctor-info">
+                        <h3>Dr. Cheikh Diallo</h3>
+                        <p class="doctor-specialty">Médecin Urgentiste</p>
+                        <a href="appointment.html?specialty=Urgences" class="btn" style="padding: 8px 18px; font-size: 0.85rem; margin-top: 8px;">Prendre RDV <i class="fas fa-calendar-check"></i></a>
+                    </div>
+                </div>
+
+                <div class="doctor-card">
+                    <div class="doctor-image">
+                        <img src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=900&q=80" alt="Dr. Rokhaya Gaye" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22%3E%3Crect width=%22400%22 height=%22400%22 fill=%22%23EFF6FF%22/%3E%3Ccircle cx=%22200%22 cy=%22150%22 r=%2265%22 fill=%22%2393C5FD%22/%3E%3Cpath d=%22M85 360c0-65 52-115 115-115s115 50 115 115%22 fill=%22%232563EB%22/%3E%3C/svg%3E';">
+                    </div>
+                    <div class="doctor-info">
+                        <h3>Dr. Rokhaya Gaye</h3>
+                        <p class="doctor-specialty">Dermatologue</p>
+                        <a href="appointment.html?specialty=Dermatologie" class="btn" style="padding: 8px 18px; font-size: 0.85rem; margin-top: 8px;">Prendre RDV <i class="fas fa-calendar-check"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="equipe" class="team">
+    <section class="cta" data-aos="fade-up">
         <div class="container">
-            <div class="section-header">
-                <h2>Notre équipe médicale</h2>
-                <div class="divider"></div>
-            </div>
-            <div class="team-grid">
-                <div class="doctor-card">
-                    <div class="doctor-image">
-                        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Dr. Amadou Diop">
-                    </div>
-                    <div class="doctor-info">
-                        <h3>Dr. Amadou Diop</h3>
-                        <p class="doctor-specialty">Chef de service Cardiologie</p>
-                        <div class="doctor-socials">
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="doctor-card">
-                    <div class="doctor-image">
-                        <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Dr. Fatou Ndiaye">
-                    </div>
-                    <div class="doctor-info">
-                        <h3>Dr. Fatou Ndiaye</h3>
-                        <p class="doctor-specialty">Gynécologue-Obstétricienne</p>
-                        <div class="doctor-socials">
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="doctor-card">
-                    <div class="doctor-image">
-                        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1664&q=80" alt="Dr. Moussa Sène">
-                    </div>
-                    <div class="doctor-info">
-                        <h3>Dr. Moussa Sène</h3>
-                        <p class="doctor-specialty">Chirurgien orthopédiste</p>
-                        <div class="doctor-socials">
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="doctor-card">
-                    <div class="doctor-image">
-                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Dr. Aïssatou Fall">
-                    </div>
-                    <div class="doctor-info">
-                        <h3>Dr. Aïssatou Fall</h3>
-                        <p class="doctor-specialty">Pédiatre</p>
-                        <div class="doctor-socials">
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="doctor-card">
-                    <div class="doctor-image">
-                        <img src="https://images.unsplash.com/photo-1651008376811-b90baee60c1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Dr. Ibrahim Sow">
-                    </div>
-                    <div class="doctor-info">
-                        <h3>Dr. Fatou Sow</h3>
-                        <p class="doctor-specialty">Néphrologue</p>
-                        <div class="doctor-socials">
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="doctor-card">
-                    <div class="doctor-image">
-                        <img src="https://images.unsplash.com/photo-1618498082410-333f2da6031d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Dr. Mariama Sarr">
-                    </div>
-                    <div class="doctor-info">
-                        <h3>Dr. Mariama Sarr</h3>
-                        <p class="doctor-specialty">Gastro-entérologue</p>
-                        <div class="doctor-socials">
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="doctor-card">
-                    <div class="doctor-image">
-                        <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Dr. Cheikh Diallo">
-                    </div>
-                    <div class="doctor-info">
-                        <h3>Dr. Cheikh Diallo</h3>
-                        <p class="doctor-specialty">Urgentiste</p>
-                        <div class="doctor-socials">
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="doctor-card">
-                    <div class="doctor-image">
-                        <img src="https://images.unsplash.com/photo-1582750433449-b90baee60c1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1744&q=80" alt="Dr. Rokhaya Gaye">
-                    </div>
-                    <div class="doctor-info">
-                        <h3>Dr. Rokhaya Gaye</h3>
-                        <p class="doctor-specialty">Dermatologue</p>
-                        <div class="doctor-socials">
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                        </div>
-                    </div>
+            <div class="cta-content">
+                <h2>Besoin d'une autre spécialité médicale ?</h2>
+                <p>Consultez l'ensemble de nos 20 spécialités ou réservez votre créneau en ligne en moins d'une minute.</p>
+                <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                    <a href="appointment.html" class="btn">Prendre rendez-vous</a>
+                    <a href="specialties.html" class="btn btn-outline" style="background: rgba(255,255,255,0.92) !important;">Voir toutes les spécialités</a>
                 </div>
             </div>
         </div>
@@ -175,33 +166,27 @@
                         <img src="https://res.cloudinary.com/dzcnlr1yz/image/upload/v1742394317/f1oy2jfpkujbopbqlrd2.png" alt="Logo Hôpital" width="60" height="60" data-config="logo">
                         <h3>Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène</h3>
                     </div>
-                    <p>Votre partenaire santé depuis 1954</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
+                    <p>Établissement public de santé de référence au service des patients depuis 1954.</p>
                 </div>
                 <div class="footer-col">
-                    <h4>Liens rapides</h4>
+                    <h4>Navigation</h4>
                     <ul>
                         <li><a href="index.html">Accueil</a></li>
                         <li><a href="about.html">À propos</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="specialties.html">Spécialités</a></li>
                         <li><a href="team.html">Notre équipe</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="suivi.html">Suivre mon RDV</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4>Services</h4>
+                    <h4>Services Clés</h4>
                     <ul>
-                        <li><a href="services.html#urgences">Urgences</a></li>
-                        <li><a href="specialties.html#nephrologie">Néphrologie</a></li>
+                        <li><a href="services.html#urgences">Urgences 24h/24</a></li>
+                        <li><a href="appointment.html?specialty=N%C3%A9phrologie">Néphrologie & Dialyse</a></li>
                         <li><a href="services.html#chirurgie">Chirurgie</a></li>
                         <li><a href="services.html#maternite">Maternité</a></li>
-                        <li><a href="services.html#imagerie">Imagerie</a></li>
+                        <li><a href="services.html#imagerie">Imagerie & Scanner</a></li>
                         <li><a href="services.html#laboratoire">Laboratoire</a></li>
                     </ul>
                 </div>
@@ -209,36 +194,33 @@
                     <h4>Contact</h4>
                     <div class="contact-info">
                         <div><i class="fas fa-map-marker-alt"></i> Avenue Caen, Route de Dakar, Thiès</div>
-                        <div><i class="fas fa-phone"></i> +221 33 952 10 90</div>
-                        <div><i class="fas fa-envelope"></i> hopital.thies@gmail.com</div>
+                        <div><i class="fas fa-phone"></i> <a href="tel:+221339521090">+221 33 952 10 90</a></div>
+                        <div><i class="fas fa-envelope"></i> <a href="mailto:contact@hopital-regional-thies.sn">contact@hopital-regional-thies.sn</a></div>
                     </div>
                 </div>
             </div>
             <div class="copyright">
-                <div style="display: flex; justify-content: space-between; flex-wrap: wrap; width: 100%;">
-                <p>&copy; 2024 Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès. Tous droits réservés.</p>
-                <p>
-                    <a href="mentions-legales.html" style="color: #ccc; margin-right: 15px; text-decoration: none;">Mentions Légales</a>
-                    <a href="confidentialite.html" style="color: #ccc; text-decoration: none;">Politique de Confidentialité</a>
-                </p>
-            </div>
+                <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; width: 100%;">
+                    <p>&copy; 2026 Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès. Tous droits réservés.</p>
+                    <p>
+                        <a href="mentions-legales.html" style="color: #cbd5e1; margin-right: 15px; text-decoration: none;">Mentions Légales</a>
+                        <a href="confidentialite.html" style="color: #cbd5e1; text-decoration: none;">Politique de Confidentialité</a>
+                    </p>
+                </div>
             </div>
         </div>
     </footer>
 
-    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+    <a href="#" class="back-to-top" aria-label="Retour en haut"><i class="fas fa-arrow-up"></i></a>
 
     <script type="module" src="/script.js"></script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        if(typeof AOS !== 'undefined') {
-            AOS.init({ duration: 800, once: true, offset: 100 });
-        }
-    });
-</script>
-    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof AOS !== 'undefined') {
+                AOS.init({ duration: 700, once: true, offset: 80 });
+            }
+        });
+    </script>
 </body>
 </html>
-
-

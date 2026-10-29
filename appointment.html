@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prendre Rendez-vous - Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès</title>
+    <title>Prendre Rendez-vous en Ligne - Hôpital Régional de Thiès</title>
+    <meta name="description" content="Réservez votre consultation médicale en ligne à l'Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès. Confirmation rapide avec code de suivi.">
+    <link rel="icon" type="image/png" href="/icon-192x192.png">
+    <link rel="apple-touch-icon" href="/icon-192x192.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0F172A">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="additional-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#0F172A">
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -19,9 +21,9 @@
                 <div class="logo">
                     <img src="https://res.cloudinary.com/dzcnlr1yz/image/upload/v1742394317/f1oy2jfpkujbopbqlrd2.png" alt="Logo Hôpital" width="60" height="60" data-config="logo">
                     <h1 data-config="fullName">Hôpital Régional<br><span>El Hadji Ahmadou Sakhir Ndiéguène</span></h1>
-                    <button class="theme-toggle-btn" aria-label="Basculer le thème" style="margin-left: 20px;"><i class="fas fa-moon"></i></button>
+                    <button class="theme-toggle-btn" aria-label="Basculer le thème" style="margin-left: 16px;"><i class="fas fa-moon"></i></button>
                 </div>
-                <div class="menu-toggle">
+                <div class="menu-toggle" aria-label="Menu">
                     <i class="fas fa-bars"></i>
                 </div>
                 <ul class="nav-links">
@@ -38,7 +40,7 @@
         </nav>
     </header>
 
-    <section class="appointment" data-aos="fade-up">
+    <section class="appointment">
         <div class="container">
             <div class="section-header">
                 <h2>Prendre Rendez-vous</h2>
@@ -46,34 +48,33 @@
             </div>
             <div class="appointment-content">
                 <div class="appointment-info">
-                    <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Consultation médicale moderne" style="width: 100%; height: 250px; object-fit: cover; border-radius: 12px; margin-bottom: 25px; box-shadow: var(--shadow-soft);">
-                    <h3>Informations importantes</h3>
-                    <p>Pour prendre rendez-vous à l'Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène, vous pouvez remplir le formulaire ci-contre ou nous contacter par téléphone.</p>
+                    <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Consultation médicale moderne" style="width: 100%; height: 240px; object-fit: cover; border-radius: 12px; margin-bottom: 24px; box-shadow: var(--shadow-soft);">
+                    <h3>Informations pratiques</h3>
+                    <p>Choisissez votre spécialité et votre créneau horaire en 3 étapes simples. Aucun compte ni adresse e-mail n'est obligatoire.</p>
                     
                     <div class="appointment-contact">
-                        <div class="info-item">
+                        <div class="info-item" style="margin-bottom: 18px;">
                             <i class="fas fa-phone"></i>
                             <div>
-                                <h4>Par téléphone</h4>
-                                <p>+221 33 952 10 90<br>+221 33 952 10 91</p>
+                                <h4>Standard & Urgences 24/7</h4>
+                                <p><a href="tel:+221339521090">+221 33 952 10 90</a><br><a href="tel:+221339521091">+221 33 952 10 91</a></p>
                             </div>
                         </div>
                         <div class="info-item">
                             <i class="fas fa-clock"></i>
                             <div>
-                                <h4>Horaires</h4>
-                                <p>Lundi - Vendredi: 8h00 - 18h00<br>Samedi: 8h00 - 12h00</p>
+                                <h4>Horaires des consultations</h4>
+                                <p>Lundi - Vendredi : 8h00 - 18h00<br>Samedi : 8h00 - 12h00</p>
                             </div>
                         </div>
                     </div>
                     
                     <div class="appointment-notice">
-                        <h4><i class="fas fa-info-circle"></i> Informations requises</h4>
+                        <h4><i class="fas fa-info-circle"></i> Documents à prévoir</h4>
                         <ul>
-                            <li>Carte d'identité nationale</li>
-                            <li>Carnet de santé (si disponible)</li>
-                            <li>Carte de mutuelle ou d'assurance (si applicable)</li>
-                            <li>Toute documentation médicale pertinente</li>
+                            <li>Pièce d'identité nationale (CNI ou passeport)</li>
+                            <li>Carnet de santé et anciens bilans (si disponibles)</li>
+                            <li>Carte CMU, mutuelle ou assurance (si applicable)</li>
                         </ul>
                     </div>
                 </div>
@@ -92,7 +93,7 @@
                         <div class="step-line"></div>
                         <div class="step" data-step="3">
                             <div class="step-circle">3</div>
-                            <div class="step-label">Informations</div>
+                            <div class="step-label">Coordonnées</div>
                         </div>
                     </div>
 
@@ -100,9 +101,7 @@
                         <!-- Étape 1 : Spécialité -->
                         <div class="form-step active" data-step="1">
                             <h3>Choisissez le service souhaité</h3>
-                            <div class="specialty-grid" id="specialtyGrid">
-                                <!-- Les spécialités seront générées ici par JS -->
-                            </div>
+                            <div class="specialty-grid" id="specialtyGrid"></div>
                             <input type="hidden" id="specialty" name="specialty" required>
                             <div class="step-actions">
                                 <button type="button" class="btn btn-next" disabled>Suivant <i class="fas fa-arrow-right"></i></button>
@@ -132,22 +131,24 @@
 
                         <!-- Étape 3 : Informations Patient -->
                         <div class="form-step" data-step="3">
-                            <h3>Vos informations personnelles</h3>
+                            <h3>Vos coordonnées</h3>
+                            <div id="bookingSummaryBanner" style="display:none;align-items:center;justify-content:space-between;background:rgba(37,99,235,0.09);border:1px solid rgba(37,99,235,0.25);padding:12px 16px;border-radius:12px;margin-bottom:22px;color:var(--text-color);font-size:0.92rem;"></div>
+
                             <div class="form-group floating">
-                                <input type="text" id="name" name="name" placeholder=" " required>
+                                <input type="text" id="name" name="name" placeholder=" " required autocomplete="name">
                                 <label for="name">Nom complet <span class="required">*</span></label>
                             </div>
                             <div class="form-group floating">
-                                <input type="tel" id="phone" name="phone" placeholder=" " required>
-                                <label for="phone">Téléphone <span class="required">*</span></label>
+                                <input type="tel" id="phone" name="phone" placeholder=" " required autocomplete="tel">
+                                <label for="phone">Téléphone (ex: 77 123 45 67) <span class="required">*</span></label>
                             </div>
                             <div class="form-group floating">
-                                <input type="email" id="email" name="email" placeholder=" ">
+                                <input type="email" id="email" name="email" placeholder=" " autocomplete="email">
                                 <label for="email">Email (optionnel pour confirmation)</label>
                             </div>
                             <div class="form-group floating">
-                                <textarea id="message" name="message" placeholder=" " rows="4"></textarea>
-                                <label for="message">Informations complémentaires</label>
+                                <textarea id="message" name="message" placeholder=" " rows="3"></textarea>
+                                <label for="message">Motif ou symptômes (optionnel)</label>
                             </div>
                             
                             <div class="step-actions">
@@ -156,21 +157,32 @@
                             </div>
                         </div>
                         
-                        <!-- Étape 4 : Succès (Masquée par défaut, gérée par JS) -->
+                        <!-- Étape 4 : Succès -->
                         <div class="form-step success-step" data-step="4">
                             <div class="success-icon">
                                 <i class="fas fa-check-circle"></i>
                             </div>
-                            <h3>Rendez-vous Confirmé !</h3>
-                            <p>Votre demande a été enregistrée avec succès. Vous recevrez un SMS de confirmation très prochainement.</p>
+                            <h3>Demande de Rendez-vous Enregistrée !</h3>
+                            <p id="confirmedSummaryText" style="margin-bottom:10px;color:var(--text-color);"></p>
+                            <p style="font-size:0.92rem;color:var(--text-light);">Le médecin de votre spécialité vient d'être notifié en temps réel.</p>
                             
-                            <div class="tracking-box" style="background: rgba(0,102,204,0.1); padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px dashed var(--primary-color);">
-                                <p style="margin-bottom: 5px; color: var(--dark-color); font-weight: 500;">Votre Code de Suivi :</p>
-                                <h2 id="trackingCodeDisplay" style="color: var(--primary-color); letter-spacing: 2px; font-size: 2rem; margin: 0;">RDV-XXXXX</h2>
-                                <p style="font-size: 0.85rem; color: #666; margin-top: 10px;">Veuillez conserver ce code pour <a href="/suivi.html" style="color: var(--secondary-color); text-decoration: underline;">suivre l'état de votre rendez-vous</a>.</p>
+                            <div class="tracking-box" style="background: rgba(37,99,235,0.08); padding: 20px; border-radius: 14px; margin: 20px 0; border: 2px dashed var(--primary-color);">
+                                <p style="margin-bottom: 6px; color: var(--text-color); font-weight: 500;">Votre Code de Suivi Personnel :</p>
+                                <h2 id="trackingCodeDisplay" style="color: var(--primary-color); letter-spacing: 3px; font-size: 2rem; margin: 4px 0;">RDV-XXXXXX</h2>
+                                <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:14px;">
+                                    <button type="button" id="copyCodeBtn" class="btn" style="padding:8px 18px;font-size:0.88rem;">
+                                        <i class="far fa-copy"></i> Copier le code
+                                    </button>
+                                    <button type="button" id="printReceiptBtn" class="btn btn-outline" style="padding:8px 18px;font-size:0.88rem;">
+                                        <i class="fas fa-print"></i> Imprimer / PDF
+                                    </button>
+                                </div>
+                                <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 14px;">
+                                    Conservez ce code pour <a id="directTrackLink" href="suivi.html" style="color: var(--primary-color); font-weight: 600; text-decoration: underline;">suivre la confirmation de votre rendez-vous</a>.
+                                </p>
                             </div>
 
-                            <button type="button" class="btn btn-reset" onclick="window.location.reload()">Nouveau rendez-vous</button>
+                            <button type="button" class="btn btn-reset" onclick="window.location.href='appointment.html'">Prendre un autre rendez-vous</button>
                         </div>
                     </form>
                 </div>
@@ -186,70 +198,61 @@
                         <img src="https://res.cloudinary.com/dzcnlr1yz/image/upload/v1742394317/f1oy2jfpkujbopbqlrd2.png" alt="Logo Hôpital" width="60" height="60" data-config="logo">
                         <h3>Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène</h3>
                     </div>
-                    <p>Votre partenaire santé depuis 1954</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
+                    <p>Établissement public de santé de référence au service des patients depuis 1954.</p>
                 </div>
                 <div class="footer-col">
-                    <h4>Liens rapides</h4>
+                    <h4>Navigation</h4>
                     <ul>
                         <li><a href="index.html">Accueil</a></li>
                         <li><a href="about.html">À propos</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="specialties.html">Spécialités</a></li>
                         <li><a href="team.html">Notre équipe</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="suivi.html">Suivre mon RDV</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4>Services</h4>
+                    <h4>Services Clés</h4>
                     <ul>
-                        <li><a href="services.html#urgences">Urgences</a></li>
-                        <li><a href="specialties.html#nephrologie">Néphrologie</a></li>
-                        <li><a href="services.html#chirurgie">Chirurgie</a></li>
-                        <li><a href="services.html#maternite">Maternité</a></li>
-                        <li><a href="services.html#imagerie">Imagerie</a></li>
-                        <li><a href="services.html#laboratoire">Laboratoire</a></li>
+                        <li><a href="appointment.html?specialty=Urgences">Urgences 24h/24</a></li>
+                        <li><a href="appointment.html?specialty=N%C3%A9phrologie">Néphrologie & Dialyse</a></li>
+                        <li><a href="appointment.html?specialty=Cardiologie">Cardiologie</a></li>
+                        <li><a href="appointment.html?specialty=Gyn%C3%A9cologie">Maternité</a></li>
+                        <li><a href="services.html">Imagerie & Scanner</a></li>
+                        <li><a href="services.html">Laboratoire</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4>Contact</h4>
                     <div class="contact-info">
                         <div><i class="fas fa-map-marker-alt"></i> Avenue Caen, Route de Dakar, Thiès</div>
-                        <div><i class="fas fa-phone"></i> +221 33 952 10 90</div>
-                        <div><i class="fas fa-envelope"></i> hopital.thies@gmail.com</div>
+                        <div><i class="fas fa-phone"></i> <a href="tel:+221339521090">+221 33 952 10 90</a></div>
+                        <div><i class="fas fa-envelope"></i> <a href="mailto:contact@hopital-regional-thies.sn">contact@hopital-regional-thies.sn</a></div>
                     </div>
                 </div>
             </div>
             <div class="copyright">
-                <div style="display: flex; justify-content: space-between; flex-wrap: wrap; width: 100%;">
-                <p>&copy; 2024 Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès. Tous droits réservés.</p>
-                <p>
-                    <a href="mentions-legales.html" style="color: #ccc; margin-right: 15px; text-decoration: none;">Mentions Légales</a>
-                    <a href="confidentialite.html" style="color: #ccc; text-decoration: none;">Politique de Confidentialité</a>
-                </p>
-            </div>
+                <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; width: 100%;">
+                    <p>&copy; 2026 Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès. Tous droits réservés.</p>
+                    <p>
+                        <a href="mentions-legales.html" style="color: #cbd5e1; margin-right: 15px; text-decoration: none;">Mentions Légales</a>
+                        <a href="confidentialite.html" style="color: #cbd5e1; text-decoration: none;">Politique de Confidentialité</a>
+                    </p>
+                </div>
             </div>
         </div>
     </footer>
 
-    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+    <a href="#" class="back-to-top" aria-label="Retour en haut"><i class="fas fa-arrow-up"></i></a>
     <script type="module" src="/script.js"></script>
     <script type="module" src="/src/appointment-logic.js"></script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        if(typeof AOS !== 'undefined') {
-            AOS.init({ duration: 800, once: true, offset: 100 });
-        }
-    });
-</script>
-    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof AOS !== 'undefined') {
+                AOS.init({ duration: 700, once: true, offset: 80 });
+            }
+        });
+    </script>
 </body>
 </html>
-
-

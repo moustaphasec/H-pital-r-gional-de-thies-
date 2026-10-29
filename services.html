@@ -3,25 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services - Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès</title>
+    <title>Nos Services Hospitaliers - Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès</title>
+    <meta name="description" content="Services médicaux et médico-techniques de l'Hôpital Régional de Thiès : Urgences 24h/24, Hémodialyse, Maternité, Imagerie, Chirurgie, Laboratoire et Pharmacie.">
+    <meta property="og:title" content="Services Hospitaliers - Hôpital Régional de Thiès">
+    <meta property="og:description" content="Urgences 24h/24, Néphrologie & Dialyse, Maternité, Chirurgie, Imagerie Médicale et Laboratoire à Thiès.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_SN">
+    <link rel="icon" type="image/png" href="/icon-192x192.png">
+    <link rel="apple-touch-icon" href="/icon-192x192.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0F172A">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="additional-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#0F172A">
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
     <header>
         <nav>
             <div class="container">
                 <div class="logo">
-                    <img src="https://res.cloudinary.com/dzcnlr1yz/image/upload/v1742394317/f1oy2jfpkujbopbqlrd2.png" alt="Logo Hôpital" width="60" height="60" data-config="logo">
+                    <img src="https://res.cloudinary.com/dzcnlr1yz/image/upload/v1742394317/f1oy2jfpkujbopbqlrd2.png" alt="Logo Hôpital Régional de Thiès" width="60" height="60" data-config="logo">
                     <h1 data-config="fullName">Hôpital Régional<br><span>El Hadji Ahmadou Sakhir Ndiéguène</span></h1>
-                    <button class="theme-toggle-btn" aria-label="Basculer le thème" style="margin-left: 20px;"><i class="fas fa-moon"></i></button>
+                    <button class="theme-toggle-btn" aria-label="Basculer le thème" style="margin-left: 16px;"><i class="fas fa-moon"></i></button>
                 </div>
-                <div class="menu-toggle">
+                <div class="menu-toggle" aria-label="Menu">
                     <i class="fas fa-bars"></i>
                 </div>
                 <ul class="nav-links">
@@ -41,125 +47,138 @@
     <section id="services" class="services">
         <div class="container">
             <div class="section-header">
-                <h2>Nos services</h2>
+                <h2>Nos services hospitaliers</h2>
                 <div class="divider"></div>
+                <p style="max-width: 680px; margin: 16px auto 0; color: var(--gray-color);">
+                    Un plateau médico-technique complet au service des patients hospitalisés et des consultations externes dans la région de Thiès.
+                </p>
             </div>
             <div class="services-grid">
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+                <div id="nephrologie" class="service-card" data-aos="zoom-in" data-aos-delay="50">
                     <div class="service-icon">
                         <i class="fas fa-kidney"></i>
                     </div>
                     <h3>Néphrologie et Dialyse</h3>
-                    <p>Service équipé de 23 postes de dialyse pour la prise en charge des affections rénales.</p>
+                    <p>Service équipé de 23 postes d'hémodialyse pour la prise en charge spécialisée des affections rénales.</p>
                 </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+                <div id="maternite" class="service-card" data-aos="zoom-in" data-aos-delay="50">
                     <div class="service-icon">
                         <i class="fas fa-baby"></i>
                     </div>
                     <h3>Maternité</h3>
-                    <p>Suivi de grossesse, accouchement et soins postnataux dans un environnement sécurisé.</p>
+                    <p>Suivi de grossesse, échographies obstétricales, accouchements et soins postnataux 24h/24.</p>
                 </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+                <div id="imagerie" class="service-card" data-aos="zoom-in" data-aos-delay="50">
                     <div class="service-icon">
                         <i class="fas fa-x-ray"></i>
                     </div>
                     <h3>Imagerie Médicale</h3>
-                    <p>Radiologies, scanners, échographies et mammographies pour un diagnostic précis.</p>
+                    <p>Radiologie numérique, scanner (TDM), échographies Doppler et mammographies pour un diagnostic précis.</p>
                 </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+                <div id="chirurgie" class="service-card" data-aos="zoom-in" data-aos-delay="50">
                     <div class="service-icon">
                         <i class="fas fa-procedures"></i>
                     </div>
                     <h3>Chirurgie</h3>
-                    <p>Six salles d'opération pour interventions programmées et urgentes par des chirurgiens expérimentés.</p>
+                    <p>Six salles d'opération modernes pour les interventions programmées et chirurgicales d'urgence.</p>
                 </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+                <div id="laboratoire" class="service-card" data-aos="zoom-in" data-aos-delay="50">
                     <div class="service-icon">
                         <i class="fas fa-flask"></i>
                     </div>
-                    <h3>Laboratoire</h3>
-                    <p>Analyses cliniques et prélèvements pour des diagnostics fiables et un suivi optimal.</p>
+                    <h3>Laboratoire d'Analyses</h3>
+                    <p>Biochimie, hématologie, bactériologie, sérologie et banque de sang pour un suivi biologique fiable.</p>
                 </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+                <div id="urgences" class="service-card" data-aos="zoom-in" data-aos-delay="50">
                     <div class="service-icon">
                         <i class="fas fa-ambulance"></i>
                     </div>
-                    <h3>Urgences</h3>
-                    <p>Service réhabilité en 2024, avec 30 lits et des salles spécialisées pour une prise en charge rapide.</p>
+                    <h3>Urgences 24h/24</h3>
+                    <p>Service réhabilité de 30 lits avec salles de triage et de déchoquage pour une prise en charge immédiate.</p>
                 </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+                <div id="pharmacie" class="service-card" data-aos="zoom-in" data-aos-delay="50">
                     <div class="service-icon">
                         <i class="fas fa-pills"></i>
                     </div>
-                    <h3>Pharmacie</h3>
-                    <p>Fourniture de médicaments essentiels pour les patients hospitalisés et externes.</p>
+                    <h3>Pharmacie Hospitalière</h3>
+                    <p>Dispensation de médicaments essentiels et dispositifs médicaux pour les patients hospitalisés et externes.</p>
                 </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="50">
                     <div class="service-icon">
                         <i class="fas fa-disease"></i>
                     </div>
                     <h3>Maladies Infectieuses</h3>
-                    <p>Centre dédié à la prise en charge de la tuberculose et autres infections contagieuses.</p>
+                    <p>Unité dédiée à la prévention, au diagnostic et au traitement des pathologies infectieuses.</p>
                 </div>
             </div>
-            
-            <div class="services-grid">
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+
+            <div class="services-grid" style="margin-top: 30px;">
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="50">
                     <div class="service-icon">
                         <i class="fas fa-tint"></i>
                     </div>
                     <h3>Drépanocytose</h3>
-                    <p>Services spécialisés pour le diagnostic, le suivi et le traitement de la drépanocytose.</p>
+                    <p>Consultations spécialisées pour le dépistage, le suivi régulier et la gestion des crises vaso-occlusives.</p>
                 </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="50">
                     <div class="service-icon">
                         <i class="fas fa-heartbeat"></i>
                     </div>
                     <h3>Hypertension et Diabète</h3>
-                    <p>Consultations, suivi personnalisé et soins adaptés pour ces affections chroniques.</p>
+                    <p>Suivi personnalisé, éducation thérapeutique et bilan des complications cardiovasculaires et métaboliques.</p>
                 </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="50">
                     <div class="service-icon">
                         <i class="fas fa-brain"></i>
                     </div>
                     <h3>Santé Mentale</h3>
-                    <p>Consultations en psychiatrie et psychologie pour les troubles mentaux et comportementaux.</p>
+                    <p>Consultations de psychiatrie et d'accompagnement psychologique dans le strict respect de la confidentialité.</p>
                 </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="50">
                     <div class="service-icon">
                         <i class="fas fa-walking"></i>
                     </div>
                     <h3>Rééducation Fonctionnelle</h3>
-                    <p>Programmes de réadaptation physique pour aider les patients à retrouver leur autonomie.</p>
+                    <p>Kinésithérapie et réadaptation motrice post-traumatique, orthopédique ou neurologique.</p>
                 </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="50">
                     <div class="service-icon">
                         <i class="fas fa-book-medical"></i>
                     </div>
                     <h3>Éducation pour la Santé</h3>
-                    <p>Initiatives de sensibilisation et de prévention sur les risques de maladies.</p>
+                    <p>Campagnes de sensibilisation, conseils nutritionnels et prévention communautaire.</p>
                 </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="50">
                     <div class="service-icon">
                         <i class="fas fa-syringe"></i>
                     </div>
                     <h3>Vaccination</h3>
-                    <p>Services de vaccination pour enfants et adultes contre diverses maladies infectieuses.</p>
+                    <p>Programme Élargi de Vaccination (PEV) pour les nourrissons, enfants et adultes.</p>
                 </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="50">
                     <div class="service-icon">
                         <i class="fas fa-search"></i>
                     </div>
-                    <h3>Dépistage</h3>
-                    <p>Tests pour VIH/SIDA, diabète et hypertension permettant un diagnostic précoce.</p>
+                    <h3>Dépistage Précoce</h3>
+                    <p>Dépistage confidentiel et rapide (diabète, HTA, cancers féminins, VIH) pour une prise en charge précoce.</p>
                 </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="50">
                     <div class="service-icon">
-                        <i class="fas fa-home"></i>
+                        <i class="fas fa-user-md"></i>
                     </div>
-                    <h3>Soins à Domicile</h3>
-                    <p>Suivi médical et infirmier à domicile pour les patients nécessitant une surveillance continue.</p>
+                    <h3>Consultations Spécialisées</h3>
+                    <p>Rendez-vous programmés du lundi au samedi dans plus de 20 spécialités médicales et chirurgicales.</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" data-aos="fade-up">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Planifiez votre consultation dès maintenant</h2>
+                <p>Évitez l'attente en réservant directement votre créneau en ligne avec un code de suivi immédiat.</p>
+                <a href="appointment.html" class="btn">Prendre rendez-vous</a>
             </div>
         </div>
     </section>
@@ -172,71 +191,62 @@
                         <img src="https://res.cloudinary.com/dzcnlr1yz/image/upload/v1742394317/f1oy2jfpkujbopbqlrd2.png" alt="Logo Hôpital" width="60" height="60" data-config="logo">
                         <h3>Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène</h3>
                     </div>
-                    <p>Votre partenaire santé depuis 1954</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
+                    <p>Établissement public de santé de référence au service des patients depuis 1954.</p>
                 </div>
                 <div class="footer-col">
-                    <h4>Liens rapides</h4>
+                    <h4>Navigation</h4>
                     <ul>
                         <li><a href="index.html">Accueil</a></li>
                         <li><a href="about.html">À propos</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="specialties.html">Spécialités</a></li>
                         <li><a href="team.html">Notre équipe</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="suivi.html">Suivre mon RDV</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4>Services</h4>
+                    <h4>Services Clés</h4>
                     <ul>
-                        <li><a href="services.html#urgences">Urgences</a></li>
-                        <li><a href="specialties.html#nephrologie">Néphrologie</a></li>
-                        <li><a href="services.html#chirurgie">Chirurgie</a></li>
-                        <li><a href="services.html#maternite">Maternité</a></li>
-                        <li><a href="services.html#imagerie">Imagerie</a></li>
-                        <li><a href="services.html#laboratoire">Laboratoire</a></li>
+                        <li><a href="#urgences">Urgences 24h/24</a></li>
+                        <li><a href="appointment.html?specialty=N%C3%A9phrologie">Néphrologie & Dialyse</a></li>
+                        <li><a href="#chirurgie">Chirurgie</a></li>
+                        <li><a href="#maternite">Maternité</a></li>
+                        <li><a href="#imagerie">Imagerie & Scanner</a></li>
+                        <li><a href="#laboratoire">Laboratoire</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4>Contact</h4>
                     <div class="contact-info">
                         <div><i class="fas fa-map-marker-alt"></i> Avenue Caen, Route de Dakar, Thiès</div>
-                        <div><i class="fas fa-phone"></i> +221 33 952 10 90</div>
-                        <div><i class="fas fa-envelope"></i> hopital.thies@gmail.com</div>
+                        <div><i class="fas fa-phone"></i> <a href="tel:+221339521090">+221 33 952 10 90</a></div>
+                        <div><i class="fas fa-envelope"></i> <a href="mailto:contact@hopital-regional-thies.sn">contact@hopital-regional-thies.sn</a></div>
                     </div>
                 </div>
             </div>
             <div class="copyright">
-                <div style="display: flex; justify-content: space-between; flex-wrap: wrap; width: 100%;">
-                <p>&copy; 2024 Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès. Tous droits réservés.</p>
-                <p>
-                    <a href="mentions-legales.html" style="color: #ccc; margin-right: 15px; text-decoration: none;">Mentions Légales</a>
-                    <a href="confidentialite.html" style="color: #ccc; text-decoration: none;">Politique de Confidentialité</a>
-                </p>
-            </div>
+                <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; width: 100%;">
+                    <p>&copy; 2026 Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès. Tous droits réservés.</p>
+                    <p>
+                        <a href="mentions-legales.html" style="color: #cbd5e1; margin-right: 15px; text-decoration: none;">Mentions Légales</a>
+                        <a href="confidentialite.html" style="color: #cbd5e1; text-decoration: none;">Politique de Confidentialité</a>
+                    </p>
+                </div>
             </div>
         </div>
     </footer>
 
-    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+    <a href="#" class="back-to-top" aria-label="Retour en haut"><i class="fas fa-arrow-up"></i></a>
 
     <script type="module" src="/script.js"></script>
     <script type="module" src="/specialties-icons.js"></script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        if(typeof AOS !== 'undefined') {
-            AOS.init({ duration: 800, once: true, offset: 100 });
-        }
-    });
-</script>
-    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof AOS !== 'undefined') {
+                AOS.init({ duration: 700, once: true, offset: 80 });
+            }
+        });
+    </script>
 </body>
 </html>
-
-

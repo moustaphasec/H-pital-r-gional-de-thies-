@@ -3,25 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès</title>
+    <title>Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès | Accueil & Rendez-vous</title>
+    <meta name="description" content="Portail officiel de l'Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès (Sénégal). Prise de rendez-vous en ligne, suivi en temps réel, urgences 24h/24 et 20 spécialités médicales.">
+    <meta property="og:title" content="Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès">
+    <meta property="og:description" content="Prenez rendez-vous en ligne en 1 minute avec nos médecins spécialistes à Thiès. Urgences ouvertes 24h/24 et 7j/7.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_SN">
+    <link rel="icon" type="image/png" href="/icon-192x192.png">
+    <link rel="apple-touch-icon" href="/icon-192x192.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0F172A">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="additional-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#0F172A">
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
     <header>
         <nav>
             <div class="container">
                 <div class="logo">
-                    <img src="https://res.cloudinary.com/dzcnlr1yz/image/upload/v1742394317/f1oy2jfpkujbopbqlrd2.png" alt="Logo Hôpital" width="60" height="60" data-config="logo">
+                    <img src="https://res.cloudinary.com/dzcnlr1yz/image/upload/v1742394317/f1oy2jfpkujbopbqlrd2.png" alt="Logo Hôpital Régional de Thiès" width="60" height="60" data-config="logo">
                     <h1 data-config="fullName">Hôpital Régional<br><span>El Hadji Ahmadou Sakhir Ndiéguène</span></h1>
-                    <button class="theme-toggle-btn" aria-label="Basculer le thème" style="margin-left: 20px;"><i class="fas fa-moon"></i></button>
+                    <button class="theme-toggle-btn" aria-label="Basculer le thème" style="margin-left: 16px;"><i class="fas fa-moon"></i></button>
                 </div>
-                <div class="menu-toggle">
+                <div class="menu-toggle" aria-label="Menu">
                     <i class="fas fa-bars"></i>
                 </div>
                 <ul class="nav-links">
@@ -42,25 +48,28 @@
         <div class="slider-container">
             <div class="slider">
                 <div class="slide active">
-                    <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1653&q=80" alt="Hôpital">
+                    <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1653&q=80" alt="Hôpital Régional de Thiès">
                     <div class="slide-content glass-panel modern-slide-content">
                         <h2 class="modern-title">Excellence médicale</h2>
-                        <p class="modern-subtitle">Des soins de qualité au service de la population</p>
-                        <a href="services.html" class="btn">Nos Services <i class="fas fa-arrow-right"></i></a>
+                        <p class="modern-subtitle">Des soins de référence au service des populations de la région de Thiès</p>
+                        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+                            <a href="appointment.html" class="btn">Prendre Rendez-vous <i class="fas fa-calendar-check"></i></a>
+                            <a href="services.html" class="btn btn-outline" style="background:rgba(255,255,255,0.85) !important;">Nos Services <i class="fas fa-arrow-right"></i></a>
+                        </div>
                     </div>
                 </div>
                 <div class="slide">
-                    <img src="https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80" alt="Personnel médical">
+                    <img src="https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80" alt="Personnel médical dévoué">
                     <div class="slide-content glass-panel modern-slide-content">
                         <h2 class="modern-title">Une équipe dévouée</h2>
-                        <p class="modern-subtitle">Des professionnels attentifs à votre santé</p>
-                        <a href="services.html" class="btn">Nos Services <i class="fas fa-arrow-right"></i></a>
+                        <p class="modern-subtitle">Plus de 50 médecins spécialistes et un plateau technique moderne 24h/24</p>
+                        <a href="appointment.html" class="btn">Réserver une consultation <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
             <div class="slider-nav">
-                <button class="prev"><i class="fas fa-chevron-left"></i></button>
-                <button class="next"><i class="fas fa-chevron-right"></i></button>
+                <button class="prev" aria-label="Diapositive précédente"><i class="fas fa-chevron-left"></i></button>
+                <button class="next" aria-label="Diapositive suivante"><i class="fas fa-chevron-right"></i></button>
             </div>
             <div class="slider-dots">
                 <span class="dot active" data-index="0"></span>
@@ -77,7 +86,7 @@
                 </div>
                 <div class="emergency-content">
                     <h3 class="emergency-card-title">Urgences 24/7</h3>
-                    <p class="emergency-card-text">Service d'urgence disponible jour et nuit</p>
+                    <p class="emergency-card-text">Accueil médico-chirurgical jour et nuit</p>
                     <a href="tel:+221339521090" class="btn" data-config="contactPhone">+221 33 952 10 90</a>
                 </div>
             </div>
@@ -87,7 +96,7 @@
                 </div>
                 <div class="emergency-content">
                     <h3 class="emergency-card-title">Rendez-vous</h3>
-                    <p class="emergency-card-text">Prenez rendez-vous avec nos spécialistes</p>
+                    <p class="emergency-card-text">Réservation rapide sans attente au guichet</p>
                     <a href="appointment.html" class="btn">Réserver</a>
                 </div>
             </div>
@@ -97,8 +106,8 @@
                 </div>
                 <div class="emergency-content">
                     <h3 class="emergency-card-title">Horaires</h3>
-                    <p class="emergency-card-text">Lun-Ven: 8h-18h<br>Sam: 8h-12h</p>
-                    <a href="contact.html" class="btn">En savoir plus</a>
+                    <p class="emergency-card-text">Lun-Ven : 8h-18h<br>Sam : 8h-12h</p>
+                    <a href="suivi.html" class="btn">Suivre mon RDV</a>
                 </div>
             </div>
         </div>
@@ -112,13 +121,15 @@
             </div>
             <div class="about-content">
                 <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1653&q=80" alt="Hôpital Régional de Thiès">
+                    <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1653&q=80" alt="Hôpital Régional de Thiès" loading="lazy">
                 </div>
                 <div class="about-text">
                     <h3>Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès</h3>
                     <p>Fondé en 1954, l'Hôpital Régional de Thiès a été rebaptisé en 2007 du nom d'El Hadji Ahmadou Sakhir Ndiéguène, en hommage à ce grand guide religieux.</p>
-                    <p>Notre établissement est une référence en matière de soins médicaux dans la région de Thiès, offrant une gamme complète de services médicaux et chirurgicaux avec des équipements de pointe et une équipe médicale hautement qualifiée.</p>
-                    <p>Notre mission est de fournir des soins de santé de qualité, accessibles à tous, dans un environnement confortab                        <div class="stat" data-aos="fade-up" data-aos-delay="100">
+                    <p>Notre établissement public de santé est le pôle de référence sanitaire de toute la région de Thiès, offrant une gamme complète de soins médicaux, chirurgicaux, obstétricaux et d'imagerie de pointe.</p>
+                    <p>Notre mission est de garantir des soins de haute qualité, humains et accessibles à tous, dans un environnement confortable et sécurisé.</p>
+                    <div class="stats">
+                        <div class="stat" data-aos="fade-up" data-aos-delay="100">
                             <span class="count" data-target="250">0</span>
                             <span class="label">Lits</span>
                         </div>
@@ -143,124 +154,49 @@
     <section id="services" class="services">
         <div class="container">
             <div class="section-header">
-                <h2>Nos services</h2>
+                <h2>Nos pôles hospitaliers</h2>
                 <div class="divider"></div>
             </div>
             <div class="services-grid">
                 <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="service-icon">
-                        <i class="fas fa-kidney"></i>
-                    </div>
+                    <div class="service-icon"><i class="fas fa-kidney"></i></div>
                     <h3>Néphrologie et Dialyse</h3>
                     <p>Service équipé de 23 postes de dialyse pour la prise en charge des affections rénales.</p>
                 </div>
                 <div class="service-card" data-aos="zoom-in" data-aos-delay="150">
-                    <div class="service-icon">
-                        <i class="fas fa-baby"></i>
-                    </div>
+                    <div class="service-icon"><i class="fas fa-baby"></i></div>
                     <h3>Maternité</h3>
-                    <p>Suivi de grossesse, accouchement et soins postnataux dans un environnement sécurisé.</p>
+                    <p>Suivi de grossesse, accouchement sécurisé et néonatologie 24h/24.</p>
                 </div>
                 <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="service-icon">
-                        <i class="fas fa-x-ray"></i>
-                    </div>
+                    <div class="service-icon"><i class="fas fa-x-ray"></i></div>
                     <h3>Imagerie Médicale</h3>
-                    <p>Radiologies, scanners, échographies et mammographies pour un diagnostic précis.</p>
+                    <p>Scanner, radiologie numérique, échographie et mammographie haute précision.</p>
                 </div>
                 <div class="service-card" data-aos="zoom-in" data-aos-delay="250">
-                    <div class="service-icon">
-                        <i class="fas fa-procedures"></i>
-                    </div>
+                    <div class="service-icon"><i class="fas fa-procedures"></i></div>
                     <h3>Chirurgie</h3>
-                    <p>Six salles d'opération pour interventions programmées et urgentes par des chirurgiens expérimentés.</p>
+                    <p>Six salles d'opération modernes pour interventions programmées et urgentes.</p>
                 </div>
                 <div class="service-card" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="service-icon">
-                        <i class="fas fa-flask"></i>
-                    </div>
+                    <div class="service-icon"><i class="fas fa-flask"></i></div>
                     <h3>Laboratoire</h3>
-                    <p>Analyses cliniques et prélèvements pour des diagnostics fiables et un suivi optimal.</p>
+                    <p>Analyses biologiques, bactériologie et hématologie pour des diagnostics rapides.</p>
                 </div>
                 <div class="service-card" data-aos="zoom-in" data-aos-delay="350">
-                    <div class="service-icon">
-                        <i class="fas fa-ambulance"></i>
-                    </div>
+                    <div class="service-icon"><i class="fas fa-ambulance"></i></div>
                     <h3>Urgences</h3>
-                    <p>Service réhabilité en 2024, avec 30 lits et des salles spécialisées pour une prise en charge rapide.</p>
+                    <p>Service réhabilité de 30 lits avec déchocage pour une prise en charge immédiate.</p>
                 </div>
                 <div class="service-card" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="service-icon">
-                        <i class="fas fa-pills"></i>
-                    </div>
+                    <div class="service-icon"><i class="fas fa-pills"></i></div>
                     <h3>Pharmacie</h3>
-                    <p>Fourniture de médicaments essentiels pour les patients hospitalisés et externes.</p>
+                    <p>Dispensation permanente des médicaments essentiels aux patients hospitalisés et externes.</p>
                 </div>
                 <div class="service-card" data-aos="zoom-in" data-aos-delay="450">
-                    <div class="service-icon">
-                        <i class="fas fa-tooth"></i>
-                    </div>
+                    <div class="service-icon"><i class="fas fa-tooth"></i></div>
                     <h3>Odontologie</h3>
-                    <p>Soins dentaires complets, prévention et traitement des affections bucco-dentaires.</p>
-                </div>
-            </div>
-            
-            <div class="services-grid">
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="service-icon">
-                        <i class="fas fa-tint"></i>
-                    </div>
-                    <h3>Drépanocytose</h3>
-                    <p>Services spécialisés pour le diagnostic, le suivi et le traitement de la drépanocytose.</p>
-                </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="service-icon">
-                        <i class="fas fa-heartbeat"></i>
-                    </div>
-                    <h3>Hypertension et Diabète</h3>
-                    <p>Consultations, suivi personnalisé et soins adaptés pour ces affections chroniques.</p>
-                </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="service-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3>Santé Mentale</h3>
-                    <p>Consultations en psychiatrie et psychologie pour les troubles mentaux et comportementaux.</p>
-                </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="service-icon">
-                        <i class="fas fa-walking"></i>
-                    </div>
-                    <h3>Rééducation Fonctionnelle</h3>
-                    <p>Programmes de réadaptation physique pour aider les patients à retrouver leur autonomie.</p>
-                </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="service-icon">
-                        <i class="fas fa-book-medical"></i>
-                    </div>
-                    <h3>Éducation pour la Santé</h3>
-                    <p>Initiatives de sensibilisation et de prévention sur les risques de maladies.</p>
-                </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="service-icon">
-                        <i class="fas fa-syringe"></i>
-                    </div>
-                    <h3>Vaccination</h3>
-                    <p>Services de vaccination pour enfants et adultes contre diverses maladies infectieuses.</p>
-                </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="service-icon">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <h3>Dépistage</h3>
-                    <p>Tests pour VIH/SIDA, diabète et hypertension permettant un diagnostic précoce.</p>
-                </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="service-icon">
-                        <i class="fas fa-home"></i>
-                    </div>
-                    <h3>Soins à Domicile</h3>
-                    <p>Suivi médical et infirmier à domicile pour les patients nécessitant une surveillance continue.</p>
+                    <p>Chirurgie dentaire, soins conservateurs et traitement des affections bucco-dentaires.</p>
                 </div>
             </div>
         </div>
@@ -269,71 +205,37 @@
     <section id="specialites" class="specialities">
         <div class="container">
             <div class="section-header">
-                <h2>Nos spécialités</h2>
+                <h2>Spécialités en accès direct</h2>
                 <div class="divider"></div>
             </div>
             <div class="services-grid">
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="service-icon">
-                        <i class="fas fa-kidney"></i>
-                    </div>
-                    <h3>Néphrologie et Dialyse</h3>
-                    <p>Traitement des affections rénales et service de dialyse équipé de 23 postes.</p>
+                <div class="service-card" data-aos="zoom-in">
+                    <div class="service-icon"><i class="fas fa-kidney"></i></div>
+                    <h3>Néphrologie & Dialyse</h3>
+                    <p style="margin-bottom:16px;">Traitement des affections rénales et hémodialyse.</p>
+                    <a href="appointment.html?specialty=N%C3%A9phrologie" class="btn" style="padding:8px 18px;font-size:0.88rem;">Prendre RDV</a>
                 </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="service-icon">
-                        <i class="fas fa-heartbeat"></i>
-                    </div>
+                <div class="service-card" data-aos="zoom-in">
+                    <div class="service-icon"><i class="fas fa-heartbeat"></i></div>
                     <h3>Cardiologie</h3>
-                    <p>Diagnostic et traitement des maladies cardiovasculaires.</p>
+                    <p style="margin-bottom:16px;">Maladies cardiovasculaires, HTA, ECG et écho-cœur.</p>
+                    <a href="appointment.html?specialty=Cardiologie" class="btn" style="padding:8px 18px;font-size:0.88rem;">Prendre RDV</a>
                 </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="service-icon">
-                        <i class="fas fa-stethoscope"></i>
-                    </div>
-                    <h3>Médecine interne</h3>
-                    <p>Prise en charge des pathologies complexes et multisystémiques.</p>
+                <div class="service-card" data-aos="zoom-in">
+                    <div class="service-icon"><i class="fas fa-baby"></i></div>
+                    <h3>Gynécologie & Maternité</h3>
+                    <p style="margin-bottom:16px;">Santé de la femme et suivi complet de la grossesse.</p>
+                    <a href="appointment.html?specialty=Gyn%C3%A9cologie" class="btn" style="padding:8px 18px;font-size:0.88rem;">Prendre RDV</a>
                 </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="service-icon">
-                        <i class="fas fa-baby"></i>
-                    </div>
-                    <h3>Gynécologie et Obstétrique</h3>
-                    <p>Soins de la femme et suivi complet de la grossesse.</p>
-                </div>
-            </div>
-            <div class="services-grid">
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="service-icon">
-                        <i class="fas fa-child"></i>
-                    </div>
+                <div class="service-card" data-aos="zoom-in">
+                    <div class="service-icon"><i class="fas fa-child"></i></div>
                     <h3>Pédiatrie</h3>
-                    <p>Soins médicaux spécialisés pour les enfants de la naissance à l'adolescence.</p>
-                </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="service-icon">
-                        <i class="fas fa-procedures"></i>
-                    </div>
-                    <h3>Chirurgie générale</h3>
-                    <p>Interventions chirurgicales diverses avec six salles d'opération modernes.</p>
-                </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="service-icon">
-                        <i class="fas fa-bone"></i>
-                    </div>
-                    <h3>Chirurgie orthopédique</h3>
-                    <p>Traitement des affections de l'appareil locomoteur et squelettique.</p>
-                </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="service-icon">
-                        <i class="fas fa-ambulance"></i>
-                    </div>
-                    <h3>Médecine d'urgence</h3>
-                    <p>Prise en charge rapide des urgences médicales 24h/24 et 7j/7.</p>
+                    <p style="margin-bottom:16px;">Consultations et suivi médical de l'enfant et du nourrisson.</p>
+                    <a href="appointment.html?specialty=P%C3%A9diatrie" class="btn" style="padding:8px 18px;font-size:0.88rem;">Prendre RDV</a>
                 </div>
             </div>
-            <div class="text-center" style="margin-top: 30px;">
-                <a href="specialties.html" class="btn">Voir toutes nos spécialités</a>
+            <div class="text-center" style="margin-top: 30px; text-align: center;">
+                <a href="specialties.html" class="btn">Découvrir nos 20 spécialités <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </section>
@@ -347,54 +249,86 @@
             <div class="team-grid">
                 <div class="doctor-card">
                     <div class="doctor-image">
-                        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Dr. Amadou Diop">
+                        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80" alt="Dr. Amadou Diop" loading="lazy">
                     </div>
                     <div class="doctor-info">
                         <h3>Dr. Amadou Diop</h3>
                         <p class="doctor-specialty">Chef de service Cardiologie</p>
-                        <div class="doctor-socials">
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                        </div>
                     </div>
                 </div>
                 <div class="doctor-card">
                     <div class="doctor-image">
-                        <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Dr. Fatou Ndiaye">
+                        <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80" alt="Dr. Fatou Ndiaye" loading="lazy">
                     </div>
                     <div class="doctor-info">
                         <h3>Dr. Fatou Ndiaye</h3>
                         <p class="doctor-specialty">Gynécologue-Obstétricienne</p>
-                        <div class="doctor-socials">
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                        </div>
                     </div>
                 </div>
                 <div class="doctor-card">
                     <div class="doctor-image">
-                        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1664&q=80" alt="Dr. Moussa Sène">
+                        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80" alt="Dr. Moussa Sène" loading="lazy">
                     </div>
                     <div class="doctor-info">
                         <h3>Dr. Moussa Sène</h3>
                         <p class="doctor-specialty">Chirurgien orthopédiste</p>
-                        <div class="doctor-socials">
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                        </div>
                     </div>
                 </div>
                 <div class="doctor-card">
                     <div class="doctor-image">
-                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Dr. Aïssatou Fall">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80" alt="Dr. Aïssatou Fall" loading="lazy">
                     </div>
                     <div class="doctor-info">
                         <h3>Dr. Aïssatou Fall</h3>
                         <p class="doctor-specialty">Pédiatre</p>
-                        <div class="doctor-socials">
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Questions Fréquentes (FAQ) -->
+    <section class="faq-section" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Questions fréquentes des patients</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item active">
+                    <div class="faq-question">
+                        <span>Puis-je prendre rendez-vous sans avoir d'adresse e-mail ?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Oui, absolument ! Seuls votre nom complet et votre numéro de téléphone sont requis. À la fin de votre réservation, un <strong>Code de Suivi (ex: RDV-XXXXXX)</strong> s'affiche immédiatement pour consulter ou imprimer votre rendez-vous à tout moment.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Quels documents dois-je apporter le jour de ma consultation ?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Munissez-vous de votre pièce d'identité (CNI ou passeport), de votre carnet de santé, de vos anciens bilans médicaux ou ordonnances, ainsi que de votre carte CMU, mutuelle de santé, imputation budgétaire ou assurance le cas échéant.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Acceptez-vous la Couverture Maladie Universelle (CMU) et le Plan Sésame ?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Oui. En tant qu'établissement public de santé de référence, l'Hôpital Régional de Thiès accepte les mutuelles de santé communautaires (CMU), le Plan Sésame pour les personnes âgées, les imputations budgétaires et les assurances agréées.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Comment vérifier si le médecin a confirmé mon rendez-vous ou l'annuler ?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Cliquez sur le bouton <strong>« Suivre RDV »</strong> en haut du site et saisissez votre code de suivi. Vous verrez instantanément le statut de votre demande (En attente, Confirmé) et pourrez également annuler gratuitement si vous avez un empêchement.
                     </div>
                 </div>
             </div>
@@ -419,53 +353,53 @@
                     <div class="info-item">
                         <i class="fas fa-phone"></i>
                         <div>
-                            <h3>Téléphone</h3>
-                            <p>+221 33 952 10 90<br>+221 33 952 10 91</p>
+                            <h3>Téléphone & Urgences</h3>
+                            <p><a href="tel:+221339521090">+221 33 952 10 90</a><br><a href="tel:+221339521091">+221 33 952 10 91</a></p>
                         </div>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-envelope"></i>
                         <div>
                             <h3>Email</h3>
-                            <p>contact@hopital-thies.sn</p>
+                            <p><a href="mailto:contact@hopital-regional-thies.sn">contact@hopital-regional-thies.sn</a></p>
                         </div>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-clock"></i>
                         <div>
                             <h3>Horaires</h3>
-                            <p>Lundi - Vendredi: 8h00 - 18h00<br>Samedi: 8h00 - 12h00<br>Urgences: 24h/24, 7j/7</p>
+                            <p>Lundi - Vendredi : 8h00 - 18h00<br>Samedi : 8h00 - 12h00<br>Urgences : 24h/24, 7j/7</p>
                         </div>
                     </div>
                     <div class="map">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3857.4979147298576!2d-16.9373401!3d14.790116499999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xee9f4c30ec8c42d%3A0x78bc5f8cd569c172!2sH%C3%B4pital%20R%C3%A9gional%20de%20Thi%C3%A8s!5e0!3m2!1sfr!2sfr!4v1652345678901!5m2!1sfr!2sfr" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        <iframe title="Carte Hôpital Régional de Thiès" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3857.4979147298576!2d-16.9373401!3d14.790116499999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xee9f4c30ec8c42d%3A0x78bc5f8cd569c172!2sH%C3%B4pital%20R%C3%A9gional%20de%20Thi%C3%A8s!5e0!3m2!1sfr!2sfr!4v1652345678901!5m2!1sfr!2sfr" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                     </div>
                 </div>
                 <div class="contact-form">
                     <h3>Envoyez-nous un message</h3>
                     <form id="contactForm">
                         <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="Votre nom" required>
+                            <input type="text" id="name" name="name" placeholder="Votre nom complet" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="Votre email" required>
+                            <input type="email" id="email" name="email" placeholder="Votre email (optionnel)">
                         </div>
                         <div class="form-group">
-                            <input type="tel" id="phone" name="phone" placeholder="Votre téléphone" required>
+                            <input type="tel" id="phone" name="phone" placeholder="Votre téléphone (ex: 77 123 45 67)" required>
                         </div>
                         <div class="form-group">
                             <select id="subject" name="subject" required>
-                                <option value="" disabled selected>Sujet</option>
+                                <option value="" disabled selected>Sujet de votre demande</option>
                                 <option value="RDV">Rendez-vous</option>
                                 <option value="Information">Demande d'information</option>
-                                <option value="Reclamation">Réclamation</option>
+                                <option value="Reclamation">Suggestion / Réclamation</option>
                                 <option value="Autre">Autre</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <textarea id="message" name="message" placeholder="Votre message" required></textarea>
+                            <textarea id="message" name="message" placeholder="Votre message..." required></textarea>
                         </div>
-                        <button type="submit" class="btn">Envoyer</button>
+                        <button type="submit" class="btn">Envoyer le message <i class="fas fa-paper-plane"></i></button>
                     </form>
                 </div>
             </div>
@@ -476,7 +410,7 @@
         <div class="container">
             <div class="cta-content">
                 <h2>Votre santé est notre priorité</h2>
-                <p>Prenez rendez-vous avec nos spécialistes dès aujourd'hui</p>
+                <p>Prenez rendez-vous en ligne avec nos spécialistes dès aujourd'hui</p>
                 <a href="appointment.html" class="btn">Prendre rendez-vous</a>
             </div>
         </div>
@@ -490,72 +424,62 @@
                         <img src="https://res.cloudinary.com/dzcnlr1yz/image/upload/v1742394317/f1oy2jfpkujbopbqlrd2.png" alt="Logo Hôpital" width="60" height="60" data-config="logo">
                         <h3>Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène</h3>
                     </div>
-                    <p>Votre partenaire santé depuis 1954</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
+                    <p>Établissement public de santé de référence au service des patients depuis 1954.</p>
                 </div>
                 <div class="footer-col">
-                    <h4>Liens rapides</h4>
+                    <h4>Navigation</h4>
                     <ul>
                         <li><a href="index.html">Accueil</a></li>
                         <li><a href="about.html">À propos</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="specialties.html">Spécialités</a></li>
                         <li><a href="team.html">Notre équipe</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="suivi.html">Suivre mon RDV</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4>Services</h4>
+                    <h4>Services Clés</h4>
                     <ul>
-                        <li><a href="services.html">Urgences</a></li>
-                        <li><a href="services.html">Néphrologie</a></li>
-                        <li><a href="services.html">Chirurgie</a></li>
-                        <li><a href="services.html">Maternité</a></li>
-                        <li><a href="services.html">Imagerie</a></li>
-                        <li><a href="services.html">Laboratoire</a></li>
+                        <li><a href="appointment.html?specialty=Urgences">Urgences 24h/24</a></li>
+                        <li><a href="appointment.html?specialty=N%C3%A9phrologie">Néphrologie & Dialyse</a></li>
+                        <li><a href="appointment.html?specialty=Cardiologie">Cardiologie</a></li>
+                        <li><a href="appointment.html?specialty=Gyn%C3%A9cologie">Maternité</a></li>
+                        <li><a href="services.html#imagerie">Imagerie & Scanner</a></li>
+                        <li><a href="services.html#laboratoire">Laboratoire</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4>Contact</h4>
                     <div class="contact-info">
                         <div><i class="fas fa-map-marker-alt"></i> Avenue Caen, Route de Dakar, Thiès</div>
-                        <div><i class="fas fa-phone"></i> +221 33 952 10 90</div>
-                        <div><i class="fas fa-envelope"></i> contact@hopital-thies.sn</div>
+                        <div><i class="fas fa-phone"></i> <a href="tel:+221339521090">+221 33 952 10 90</a></div>
+                        <div><i class="fas fa-envelope"></i> <a href="mailto:contact@hopital-regional-thies.sn">contact@hopital-regional-thies.sn</a></div>
                     </div>
                 </div>
             </div>
             <div class="copyright">
-                <div style="display: flex; justify-content: space-between; flex-wrap: wrap; width: 100%;">
-                <p>&copy; 2024 Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès. Tous droits réservés.</p>
-                <p>
-                    <a href="mentions-legales.html" style="color: #ccc; margin-right: 15px; text-decoration: none;">Mentions Légales</a>
-                    <a href="confidentialite.html" style="color: #ccc; text-decoration: none;">Politique de Confidentialité</a>
-                </p>
-            </div>
+                <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; width: 100%;">
+                    <p>&copy; 2026 Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès. Tous droits réservés.</p>
+                    <p>
+                        <a href="mentions-legales.html" style="color: #cbd5e1; margin-right: 15px; text-decoration: none;">Mentions Légales</a>
+                        <a href="confidentialite.html" style="color: #cbd5e1; text-decoration: none;">Politique de Confidentialité</a>
+                    </p>
+                </div>
             </div>
         </div>
     </footer>
 
-    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+    <a href="#" class="back-to-top" aria-label="Retour en haut"><i class="fas fa-arrow-up"></i></a>
 
-    
     <script type="module" src="/script.js"></script>
     <script type="module" src="/specialties-icons.js"></script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        if(typeof AOS !== 'undefined') {
-            AOS.init({ duration: 800, once: true, offset: 100 });
-        }
-    });
-</script>
-    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof AOS !== 'undefined') {
+                AOS.init({ duration: 700, once: true, offset: 80 });
+            }
+        });
+    </script>
 </body>
 </html>
-
-
