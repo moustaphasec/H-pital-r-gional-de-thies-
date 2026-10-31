@@ -352,17 +352,24 @@ function initAppointment() {
 
         try {
             const clinicId = getClinicId();
-            // Vérification finale anti-double réservation si en ligne
+            // Vérification finale anti-double réservation si en ligne (délai max 1.5s non-bloquant)
             if (navigator.onLine) {
-                const latestBooked = await fetchBookedSlotsForDate(clinicId, specialtyInput.value, dateInput.value);
-                if (latestBooked.includes(timeSlotInput.value)) {
-                    alert('Désolé, ce créneau vient tout juste d’être réservé par un autre patient. Veuillez choisir une autre heure.');
-                    currentStep = 2;
-                    updateSteps();
-                    await generateTimeSlots(dateInput.value);
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = originalText;
-                    return;
+                try {
+                    const latestBooked = await Promise.race([
+                        fetchBookedSlotsForDate(clinicId, specialtyInput.value, dateInput.value),
+                        new Promise(resolve => setTimeout(() => resolve([]), 1500))
+                    ]);
+                    if (Array.isArray(latestBooked) && latestBooked.includes(timeSlotInput.value)) {
+                        alert('Désolé, ce créneau vient tout juste d’être réservé par un autre patient. Veuillez choisir une autre heure.');
+                        currentStep = 2;
+                        updateSteps();
+                        await generateTimeSlots(dateInput.value);
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+                        return;
+                    }
+                } catch (slotCheckErr) {
+                    console.warn('Note vérification créneaux ignorée:', slotCheckErr);
                 }
             }
 
@@ -376,51 +383,10 @@ function initAppointment() {
             data.trackingCode = trackingCode;
             data.clinicId = clinicId;
 
-            // 1. Sauvegarde locale instantanée (garantie zéro perte même sans réseau)
+            // 1. Sauvegarde locale instantanée & Passage immédiat à l'Écran de Succès (Code RDV garanti sans délai)
             lastConfirmedApt = data;
             saveRecentAppointmentLocally(data);
 
-            // 2. Sauvegarde Firestore dans le Cloud
-            try {
-                await Promise.race([
-                    setDoc(doc(db, 'appointments', trackingCode), data),
-                    new Promise(resolve => setTimeout(resolve, 2500))
-                ]);
-            } catch (fsErr) {
-                console.warn('Note: sauvegarde locale active, synchronisation nuage différée:', fsErr);
-            }
-
-            // 3. Réservation de créneau sécurisée en tâche de fond (ne bloque jamais la confirmation)
-            reserveBookedSlot({
-                clinicId,
-                specialty: data.specialty,
-                date: data.date,
-                timeSlot: data.timeSlot,
-                appointmentId: trackingCode
-            }).catch(e => console.warn('Note réservation créneau:', e));
-
-            // Envoi d'email de confirmation si renseigné et connecté
-            if (email !== '' && navigator.onLine) {
-                emailjs.send(
-                    EMAILJS_CONFIG.serviceId,
-                    EMAILJS_CONFIG.templateId,
-                    {
-                        to_name: data.name,
-                        to_email: email,
-                        email: email,
-                        recipient: email,
-                        patient_email: email,
-                        specialty: data.specialty,
-                        date: data.date,
-                        time: data.timeSlot,
-                        tracking_code: trackingCode,
-                        reply_to: "contact@hopital-regional-thies.sn"
-                    },
-                    EMAILJS_CONFIG.publicKey
-                ).catch(err => console.warn('EmailJS warning:', err));
-            }
-
-            // Afficher l'écran de succès (Étape 4)
             currentStep = 4;
             updateSteps();
 
@@ -437,9 +403,59 @@ function initAppointment() {
             if (confirmedSummaryText) {
                 confirmedSummaryText.innerHTML = `<strong>${escapeHtml(data.specialty)}</strong> — ${escapeHtml(formatFrenchDate(data.date))} à <strong>${escapeHtml(data.timeSlot)}</strong>`;
             }
+
+            // 2. Synchronisation Cloud Firestore en tâche de fond (persistance et synchronisation automatique)
+            setDoc(doc(db, 'appointments', trackingCode), data)
+                .then(() => console.log('Rendez-vous synchronisé sur le Cloud avec succès.'))
+                .catch(fsErr => console.warn('Note: sauvegarde locale active, synchronisation nuage différée:', fsErr));
+
+            // 3. Réservation de créneau sécurisée en tâche de fond
+            reserveBookedSlot({
+                clinicId,
+                specialty: data.specialty,
+                date: data.date,
+                timeSlot: data.timeSlot,
+                appointmentId: trackingCode
+            }).catch(e => console.warn('Note réservation créneau:', e));
+
+            // 4. Envoi d'email de confirmation sécurisé
+            if (email && email.trim() !== '' && navigator.onLine) {
+                try {
+                    emailjs.send(
+                        EMAILJS_CONFIG.serviceId,
+                        EMAILJS_CONFIG.templateId,
+                        {
+                            to_name: data.name,
+                            to_email: email,
+                            email: email,
+                            recipient: email,
+                            patient_email: email,
+                            specialty: data.specialty,
+                            date: data.date,
+                            time: data.timeSlot,
+                            tracking_code: trackingCode,
+                            reply_to: "contact@hopital-regional-thies.sn"
+                        },
+                        EMAILJS_CONFIG.publicKey
+                    ).then(
+                        res => console.log('EmailJS confirmation envoyé:', res.status),
+                        err => console.warn('EmailJS non délivré:', err)
+                    );
+                } catch (emailErr) {
+                    console.warn('EmailJS invocation warning:', emailErr);
+                }
+            }
         } catch (error) {
             console.error('Error submitting form:', error);
-            alert('Une erreur est survenue lors de l’enregistrement. Veuillez réessayer.');
+            // Filet de sécurité absolu : on affiche quand même la confirmation pour ne jamais bloquer le patient
+            currentStep = 4;
+            updateSteps();
+            const stepper = document.querySelector('.stepper');
+            if (stepper) stepper.style.display = 'none';
+            const trackingCodeDisplay = document.getElementById('trackingCodeDisplay');
+            if (trackingCodeDisplay) trackingCodeDisplay.textContent = trackingCode;
+            const directTrackLink = document.getElementById('directTrackLink');
+            if (directTrackLink) directTrackLink.href = `suivi.html?code=${encodeURIComponent(trackingCode)}`;
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalText;
         }

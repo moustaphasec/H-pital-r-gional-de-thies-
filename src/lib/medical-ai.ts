@@ -205,28 +205,34 @@ function localPatientAssistant(question: string): string {
 }
 
 export async function askMedicalAssistant(question: string): Promise<string> {
+  const localReply = localPatientAssistant(question);
+  // Si le moteur clinique local a trouvé une orientation précise (urgence, spécialité, horaire, salutation, rdv...), on répond immédiatement sans latence réseau
+  const isDefaultGuidance = localReply.includes("Je suis l'assistant médical de l'<strong>Hôpital Régional de Thiès</strong>. Je peux vous aider à :");
+  if (!isDefaultGuidance) {
+    return localReply;
+  }
+
+  // Pour les questions ouvertes médicales, on interroge Gemini 3.8 Flash
   if (genAI && typeof navigator !== 'undefined' && navigator.onLine) {
     const prompt = `Tu es l'assistant médical virtuel officiel de l'Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès (Sénégal, Avenue Caen, Tél Urgences 24/7: +221 33 952 10 90, Consultations Lun-Ven 8h-18h et Sam 8h-12h).
 Ton rôle : accueillir chaleureusement le patient, l'orienter vers le bon service de l'hôpital (Cardiologie, Néphrologie/Dialyse, Gynécologie-Maternité, Pédiatrie, Médecine interne, Chirurgie/Orthopédie, Ophtalmologie, ORL & Odontologie, Dermatologie, Gastro-entérologie, Santé Mentale, Urgences) et rappeler qu'un médecin posera le diagnostic définitif. Réponds en français clair et concis (maximum 110 mots).
 Question du patient : ${question}`;
 
-    for (const modelName of ['gemini-3.8-flash', 'gemini-2.5-flash', 'gemini-1.5-flash']) {
-      try {
-        const model = genAI.getGenerativeModel({ model: modelName });
-        const callPromise = model.generateContent(prompt);
-        const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('AI Timeout')), 3000));
-        const result: any = await Promise.race([callPromise, timeoutPromise]);
-        const text = result && result.response && result.response.text ? result.response.text() : '';
-        if (text && text.trim()) {
-          return formatMarkdownToSafeHtml(text.trim());
-        }
-      } catch (err) {
-        console.warn(`Fallback assistant local activé (${modelName}):`, err);
+    try {
+      const model = genAI.getGenerativeModel({ model: 'gemini-3.8-flash' });
+      const callPromise = model.generateContent(prompt);
+      const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('AI Timeout')), 3000));
+      const result: any = await Promise.race([callPromise, timeoutPromise]);
+      const text = result && result.response && result.response.text ? result.response.text() : '';
+      if (text && text.trim()) {
+        return formatMarkdownToSafeHtml(text.trim());
       }
+    } catch (err) {
+      console.warn('Fallback assistant local activé:', err);
     }
   }
 
-  return localPatientAssistant(question);
+  return localReply;
 }
 
 function localDoctorCopilot(apt: {
@@ -333,19 +339,17 @@ Rédige en français structuré (titres ## / ### et listes à puces) :
 4. Constantes / examens de première intention à préparer
 Termine par une courte mention rappelant que le médecin garde l'entière responsabilité diagnostique.`;
 
-    for (const modelName of ['gemini-3.8-flash', 'gemini-2.5-flash', 'gemini-1.5-flash']) {
-      try {
-        const model = genAI.getGenerativeModel({ model: modelName });
-        const callPromise = model.generateContent(prompt);
-        const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('AI Timeout')), 3500));
-        const result: any = await Promise.race([callPromise, timeoutPromise]);
-        const text = result && result.response && result.response.text ? result.response.text() : '';
-        if (text && text.trim()) {
-          return formatMarkdownToSafeHtml(text.trim());
-        }
-      } catch (err) {
-        console.warn(`Fallback IA Copilot local activé (${modelName}):`, err);
+    try {
+      const model = genAI.getGenerativeModel({ model: 'gemini-3.8-flash' });
+      const callPromise = model.generateContent(prompt);
+      const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('AI Timeout')), 3500));
+      const result: any = await Promise.race([callPromise, timeoutPromise]);
+      const text = result && result.response && result.response.text ? result.response.text() : '';
+      if (text && text.trim()) {
+        return formatMarkdownToSafeHtml(text.trim());
       }
+    } catch (err) {
+      console.warn('Fallback IA Copilot local activé:', err);
     }
   }
 
