@@ -9,6 +9,15 @@
     <meta property="og:description" content="Prenez rendez-vous en ligne en 1 minute avec nos médecins spécialistes à Thiès. Urgences ouvertes 24h/24 et 7j/7.">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="fr_SN">
+    <meta property="og:image" content="https://res.cloudinary.com/dzcnlr1yz/image/upload/v1742394317/f1oy2jfpkujbopbqlrd2.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:site_name" content="Hôpital Régional de Thiès">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès">
+    <meta name="twitter:description" content="Prenez rendez-vous en ligne avec nos spécialistes à Thiès, Sénégal. Urgences 24h/24.">
+    <meta name="twitter:image" content="https://res.cloudinary.com/dzcnlr1yz/image/upload/v1742394317/f1oy2jfpkujbopbqlrd2.png">
+    <link rel="canonical" href="https://hopital-regional-thies.netlify.app/">
     <link rel="icon" type="image/png" href="/icon-192x192.png">
     <link rel="apple-touch-icon" href="/icon-192x192.png">
     <link rel="manifest" href="/manifest.json">
@@ -17,6 +26,50 @@
     <link rel="stylesheet" href="additional-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Hospital",
+      "name": "Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès",
+      "alternateName": "Hôpital Régional de Thiès",
+      "url": "https://hopital-regional-thies.netlify.app/",
+      "logo": "https://res.cloudinary.com/dzcnlr1yz/image/upload/v1742394317/f1oy2jfpkujbopbqlrd2.png",
+      "image": "https://res.cloudinary.com/dzcnlr1yz/image/upload/v1742394317/f1oy2jfpkujbopbqlrd2.png",
+      "description": "Établissement public de santé de référence pour la région de Thiès (Sénégal). Urgences 24h/24, 20 spécialités médicales, prise de rendez-vous en ligne.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Avenue Caen, Route de Dakar",
+        "addressLocality": "Thiès",
+        "addressRegion": "Région de Thiès",
+        "postalCode": "21000",
+        "addressCountry": "SN"
+      },
+      "telephone": "+221339521090",
+      "email": "contact@hopital-regional-thies.sn",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+          "opens": "08:00",
+          "closes": "18:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Saturday",
+          "opens": "08:00",
+          "closes": "12:00"
+        }
+      ],
+      "medicalSpecialty": [
+        "Cardiology","Nephrology","Gynecology","Pediatrics","Surgery","Ophthalmology",
+        "ENT","Dermatology","Gastroenterology","InternalMedicine","Psychiatry"
+      ],
+      "hasMap": "https://maps.google.com/?q=Hopital+Regional+Thies+Senegal",
+      "priceRange": "CMU acceptée",
+      "sameAs": []
+    }
+    </script>
 </head>
 <body>
     <header>
@@ -27,7 +80,7 @@
                     <h1 data-config="fullName">Hôpital Régional<br><span>El Hadji Ahmadou Sakhir Ndiéguène</span></h1>
                     <button class="theme-toggle-btn" aria-label="Basculer le thème" style="margin-left: 16px;"><i class="fas fa-moon"></i></button>
                 </div>
-                <div class="menu-toggle" aria-label="Menu">
+                <div class="menu-toggle" role="button" aria-label="Ouvrir le menu de navigation" aria-expanded="false" tabindex="0">
                     <i class="fas fa-bars"></i>
                 </div>
                 <ul class="nav-links">
