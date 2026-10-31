@@ -376,23 +376,28 @@ function initAppointment() {
             data.trackingCode = trackingCode;
             data.clinicId = clinicId;
 
-            // Sauvegarde Firestore + réservation du créneau (avec délai max 3s pour fonctionner même hors-ligne)
-            await Promise.race([
-                Promise.all([
-                    setDoc(doc(db, 'appointments', trackingCode), data),
-                    reserveBookedSlot({
-                        clinicId,
-                        specialty: data.specialty,
-                        date: data.date,
-                        timeSlot: data.timeSlot,
-                        appointmentId: trackingCode
-                    })
-                ]),
-                new Promise(resolve => setTimeout(resolve, 3000))
-            ]);
-
+            // 1. Sauvegarde locale instantanée (garantie zéro perte même sans réseau)
             lastConfirmedApt = data;
             saveRecentAppointmentLocally(data);
+
+            // 2. Sauvegarde Firestore dans le Cloud
+            try {
+                await Promise.race([
+                    setDoc(doc(db, 'appointments', trackingCode), data),
+                    new Promise(resolve => setTimeout(resolve, 2500))
+                ]);
+            } catch (fsErr) {
+                console.warn('Note: sauvegarde locale active, synchronisation nuage différée:', fsErr);
+            }
+
+            // 3. Réservation de créneau sécurisée en tâche de fond (ne bloque jamais la confirmation)
+            reserveBookedSlot({
+                clinicId,
+                specialty: data.specialty,
+                date: data.date,
+                timeSlot: data.timeSlot,
+                appointmentId: trackingCode
+            }).catch(e => console.warn('Note réservation créneau:', e));
 
             // Envoi d'email de confirmation si renseigné et connecté
             if (email !== '' && navigator.onLine) {

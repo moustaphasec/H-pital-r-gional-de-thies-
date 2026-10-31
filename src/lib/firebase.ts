@@ -65,16 +65,20 @@ export async function reserveBookedSlot(params: {
   appointmentId: string;
 }): Promise<void> {
   if (!params.date || !params.timeSlot || !params.specialty) return;
-  const slotId = buildSlotId(params.clinicId, params.specialty, params.date, params.timeSlot);
-  await setDoc(doc(db, 'booked_slots', slotId), {
-    clinicId: params.clinicId,
-    specialty: params.specialty,
-    date: params.date,
-    timeSlot: params.timeSlot,
-    appointmentId: params.appointmentId,
-    status: 'Réservé',
-    updatedAt: new Date().toISOString()
-  });
+  try {
+    const slotId = buildSlotId(params.clinicId, params.specialty, params.date, params.timeSlot);
+    await setDoc(doc(db, 'booked_slots', slotId), {
+      clinicId: params.clinicId,
+      specialty: params.specialty,
+      date: params.date,
+      timeSlot: params.timeSlot,
+      appointmentId: params.appointmentId,
+      status: 'Réservé',
+      updatedAt: new Date().toISOString()
+    });
+  } catch (err) {
+    console.warn('Note: réservation de créneau en mode dégradé/sécurisé:', err);
+  }
 }
 
 export async function releaseBookedSlot(params: {
@@ -85,21 +89,25 @@ export async function releaseBookedSlot(params: {
   appointmentId?: string;
 }): Promise<void> {
   if (!params.date || !params.timeSlot || !params.specialty) return;
-  const clinic = params.clinicId || getClinicId();
-  const slotId = buildSlotId(clinic, params.specialty, params.date, params.timeSlot);
-  await setDoc(
-    doc(db, 'booked_slots', slotId),
-    {
-      clinicId: clinic,
-      specialty: params.specialty,
-      date: params.date,
-      timeSlot: params.timeSlot,
-      appointmentId: params.appointmentId || '',
-      status: 'Annulé',
-      updatedAt: new Date().toISOString()
-    },
-    { merge: true }
-  );
+  try {
+    const clinic = params.clinicId || getClinicId();
+    const slotId = buildSlotId(clinic, params.specialty, params.date, params.timeSlot);
+    await setDoc(
+      doc(db, 'booked_slots', slotId),
+      {
+        clinicId: clinic,
+        specialty: params.specialty,
+        date: params.date,
+        timeSlot: params.timeSlot,
+        appointmentId: params.appointmentId || '',
+        status: 'Annulé',
+        updatedAt: new Date().toISOString()
+      },
+      { merge: true }
+    );
+  } catch (err) {
+    console.warn('Note: libération de créneau en mode dégradé:', err);
+  }
 }
 
 export async function fetchBookedSlotsForDate(

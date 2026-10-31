@@ -475,14 +475,33 @@ button.specialty-card:focus-visible,
 }
 
 @media (max-width: 576px) {
+    .chatbot-container {
+        right: 14px !important;
+        bottom: 16px !important;
+        position: fixed !important;
+    }
     .chatbot-window {
         position: fixed !important;
-        left: 12px !important;
-        right: 12px !important;
+        left: 10px !important;
+        right: 10px !important;
         bottom: 14px !important;
-        width: auto !important;
-        height: min(490px, calc(100dvh - 80px)) !important;
+        width: calc(100vw - 20px) !important;
+        max-width: 440px !important;
+        height: min(520px, calc(100dvh - 30px)) !important;
+        margin: 0 auto;
+        z-index: 2000 !important;
     }
+}
+
+/* Fallback de sécurité : assure que l'interface s'affiche instantanément même sans AOS */
+[data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+}
+.reveal {
+    opacity: 1 !important;
+    transform: none !important;
 }
 
 html, body {

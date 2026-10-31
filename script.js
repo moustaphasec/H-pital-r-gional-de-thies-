@@ -226,7 +226,7 @@ function initApp() {
 
             try {
                 await Promise.race([
-                    addDoc(collection(db, 'contact_messages'), data),
+                    addDoc(collection(db, 'contact_messages'), data).catch(e => console.warn('Note contact sync:', e)),
                     new Promise(resolve => setTimeout(resolve, 2500))
                 ]);
 

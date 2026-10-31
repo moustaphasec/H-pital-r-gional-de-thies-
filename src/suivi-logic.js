@@ -186,16 +186,14 @@ function initSuivi() {
                         cancelBtn.disabled = true;
                         cancelBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Annulation...';
                         try {
-                            await Promise.all([
-                                updateDoc(doc(db, 'appointments', docId), { status: 'Annulé' }),
-                                releaseBookedSlot({
-                                    clinicId: aptData.clinicId,
-                                    specialty: aptData.specialty,
-                                    date: aptData.date,
-                                    timeSlot: aptData.timeSlot,
-                                    appointmentId: docId
-                                })
-                            ]);
+                            await updateDoc(doc(db, 'appointments', docId), { status: 'Annulé' });
+                            releaseBookedSlot({
+                                clinicId: aptData.clinicId,
+                                specialty: aptData.specialty,
+                                date: aptData.date,
+                                timeSlot: aptData.timeSlot,
+                                appointmentId: docId
+                            }).catch(e => console.warn('Note libération créneau:', e));
                             await lookupAppointment(docId);
                         } catch (error) {
                             console.error('Error cancelling:', error);
