@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Présentation & Offre d'Abonnement — Solution Digitale Hospitalière & Cliniques</title>
+    <meta name="description" content="Dossier de présentation et maquette interactive de la plateforme digitale de gestion des rendez-vous, d'orientation IA et de pilotage médical pour cliniques et hôpitaux.">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/png" href="/icon-192x192.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --primary: #2563EB;
+            --primary-dark: #1E40AF;
+            --secondary: #06B6D4;
+            --accent: #F59E0B;
+            --success: #10B981;
+            --dark: #0F172A;
+            --slate: #334155;
+            --muted: #64748B;
+            --light: #F8FAFC;
+            --border: #E2E8F0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+            line-height: 1.25;
+        }
+
+        /* Top Action Bar */
+        .top-bar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(15, 23, 42, 0.94);
+            backdrop-filter: blur(12px);
+            color: #fff;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .top-bar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+
+        .top-bar-brand span.badge {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .top-bar-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 16px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-print {
+            background: linear-gradient(135deg, #10B981, #059669);
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+        }
+        .btn-print:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-demo {
+            background: rgba(255,255,255,0.12);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .btn-demo:hover {
+            background: rgba(255,255,255,0.22);
+        }
+
+        .container {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Hero Presentation */
+        .pitch-hero {
+            background: radial-gradient(circle at top right, #1e3a8a 0%, #0f172a 70%);
+            color: #fff;
+            padding: 72px 0 64px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pitch-hero-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 44px;
+            align-items: center;
+        }
+
+        .hero-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            color: #38bdf8;
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 0.84rem;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .pitch-hero h1 {
+            font-size: clamp(2rem, 3.8vw, 3.1rem);
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        .pitch-hero h1 span {
+            background: linear-gradient(90deg, #38bdf8, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .pitch-hero p.lead {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            margin-bottom: 28px;
+            max-width: 600px;
+        }
+
+        .hero-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-top: 24px;
+        }
+
+        .metric-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            padding: 16px;
+            border-radius: 14px;
+        }
+
+        .metric-card strong {
+            display: block;
+            font-size: 1.65rem;
+            font-family: 'Outfit', sans-serif;
+            color: #38bdf8;
+        }
+
+        .metric-card span {
+            font-size: 0.82rem;
+            color: #cbd5e1;
+        }
+
+        /* Interactive Device Mockup Card */
+        .mockup-showcase {
+            background: rgba(30, 41, 59, 0.85);
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .browser-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 16px;
+        }
+
+        .dot-r { width: 11px; height: 11px; border-radius: 50%; background: #ef4444; }
+        .dot-y { width: 11px; height: 11px; border-radius: 50%; background: #f59e0b; }
+        .dot-g { width: 11px; height: 11px; border-radius: 50%; background: #10b981; }
+
+        .browser-url {
+            flex: 1;
+            background: rgba(15, 23, 42, 0.8);
+            color: #94a3b8;
+            font-size: 0.78rem;
+            padding: 5px 12px;
+            border-radius: 6px;
+            margin-left: 8px;
+            font-family: monospace;
+        }
+
+        .mockup-screen {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 18px;
+            border: 1px solid rgba(56, 189, 248, 0.25);
+        }
+
+        .mockup-pill-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .mockup-pill {
+            background: rgba(37, 99, 235, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.35);
+            padding: 10px 12px;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mockup-pill i {
+            color: #38bdf8;
+            font-size: 1rem;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 68px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto 48px;
+        }
+
+        .section-title .tag {
+            display: inline-block;
+            background: #DBEAFE;
+            color: var(--primary-dark);
+            font-weight: 700;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 5px 12px;
+            border-radius: 999px;
+            margin-bottom: 10px;
+        }
+
+        .section-title h2 {
+            font-size: clamp(1.7rem, 2.8vw, 2.35rem);
+            color: var(--dark);
+            margin-bottom: 12px;
+        }
+
+        .section-title p {
+            color: var(--muted);
+            font-size: 1.02rem;
+        }
+
+        /* Problem vs Solution */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+        }
+
+        .comp-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 32px;
+            border: 1px solid var(--border);
+            box-shadow: 0 6px 24px rgba(15, 23, 42, 0.04);
+        }
+
+        .comp-card.before {
+            border-top: 5px solid #EF4444;
+        }
+
+        .comp-card.after {
+            border-top: 5px solid #10B981;
+            background: linear-gradient(180deg, #F0FDF4 0%, #FFFFFF 100%);
+        }
+
+        .comp-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .comp-list {
+            list-style: none;
+            display: grid;
+            gap: 14px;
+        }
+
+        .comp-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.96rem;
+            color: var(--slate);
+        }
+
+        /* 4 Interactive Pillars (Mockup Cards) */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 26px;
+        }
+
+        .pillar-card {
+            background: #fff;
+            border-radius: 18px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            box-shadow: 0 8px 26px rgba(15, 23, 42, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .pillar-preview {
+            background: linear-gradient(135deg, #0F172A, #1E3A8A);
+            color: #fff;
+            padding: 24px;
+            position: relative;
+        }
+
+        .pillar-badge {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.2);
+            color: #38bdf8;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .pillar-preview h3 {
+            font-size: 1.35rem;
+            margin-bottom: 6px;
+        }
+
+        .pillar-preview p {
+            font-size: 0.88rem;
+            color: #cbd5e1;
+        }
+
+        .pillar-body {
+            padding: 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .pillar-features {
+            list-style: none;
+            display: grid;
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .pillar-features li {
+            font-size: 0.92rem;
+            color: var(--slate);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pillar-features li i {
+            color: var(--primary);
+        }
+
+        .pillar-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px 18px;
+            background: #EFF6FF;
+            color: var(--primary-dark);
+            border: 1px solid #BFDBFE;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .pillar-link:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        /* ROI Calculator */
+        .roi-box {
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            color: #fff;
+            border-radius: 22px;
+            padding: 40px;
+            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.2);
+        }
+
+        .roi-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 36px;
+            align-items: center;
+        }
+
+        .slider-group {
+            margin: 22px 0;
+        }
+
+        .slider-group label {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .slider-group input[type="range"] {
+            width: 100%;
+            accent-color: #38bdf8;
+            height: 8px;
+            cursor: pointer;
+        }
+
+        .roi-results {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .roi-stat {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.14);
+            padding: 20px;
+            border-radius: 14px;
+        }
+
+        .roi-stat .val {
+            font-size: 1.8rem;
+            font-weight: 800;
+            font-family: 'Outfit', sans-serif;
+            color: #34d399;
+        }
+
+        .roi-stat .lbl {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            margin-top: 4px;
+        }
+
+        /* Pricing Table */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 26px;
+            align-items: stretch;
+        }
+
+        .price-card {
+            background: #fff;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            padding: 34px 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            box-shadow: 0 6px 24px rgba(15, 23, 42, 0.04);
+        }
+
+        .price-card.featured {
+            border: 2px solid var(--primary);
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.14);
+            transform: translateY(-8px);
+        }
+
+        .popular-ribbon {
+            position: absolute;
+            top: -13px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 5px 16px;
+            border-radius: 999px;
+            letter-spacing: 0.5px;
+        }
+
+        .price-tier {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 6px;
+        }
+
+        .price-Sub {
+            font-size: 0.88rem;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .price-amount {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 4px;
+        }
+
+        .price-amount span {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--muted);
+        }
+
+        .price-euro {
+            font-size: 0.82rem;
+            color: var(--muted);
+            margin-bottom: 22px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .price-features {
+            list-style: none;
+            display: grid;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .price-features li {
+            font-size: 0.92rem;
+            color: var(--slate);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .price-features li i {
+            color: var(--success);
+            margin-top: 4px;
+        }
+
+        /* Deployment Steps */
+        .steps-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .step-box {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .step-num {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #DBEAFE;
+            color: var(--primary-dark);
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .cta-footer {
+            background: linear-gradient(135deg, #1E40AF, #0F172A);
+            color: #fff;
+            text-align: center;
+            padding: 56px 24px;
+            border-radius: 24px;
+            margin: 20px 0 60px;
+        }
+
+        @media (max-width: 960px) {
+            .pitch-hero-grid,
+            .comparison-grid,
+            .pillars-grid,
+            .roi-grid,
+            .pricing-grid,
+            .steps-row {
+                grid-template-columns: 1fr;
+            }
+            .price-card.featured {
+                transform: none;
+            }
+        }
+
+        @media print {
+            .top-bar, .no-print, .pillar-link {
+                display: none !important;
+            }
+            body {
+                background: #fff;
+                font-size: 11pt;
+            }
+            .pitch-hero {
+                background: #0f172a !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                padding: 32px 0;
+            }
+            section {
+                padding: 28px 0;
+                page-break-inside: avoid;
+            }
+            .price-card, .pillar-card, .comp-card {
+                box-shadow: none;
+                border: 1px solid #cbd5e1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation & Print Action Bar -->
+    <div class="top-bar no-print">
+        <div class="top-bar-brand">
+            <i class="fas fa-hospital-user" style="color:#38bdf8;font-size:1.3rem;"></i>
+            <span>MediCloud Sénégal — Dossier de Présentation & Maquette</span>
+            <span class="badge">SaaS Médical Clé en Main</span>
+        </div>
+        <div class="top-bar-actions">
+            <a href="index.html" class="btn-action btn-demo"><i class="fas fa-external-link-alt"></i> Site Patient</a>
+            <a href="appointment.html" class="btn-action btn-demo"><i class="fas fa-calendar-check"></i> Test RDV</a>
+            <a href="doctor.html" class="btn-action btn-demo"><i class="fas fa-user-md"></i> Espace Médecin</a>
+            <a href="admin.html" class="btn-action btn-demo"><i class="fas fa-chart-pie"></i> Dashboard Admin</a>
+            <button type="button" onclick="window.print()" class="btn-action btn-print">
+                <i class="fas fa-file-pdf"></i> Imprimer / Sauvegarder en PDF
+            </button>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="pitch-hero">
+        <div class="container">
+            <div class="pitch-hero-grid">
+                <div>
+                    <div class="hero-kicker">
+                        <i class="fas fa-bolt"></i> Solution Opérationnelle en 48 Heures • Abonnement Mensuel Tout Inclus
+                    </div>
+                    <h1>Digitalisez Votre Établissement de Santé avec <span>l'Excellence Médicale & l'IA</span></h1>
+                    <p class="lead">
+                        Offrez à vos patients la prise de rendez-vous en ligne en 60 secondes, un assistant médical d'orientation 24h/24 et à vos médecins un tableau de bord intelligent avec confirmation WhatsApp en 1 clic.
+                    </p>
+                    <div class="hero-metrics">
+                        <div class="metric-card">
+                            <strong>-60%</strong>
+                            <span>d'appels saturant l'accueil téléphonique</span>
+                        </div>
+                        <div class="metric-card">
+                            <strong>24h/24</strong>
+                            <span>Prise de RDV & Orientation IA active</span>
+                        </div>
+                        <div class="metric-card">
+                            <strong>0 FCFA</strong>
+                            <span>de matériel serveur à acheter</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visual Mockup Preview -->
+                <div class="mockup-showcase">
+                    <div class="browser-bar">
+                        <span class="dot-r"></span>
+                        <span class="dot-y"></span>
+                        <span class="dot-g"></span>
+                        <div class="browser-url">https://votre-clinique.sn • Certifié SSL & Sécurisé</div>
+                    </div>
+                    <div class="mockup-screen">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+                            <div>
+                                <div style="font-size:0.75rem;color:#38bdf8;font-weight:700;text-transform:uppercase;">Aperçu en Temps Réel</div>
+                                <div style="font-size:1.1rem;font-weight:700;color:#fff;">Architecture Complète en 4 Modules</div>
+                            </div>
+                            <span style="background:rgba(16,185,129,0.2);color:#34d399;padding:4px 10px;border-radius:999px;font-size:0.75rem;font-weight:700;">● 100% Opérationnel</span>
+                        </div>
+                        <p style="font-size:0.85rem;color:#94a3b8;margin-bottom:14px;">
+                            Modèle de référence déployé pour l'<strong>Hôpital Régional El Hadji Ahmadou Sakhir Ndiéguène de Thiès</strong> (20 spécialités, Urgences 24/7, PWA Hors-ligne).
+                        </p>
+                        <div class="mockup-pill-row">
+                            <div class="mockup-pill"><i class="fas fa-calendar-alt"></i> RDV sans compte en 3 clics</div>
+                            <div class="mockup-pill"><i class="fas fa-robot"></i> Triage & Chatbot IA 24/7</div>
+                            <div class="mockup-pill"><i class="fab fa-whatsapp"></i> Rappel WhatsApp 1-clic</div>
+                            <div class="mockup-pill"><i class="fas fa-shield-alt"></i> Anti-Surbooking Cloud</div>
+                            <div class="mockup-pill"><i class="fas fa-stethoscope"></i> Copilot IA Médecin</div>
+                            <div class="mockup-pill"><i class="fas fa-wifi"></i> Fonctionne Hors-Ligne (PWA)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 1. Pourquoi les cliniques adoptent cette solution (Avant / Après) -->
+    <section>
+        <div class="container">
+            <div class="section-title">
+                <span class="tag">Diagnostic & Impact</span>
+                <h2>Ce que notre plateforme change dès la 1ère semaine</h2>
+                <p>Les patients sénégalais et internationaux recherchent aujourd'hui la rapidité, la transparence et le suivi sur mobile.</p>
+            </div>
+
+            <div class="comparison-grid">
+                <div class="comp-card before">
+                    <h3 style="color:#DC2626;"><i class="fas fa-times-circle"></i> Sans Plateforme Digitale</h3>
+                    <ul class="comp-list">
+                        <li><i class="fas fa-times" style="color:#EF4444;margin-top:4px;"></i> <strong>Standard téléphonique débordé :</strong> les patients appellent 5 fois sans réponse et partent chez un concurrent.</li>
+                        <li><i class="fas fa-times" style="color:#EF4444;margin-top:4px;"></i> <strong>Forte perte de rendez-vous le soir et le week-end :</strong> impossible de réserver en dehors des heures de bureau.</li>
+                        <li><i class="fas fa-times" style="color:#EF4444;margin-top:4px;"></i> <strong>Doubles réservations & files d'attente :</strong> registres papier difficiles à synchroniser entre secrétaires et médecins.</li>
+                        <li><i class="fas fa-times" style="color:#EF4444;margin-top:4px;"></i> <strong>Patients mal orientés :</strong> un patient prend RDV dans le mauvais service faute d'orientation préalable.</li>
+                    </ul>
+                </div>
+
+                <div class="comp-card after">
+                    <h3 style="color:#059669;"><i class="fas fa-check-circle"></i> Avec Votre Portail Médical SaaS</h3>
+                    <ul class="comp-list">
+                        <li><i class="fas fa-check" style="color:#10B981;margin-top:4px;"></i> <strong>Réservation 24h/24 en 60 secondes :</strong> sur smartphone ou ordinateur, sans obliger le patient à créer un compte ni avoir un email.</li>
+                        <li><i class="fas fa-check" style="color:#10B981;margin-top:4px;"></i> <strong>Code de suivi unique & Reçu PDF :</strong> chaque patient reçoit immédiatement son code (ex: <code>RDV-K8M4P9</code>) et sa fiche.</li>
+                        <li><i class="fas fa-check" style="color:#10B981;margin-top:4px;"></i> <strong>Confirmation WhatsApp & Email automatique :</strong> le médecin ou l'accueil confirme le RDV sur WhatsApp en 1 seul clic.</li>
+                        <li><i class="fas fa-check" style="color:#10B981;margin-top:4px;"></i> <strong>Image de marque internationale :</strong> positionne immédiatement votre clinique comme un établissement moderne de référence.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Les 4 Piliers / Maquette Interactive -->
+    <section style="background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+        <div class="container">
+            <div class="section-title">
+                <span class="tag">Maquette & Démonstration Live</span>
+                <h2>Explorez les 4 Interfaces de la Solution</h2>
+                <p>Chaque abonnement mensuel inclut l'ensemble de ces 4 portails personnalisés au nom, au logo et aux spécialités de votre établissement.</p>
+            </div>
+
+            <div class="pillars-grid">
+                <!-- Pilier 1 -->
+                <div class="pillar-card">
+                    <div class="pillar-preview">
+                        <span class="pillar-badge">Interface 01 • Grand Public</span>
+                        <h3><i class="fas fa-globe-africa"></i> Portail Patient & Vitrine Médicale</h3>
+                        <p>Design international épuré, responsive mobile, mode sombre et installable en application (PWA).</p>
+                    </div>
+                    <div class="pillar-body">
+                        <ul class="pillar-features">
+                            <li><i class="fas fa-check-circle"></i> Présentation des services, spécialités et équipe médicale</li>
+                            <li><i class="fas fa-check-circle"></i> Informations d'urgence 24/7, CMU, mutuelles et assurances</li>
+                            <li><i class="fas fa-check-circle"></i> Référencement Google (SEO médical + Google Maps intégré)</li>
+                            <li><i class="fas fa-check-circle"></i> Suivi en ligne et annulation gratuite avec libération du créneau</li>
+                        </ul>
+                        <a href="index.html" target="_blank" class="pillar-link">
+                            <i class="fas fa-play-circle"></i> Ouvrir la Démo du Portail Patient
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Pilier 2 -->
+                <div class="pillar-card">
+                    <div class="pillar-preview" style="background:linear-gradient(135deg, #0f172a, #0e7490);">
+                        <span class="pillar-badge">Interface 02 • Réservation Intelligente</span>
+                        <h3><i class="fas fa-calendar-check"></i> Moteur de Rendez-vous Anti-Surbooking</h3>
+                        <p>Conçu spécifiquement pour les réalités locales (téléphone sénégalais, sans email obligatoire).</p>
+                    </div>
+                    <div class="pillar-body">
+                        <ul class="pillar-features">
+                            <li><i class="fas fa-check-circle"></i> Filtrage intelligent des horaires (semaine, samedi matin, dimanche)</li>
+                            <li><i class="fas fa-check-circle"></i> Blocage automatique des créneaux déjà réservés en temps réel</li>
+                            <li><i class="fas fa-check-circle"></i> Génération instantanée du code de suivi et de la fiche imprimable</li>
+                            <li><i class="fas fa-check-circle"></i> Mémorisation hors-ligne sur le téléphone du patient</li>
+                        </ul>
+                        <a href="appointment.html" target="_blank" class="pillar-link">
+                            <i class="fas fa-play-circle"></i> Tester la Prise de Rendez-vous en 60s
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Pilier 3 -->
+                <div class="pillar-card">
+                    <div class="pillar-preview" style="background:linear-gradient(135deg, #1e1b4b, #1d4ed8);">
+                        <span class="pillar-badge">Interface 03 • Praticiens</span>
+                        <h3><i class="fas fa-user-md"></i> Portail Médecin & Copilot IA Clinique</h3>
+                        <p>Chaque spécialiste dispose de son agenda filtré en temps réel avec préparation IA du dossier.</p>
+                    </div>
+                    <div class="pillar-body">
+                        <ul class="pillar-features">
+                            <li><i class="fas fa-check-circle"></i> Alerte sonore et vocale lors d'un nouveau rendez-vous</li>
+                            <li><i class="fas fa-check-circle"></i> <strong>Copilot IA :</strong> synthèse pré-consultation et drapeaux rouges</li>
+                            <li><i class="fas fa-check-circle"></i> Confirmation, report de créneau ou contact WhatsApp en 1 clic</li>
+                            <li><i class="fas fa-check-circle"></i> Export Excel / CSV des consultations du jour ou de la semaine</li>
+                        </ul>
+                        <a href="doctor.html" target="_blank" class="pillar-link">
+                            <i class="fas fa-play-circle"></i> Explorer l'Espace Médecin
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Pilier 4 -->
+                <div class="pillar-card">
+                    <div class="pillar-preview" style="background:linear-gradient(135deg, #064e3b, #0f172a);">
+                        <span class="pillar-badge">Interface 04 • Direction & Secrétariat</span>
+                        <h3><i class="fas fa-chart-line"></i> Dashboard Administrateur & Chatbot IA</h3>
+                        <p>Vue centrale de tous les services, gestion des messages patients et triage médical 24h/24.</p>
+                    </div>
+                    <div class="pillar-body">
+                        <ul class="pillar-features">
+                            <li><i class="fas fa-check-circle"></i> <strong>Chatbot IA Hybride :</strong> oriente le patient vers la bonne spécialité</li>
+                            <li><i class="fas fa-check-circle"></i> Détection immédiate des symptômes d'urgence vitale</li>
+                            <li><i class="fas fa-check-circle"></i> Supervision globale de tous les rendez-vous et messages reçus</li>
+                            <li><i class="fas fa-check-circle"></i> Sécurité maximale (Google Auth, pare-feu CSP, chiffrement SSL)</li>
+                        </ul>
+                        <a href="admin.html" target="_blank" class="pillar-link">
+                            <i class="fas fa-play-circle"></i> Ouvrir le Dashboard Direction
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Simulateur Interactif de Rentabilité (ROI) -->
+    <section>
+        <div class="container">
+            <div class="roi-box">
+                <div class="roi-grid">
+                    <div>
+                        <span style="color:#38bdf8;font-weight:700;font-size:0.82rem;text-transform:uppercase;letter-spacing:1px;">Simulateur d'Impact Financier</span>
+                        <h2 style="font-size:1.9rem;margin:8px 0 14px;">Un investissement rentabilisé dès les premiers patients du mois</h2>
+                        <p style="color:#cbd5e1;font-size:0.95rem;">
+                            Il suffit de <strong>5 à 10 consultations supplémentaires par mois</strong> (ou rendez-vous sauvés grâce aux rappels WhatsApp) pour couvrir intégralement votre abonnement mensuel.
+                        </p>
+
+                        <div class="slider-group">
+                            <label for="rdvSlider">
+                                <span>Volume estimé de RDV en ligne / jour :</span>
+                                <strong id="rdvCountLabel" style="color:#38bdf8;font-size:1.2rem;">20 RDV / jour</strong>
+                            </label>
+                            <input type="range" id="rdvSlider" min="5" max="100" step="5" value="20">
+                        </div>
+                    </div>
+
+                    <div class="roi-results">
+                        <div class="roi-stat">
+                            <div class="val" id="roiMonthlyRdv">520</div>
+                            <div class="lbl">Rendez-vous traités automatiquement / mois</div>
+                        </div>
+                        <div class="roi-stat">
+                            <div class="val" id="roiSavedHours">43 h</div>
+                            <div class="lbl">Heures de standard téléphonique économisées / mois</div>
+                        </div>
+                        <div class="roi-stat">
+                            <div class="val" id="roiSavedNoShows">~52</div>
+                            <div class="lbl">Consultations sauvées / mois grâce au suivi & WhatsApp</div>
+                        </div>
+                        <div class="roi-stat">
+                            <div class="val" id="roiValueFcfa">+780 000 FCFA</div>
+                            <div class="lbl">Valeur mensuelle générée (base moy. 15 000 FCFA/acte)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Offres d'Abonnement Mensuel -->
+    <section style="padding-top:10px;">
+        <div class="container">
+            <div class="section-title">
+                <span class="tag">Modèle SaaS Tout Inclus</span>
+                <h2>Formules d'Abonnement Mensuel</h2>
+                <p>Zéro investissement lourd de départ. Hébergement haute sécurité, maintenance technique, mises à jour IA et support dédiés inclus chaque mois.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Offre 1 -->
+                <div class="price-card">
+                    <div>
+                        <div class="price-tier">Pack Cabinet & Clinique</div>
+                        <div class="price-Sub">Idéal pour cabinets médicaux, cliniques dentaires, ophtalmo ou spécialisées (1 à 5 spécialités).</div>
+                        <div class="price-amount">75 000 FCFA <span>/ mois</span></div>
+                        <div class="price-euro">Soit env. 115 € / mois • Sans frais cachés</div>
+                        <ul class="price-features">
+                            <li><i class="fas fa-check"></i> Site web médical complet aux couleurs de la clinique</li>
+                            <li><i class="fas fa-check"></i> Prise de RDV en ligne 24h/24 + Code de suivi</li>
+                            <li><i class="fas fa-check"></i> Chatbot d'accueil & d'orientation patient</li>
+                            <li><i class="fas fa-check"></i> Dashboard Secrétariat & Confirmation WhatsApp 1-clic</li>
+                            <li><i class="fas fa-check"></i> Hébergement Cloud SSL & Maintenance inclus</li>
+                        </ul>
+                    </div>
+                    <div style="padding-top:14px;border-top:1px dashed var(--border);font-size:0.84rem;color:var(--muted);">
+                        <strong>Mise en service (personnalisation) :</strong> 100 000 FCFA <em>(Offerte pour tout engagement annuel)</em>
+                    </div>
+                </div>
+
+                <!-- Offre 2 (Recommandée) -->
+                <div class="price-card featured">
+                    <div class="popular-ribbon">⭐ Formule Recommandée</div>
+                    <div>
+                        <div class="price-tier">Pack Polyclinique Pro</div>
+                        <div class="price-Sub">Conçu pour les cliniques médico-chirurgicales et centres de santé (jusqu'à 15 spécialités).</div>
+                        <div class="price-amount">150 000 FCFA <span>/ mois</span></div>
+                        <div class="price-euro">Soit env. 230 € / mois • Tout compris</div>
+                        <ul class="price-features">
+                            <li><i class="fas fa-check"></i> <strong>Tout le Pack Cabinet inclus +</strong></li>
+                            <li><i class="fas fa-check"></i> <strong>Portail Médecin dédié</strong> par spécialité</li>
+                            <li><i class="fas fa-check"></i> <strong>Copilot IA Pré-Consultation</strong> pour les médecins</li>
+                            <li><i class="fas fa-check"></i> Alertes vocales & sonores temps réel à l'accueil</li>
+                            <li><i class="fas fa-check"></i> Notifications Email automatiques aux patients</li>
+                            <li><i class="fas fa-check"></i> Application installable (PWA) + Mode Hors-Ligne</li>
+                            <li><i class="fas fa-check"></i> Support technique prioritaire 7j/7 (WhatsApp/Tél)</li>
+                        </ul>
+                    </div>
+                    <div style="padding-top:14px;border-top:1px dashed var(--border);font-size:0.84rem;color:var(--primary-dark);font-weight:600;">
+                        🎁 Essai pilote de 14 jours + Formation de vos équipes sur place incluse
+                    </div>
+                </div>
+
+                <!-- Offre 3 -->
+                <div class="price-card">
+                    <div>
+                        <div class="price-tier">Pack Hôpital & Institution</div>
+                        <div class="price-Sub">Pour Hôpitaux Régionaux, EPS, grands centres hospitaliers (20+ spécialités & haut trafic).</div>
+                        <div class="price-amount">250 000 FCFA <span>/ mois</span></div>
+                        <div class="price-euro">Soit env. 380 € / mois • SLA Haute Disponibilité</div>
+                        <ul class="price-features">
+                            <li><i class="fas fa-check"></i> <strong>Tout le Pack Polyclinique Pro inclus +</strong></li>
+                            <li><i class="fas fa-check"></i> Spécialités, médecins et volume de RDV illimités</li>
+                            <li><i class="fas fa-check"></i> Architecture multi-services (Urgences, Dialyse, Maternité...)</li>
+                            <li><i class="fas fa-check"></i> Rapports statistiques mensuels pour la Direction</li>
+                            <li><i class="fas fa-check"></i> Sauvegardes Cloud dédiées & Audit de sécurité continu</li>
+                            <li><i class="fas fa-check"></i> Accompagnement sur site et évolutions sur mesure</li>
+                        </ul>
+                    </div>
+                    <div style="padding-top:14px;border-top:1px dashed var(--border);font-size:0.84rem;color:var(--muted);">
+                        <strong>Déploiement institutionnel sur mesure</strong> avec contrat de niveau de service (SLA 99,9%)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Processus de Déploiement en 48h -->
+    <section>
+        <div class="container">
+            <div class="section-title">
+                <span class="tag">Déploiement Ultra-Rapide</span>
+                <h2>Votre clinique en ligne en 4 étapes simples (48h)</h2>
+            </div>
+
+            <div class="steps-row">
+                <div class="step-box">
+                    <div class="step-num">1</div>
+                    <h4>Validation & Identité</h4>
+                    <p style="font-size:0.88rem;color:var(--muted);margin-top:6px;">Intégration de votre logo, vos couleurs, vos photos et la liste de vos spécialités et horaires.</p>
+                </div>
+                <div class="step-box">
+                    <div class="step-num">2</div>
+                    <h4>Configuration Cloud</h4>
+                    <p style="font-size:0.88rem;color:var(--muted);margin-top:6px;">Mise en ligne sécurisée sur votre nom de domaine, paramétrage de l'IA et des accès médecins.</p>
+                </div>
+                <div class="step-box">
+                    <div class="step-num">3</div>
+                    <h4>Formation (1 Heure)</h4>
+                    <p style="font-size:0.88rem;color:var(--muted);margin-top:6px;">Prise en main immédiate par vos secrétaires et médecins sur ordinateur, tablette ou smartphone.</p>
+                </div>
+                <div class="step-box">
+                    <div class="step-num">4</div>
+                    <h4>Lancement & Suivi</h4>
+                    <p style="font-size:0.88rem;color:var(--muted);margin-top:6px;">Ouverture des réservations aux patients et support technique continu inclus dans l'abonnement.</p>
+                </div>
+            </div>
+
+            <div class="cta-footer">
+                <h2 style="font-size:2rem;margin-bottom:12px;">Prêt à moderniser l'accueil de vos patients ?</h2>
+                <p style="color:#cbd5e1;max-width:640px;margin:0 auto 24px;">
+                    Demandez dès aujourd'hui votre démonstration personnalisée de 15 minutes ou activez votre période pilote de 14 jours sans interruption de vos activités.
+                </p>
+                <div style="display:inline-flex;flex-wrap:wrap;gap:16px;justify-content:center;background:rgba(255,255,255,0.08);padding:16px 28px;border-radius:14px;border:1px solid rgba(255,255,255,0.18);">
+                    <span><i class="fas fa-check-circle" style="color:#34d399;"></i> Déploiement en 48h</span>
+                    <span>•</span>
+                    <span><i class="fas fa-check-circle" style="color:#34d399;"></i> Sans matériel à acheter</span>
+                    <span>•</span>
+                    <span><i class="fas fa-check-circle" style="color:#34d399;"></i> Support local réactif 7j/7</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        (function() {
+            const slider = document.getElementById('rdvSlider');
+            const countLbl = document.getElementById('rdvCountLabel');
+            const monthlyEl = document.getElementById('roiMonthlyRdv');
+            const hoursEl = document.getElementById('roiSavedHours');
+            const noShowsEl = document.getElementById('roiSavedNoShows');
+            const valueEl = document.getElementById('roiValueFcfa');
+
+            if (slider) {
+                slider.addEventListener('input', function() {
+                    const perDay = parseInt(this.value, 10);
+                    const monthly = perDay * 26; // 26 jours ouvrables
+                    const savedHours = Math.round((monthly * 5) / 60); // 5 min économisées par appel/RDV
+                    const savedNoShows = Math.round(monthly * 0.10); // 10% de RDV sauvés/ajoutés
+                    const valueFcfa = savedNoShows * 15000;
+
+                    countLbl.textContent = perDay + ' RDV / jour';
+                    monthlyEl.textContent = monthly.toLocaleString('fr-FR');
+                    hoursEl.textContent = savedHours + ' h';
+                    noShowsEl.textContent = '~' + savedNoShows;
+                    valueEl.textContent = '+' + valueFcfa.toLocaleString('fr-FR') + ' FCFA';
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

@@ -31,12 +31,14 @@ function initApp() {
         const closeMobileMenu = () => {
             navLinks.classList.remove('active');
             overlay.classList.remove('active');
+            menuToggle.setAttribute('aria-expanded', 'false');
             document.body.style.overflow = '';
         };
 
         menuToggle.addEventListener('click', function () {
             const isOpen = navLinks.classList.toggle('active');
             overlay.classList.toggle('active', isOpen);
+            menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
             document.body.style.overflow = isOpen ? 'hidden' : '';
 
             if (!navLinks.querySelector('.close-menu')) {
@@ -323,11 +325,15 @@ function initApp() {
         });
     }
 
-    // 11. Accès Médecin : Raccourci Clavier (Ctrl+Shift+M) + Lien discret en pied de page
+    // 11. Accès Médecin (Ctrl+Shift+M) & Présentation SaaS (Ctrl+Shift+P) + Liens discrets en pied de page
     document.addEventListener('keydown', (e) => {
         if (e.ctrlKey && e.shiftKey && (e.key === 'M' || e.key === 'm')) {
             e.preventDefault();
             window.location.href = 'doctor.html';
+        }
+        if (e.ctrlKey && e.shiftKey && (e.key === 'P' || e.key === 'p')) {
+            e.preventDefault();
+            window.location.href = 'presentation.html';
         }
     });
 
@@ -341,9 +347,18 @@ function initApp() {
         medLink.addEventListener('mouseenter', () => { medLink.style.color = 'rgba(255,255,255,0.85)'; });
         medLink.addEventListener('mouseleave', () => { medLink.style.color = 'rgba(255,255,255,0.4)'; });
         footerCopyright.appendChild(medLink);
+
+        const pitchLink = document.createElement('a');
+        pitchLink.href = 'presentation.html';
+        pitchLink.className = 'espace-pro-link';
+        pitchLink.textContent = 'Offre Cliniques';
+        pitchLink.style.cssText = 'color: rgba(255,255,255,0.4); text-decoration: none; margin-left: 12px; font-size: 0.78rem; transition: color 0.3s;';
+        pitchLink.addEventListener('mouseenter', () => { pitchLink.style.color = 'rgba(255,255,255,0.85)'; });
+        pitchLink.addEventListener('mouseleave', () => { pitchLink.style.color = 'rgba(255,255,255,0.4)'; });
+        footerCopyright.appendChild(pitchLink);
     }
 
-    // 12.FAQ Accordion Logic
+    // 12. FAQ Accordion Logic
     const faqItems = document.querySelectorAll('.faq-item');
     faqItems.forEach(item => {
         const question = item.querySelector('.faq-question');

@@ -9,23 +9,26 @@ import {
 } from './lib/firebase';
 import { BOOKING_SPECIALTIES, resolveSpecialtyFromQuery } from './lib/specialties';
 import emailjs from '@emailjs/browser';
-// ── Rate limiting: max 3 submissions per 10 minutes (client-side guard) ─────
+
+// ── Anti-spam protection: max 8 valid bookings per 5 minutes ────────────────
 const SUBMISSION_KEY = 'hr_thies_submission_timestamps';
-function checkRateLimit() {
+function checkAndRecordSubmission() {
     try {
         const now = Date.now();
-        const windowMs = 10 * 60 * 1000; // 10 minutes
-        const maxAttempts = 3;
+        const windowMs = 5 * 60 * 1000; // 5 minutes
+        const maxAttempts = 8;
         const stored = JSON.parse(localStorage.getItem(SUBMISSION_KEY) || '[]');
         const recent = stored.filter(function(ts) { return now - ts < windowMs; });
         if (recent.length >= maxAttempts) {
-            const waitMin = Math.ceil((windowMs - (now - recent[0])) / 60000);
-            return 'Vous avez soumis ' + maxAttempts + ' demandes tres recemment. Patientez encore ' + waitMin + ' min, ou appelez directement le +221 33 952 10 90.';
+            const waitMin = Math.max(1, Math.ceil((windowMs - (now - recent[0])) / 60000));
+            return `Par mesure de sécurité anti-spam, veuillez patienter ${waitMin} minute(s) avant d'enregistrer un autre rendez-vous, ou appelez le +221 33 952 10 90.`;
         }
         recent.push(now);
         localStorage.setItem(SUBMISSION_KEY, JSON.stringify(recent));
-        return null; // OK
-    } catch { return null; } // fail open
+        return null;
+    } catch {
+        return null;
+    }
 }
 
 
@@ -341,27 +344,12 @@ function initAppointment() {
         const phone = document.getElementById('phone').value.trim();
         const email = document.getElementById('email').value.trim();
 
-        // Rate limit check
-        const rateLimitMsg = checkRateLimit();
-        if (rateLimitMsg) {
-            alert(rateLimitMsg);
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalText;
-            return;
-        }
-
-                // Name: at least 2 chars, no pure numbers
-        const nameRegex = true; // marker
         if (!name || name.length < 2) {
             alert('Veuillez saisir votre nom complet (minimum 2 caractères).');
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalText;
             return;
         }
         if (name.length > 150) {
             alert('Le nom saisi est trop long (maximum 150 caractères).');
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalText;
             return;
         }
 
@@ -371,17 +359,19 @@ function initAppointment() {
             return;
         }
 
-        // Email format validation (optional field)
         if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            const emailRegex = true; // marker
             alert('L\'adresse email semble incorrecte. Veuillez la corriger ou la laisser vide.');
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalText;
             return;
         }
 
         if (!specialtyInput.value || !dateInput.value || !timeSlotInput.value) {
             alert('Veuillez choisir une spécialité, une date et un créneau horaire.');
+            return;
+        }
+
+        const rateLimitMsg = checkAndRecordSubmission();
+        if (rateLimitMsg) {
+            alert(rateLimitMsg);
             return;
         }
 

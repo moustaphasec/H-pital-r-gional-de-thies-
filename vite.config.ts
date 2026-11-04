@@ -112,6 +112,7 @@ export default defineConfig(() => {
           suivi: path.resolve(__dirname, 'suivi.html'),
           mentionsLegales: path.resolve(__dirname, 'mentions-legales.html'),
           confidentialite: path.resolve(__dirname, 'confidentialite.html'),
+          presentation: path.resolve(__dirname, 'presentation.html'),
           notFound: path.resolve(__dirname, '404.html'),
         },
         output: {
